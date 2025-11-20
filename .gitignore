@@ -1,0 +1,57 @@
+# Python & Django
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.log
+*.pot
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Django
+db.sqlite3
+db.sqlite3-journal
+/media/
+/staticfiles/
+.env
+.env.local
+.env.example
+*.mo
+
+# IDE & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# Testing & Coverage
+.coverage
+.pytest_cache/
+htmlcov/
+.hypothesis/
+
+# Build & Distribution
+*.egg-info/
+dist/
+build/
+*.whl
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project specific
+messages.mo
+locale/*/LC_MESSAGES/django.mo

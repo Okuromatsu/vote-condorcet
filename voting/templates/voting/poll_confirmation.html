@@ -1,0 +1,190 @@
+{% extends 'voting/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Poll Created" %} - Condorcet Vote{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <!-- Success Message -->
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <h4 class="alert-heading">✅ {% trans "Poll Created Successfully!" %}</h4>
+            <p class="mb-0">{% trans "Your poll" %} "<strong>{{ poll.title|force_escape }}</strong>" {% trans "has been created." %}</p>
+        </div>
+
+        <!-- Creator Code Box -->
+        <div class="card mb-4 border-primary">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">🔐 {% trans "Creator Code" %}</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">
+                    {% trans "Save this code to manage your poll (view results, make public, delete):" %}
+                </p>
+                <div class="input-group mb-3">
+                    <input 
+                        type="text" 
+                        class="form-control font-monospace" 
+                        value="{{ creator_code }}" 
+                        id="creatorCode"
+                        readonly
+                    >
+                    <button 
+                        class="btn btn-outline-primary" 
+                        type="button" 
+                        onclick="copyToClipboard('{{ creator_code }}')"
+                    >
+                        📋 {% trans "Copy" %}
+                    </button>
+                </div>
+                <a href="{% url 'voting:creator_dashboard' creator_code %}" class="btn btn-primary">
+                    👤 {% trans "Go to Creator Dashboard" %}
+                </a>
+            </div>
+        </div>
+
+        <!-- Voting Link Box -->
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">🔗 {% trans "Voting Link" %}</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">
+                    {% trans "Share this link with voters:" %}
+                </p>
+                <div class="input-group mb-3">
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        value="{{ vote_url }}" 
+                        id="voteUrl"
+                        readonly
+                    >
+                    <button 
+                        class="btn btn-outline-success" 
+                        type="button" 
+                        onclick="copyToClipboard('{{ vote_url }}')"
+                    >
+                        📋 {% trans "Copy" %}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- QR Code Box -->
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">📱 {% trans "QR Code" %}</h5>
+            </div>
+            <div class="card-body text-center">
+                <p class="text-muted mb-3">
+                    {% trans "Voters can scan this QR code to vote:" %}
+                </p>
+                <img src="{{ qr_code_url }}" alt="QR Code for voting link" class="img-fluid" style="max-width: 300px;">
+                <br>
+                <a href="{{ qr_code_url }}" download class="btn btn-outline-info mt-3">
+                    ⬇️ {% trans "Download QR Code" %}
+                </a>
+            </div>
+        </div>
+
+        <!-- Poll Summary -->
+        <div class="card mb-4 bg-light">
+            <div class="card-header">
+                <h5 class="mb-0">📋 {% trans "Poll Summary" %}</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <strong>{% trans "Question:" %}</strong> {{ poll.title }}
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <strong>{% trans "Candidates:" %}</strong> {{ poll.candidate_set.count }}
+                    </div>
+                </div>
+                {% if poll.description %}
+                <div class="row">
+                    <div class="col-12 mb-2">
+                        <strong>{% trans "Description:" %}</strong> {{ poll.description }}
+                    </div>
+                </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <strong>{% trans "Voting Method:" %}</strong> {% trans "Condorcet" %} ({{ poll.get_tiebreaker_method_display }})
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <strong>{% trans "Status:" %}</strong> 
+                        {% if poll.is_public %}
+                            <span class="badge bg-success">{% trans "Public" %}</span>
+                        {% else %}
+                            <span class="badge bg-warning">{% trans "Private" %}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-grid gap-2">
+            <a href="{% url 'voting:vote_poll' poll.id %}" class="btn btn-lg btn-success">
+                🗳️ {% trans "Start Voting" %}
+            </a>
+            <a href="{% url 'voting:creator_dashboard' creator_code %}" class="btn btn-lg btn-outline-primary">
+                👤 {% trans "Go to Creator Dashboard" %}
+            </a>
+            <a href="{% url 'voting:index' %}" class="btn btn-lg btn-outline-secondary">
+                🏠 {% trans "Back to Home" %}
+            </a>
+        </div>
+
+        <!-- Info -->
+        <div class="alert alert-info mt-4">
+            <h5>💡 {% trans "Next Steps:" %}</h5>
+            <ul class="mb-0">
+                <li>{% trans "Share the voting link or QR code with voters" %}</li>
+                <li>{% trans "Visit your Creator Dashboard to:" %}
+                    <ul>
+                        <li>{% trans "View live voting results" %}</li>
+                        <li>{% trans "Make the poll public (visible on homepage)" %}</li>
+                        <li>{% trans "Close the poll when done voting" %}</li>
+                        <li>{% trans "Delete the poll" %}</li>
+                    </ul>
+                </li>
+                <li>{% trans "Only you with the creator code can modify this poll" %}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyToClipboard(elementId) {
+    const element = document.getElementById(elementId);
+    const text = element.value;  // Get the actual input value
+    const btn = document.querySelector(`button[onclick="copyToClipboard('${elementId}')"]`);
+    
+    // Use modern clipboard API
+    navigator.clipboard.writeText(text).then(() => {
+        // Show success feedback
+        const originalText = btn.textContent;
+        btn.textContent = '✅ Copied!';
+        setTimeout(() => {
+            btn.textContent = originalText;
+        }, 2000);
+    }).catch(err => {
+        // Fallback for older browsers
+        element.select();
+        try {
+            document.execCommand('copy');
+            const originalText = btn.textContent;
+            btn.textContent = '✅ Copied!';
+            setTimeout(() => {
+                btn.textContent = originalText;
+            }, 2000);
+        } catch(err) {
+            alert('Could not copy to clipboard');
+        }
+    });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,30 @@
+# Core
+Django==4.2.7
+python-decouple==3.8
+
+# Database
+psycopg2-binary==2.9.9
+dj-database-url==2.1.0
+
+# Forms & UI
+django-crispy-forms==2.1
+crispy-bootstrap5==0.7
+
+# Utilities
+Pillow==10.1.0
+requests==2.31.0
+QRCode==7.4.2
+
+# Production
+gunicorn==21.2.0
+whitenoise==6.6.0
+
+# Testing (optional)
+pytest==7.4.3
+pytest-django==4.7.0
+pytest-cov==4.1.0
+factory-boy==3.3.0
+
+# Code Quality (optional)
+black==23.12.1
+flake8==6.1.0

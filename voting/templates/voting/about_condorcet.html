@@ -1,0 +1,271 @@
+{% extends 'voting/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "About Condorcet Voting" %} - Condorcet Vote{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Hero Section -->
+    <div class="row bg-primary text-white py-5 mb-5">
+        <div class="col-lg-8 offset-lg-2">
+            <h1>🗳️ {% trans "The Condorcet Voting Method" %}</h1>
+            <p class="lead">{% trans "A fair and mathematically superior voting system for collective decision-making" %}</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <!-- What is Condorcet -->
+            <section class="mb-5">
+                <h2>{% trans "What is Condorcet Voting?" %}</h2>
+                <p>
+                    {% trans "The Condorcet method is a voting system named after the 18th-century French mathematician and philosopher" %}
+                    <strong>{% trans "Marquis de Condorcet" %}</strong>. {% trans "It's based on a simple but powerful principle:" %}
+                </p>
+                <div class="alert alert-info">
+                    <strong>{% trans "The Condorcet winner is the candidate who would beat every other candidate in a head-to-head matchup." %}</strong>
+                </div>
+                <p>
+                    {% trans "In Condorcet voting, each voter ranks all candidates by preference (1st choice, 2nd choice, etc.). The system then performs pairwise comparisons between all candidates to find the most preferred candidate overall." %}
+                </p>
+            </section>
+
+            <!-- How It Works -->
+            <section class="mb-5">
+                <h2>{% trans "How It Works" %}</h2>
+                <h4>{% trans "Step 1: Voters Rank Candidates" %}</h4>
+                <p>{% trans "Instead of voting for just one candidate, voters rank ALL candidates in order of preference:" %}</p>
+                <div class="bg-light p-3 rounded mb-3">
+                    {% trans "Example: \"Best Programming Language\"" %}<br>
+                    1st: Python<br>
+                    2nd: JavaScript<br>
+                    3rd: Java
+                </div>
+
+                <h4>{% trans "Step 2: Pairwise Comparisons" %}</h4>
+                <p>{% trans "The system compares each candidate against every other candidate head-to-head:" %}</p>
+                <div class="bg-light p-3 rounded mb-3">
+                    <strong>{% trans "Python vs JavaScript:" %}</strong> {% trans "How many voters prefer Python? How many prefer JavaScript?" %}<br>
+                    <strong>{% trans "Python vs Java:" %}</strong> {% trans "How many voters prefer Python? How many prefer Java?" %}<br>
+                    <strong>{% trans "JavaScript vs Java:" %}</strong> {% trans "How many voters prefer JavaScript? How many prefer Java?" %}
+                </div>
+
+                <h4>{% trans "Step 3: Find the Winner" %}</h4>
+                <p>
+                    {% trans "If one candidate beats ALL others in their head-to-head matchups, they are the" %} <strong>{% trans "Condorcet winner" %}</strong>.
+                </p>
+            </section>
+
+            <!-- Example -->
+            <section class="mb-5">
+                <h2>{% trans "Real Example" %}</h2>
+                <p><strong>{% trans "Question:" %}</strong> {% trans "Which programming language should we use for our project?" %}<br>
+                <strong>{% trans "Candidates:" %}</strong> Python, JavaScript, Java</p>
+
+                <p><strong>{% trans "Votes:" %}</strong> {% trans "100 voters ranked them as follows:" %}</p>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Voters" %}</th>
+                            <th>{% trans "1st Choice" %}</th>
+                            <th>{% trans "2nd Choice" %}</th>
+                            <th>{% trans "3rd Choice" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>45</td>
+                            <td>Python</td>
+                            <td>JavaScript</td>
+                            <td>Java</td>
+                        </tr>
+                        <tr>
+                            <td>30</td>
+                            <td>JavaScript</td>
+                            <td>Python</td>
+                            <td>Java</td>
+                        </tr>
+                        <tr>
+                            <td>25</td>
+                            <td>Java</td>
+                            <td>Python</td>
+                            <td>JavaScript</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p><strong>{% trans "Pairwise Results:" %}</strong></p>
+                <ul>
+                    <li><strong>{% trans "Python vs JavaScript:" %}</strong> 45 + 25 = 70 {% trans "prefer Python" %}, 30 {% trans "prefer JavaScript" %} → <strong>{% trans "Python wins" %}</strong></li>
+                    <li><strong>{% trans "Python vs Java:" %}</strong> 45 + 30 = 75 {% trans "prefer Python" %}, 25 {% trans "prefer Java" %} → <strong>{% trans "Python wins" %}</strong></li>
+                    <li><strong>{% trans "JavaScript vs Java:" %}</strong> 45 + 30 = 75 {% trans "prefer JavaScript" %}, 25 {% trans "prefer Java" %} → <strong>{% trans "JavaScript wins" %}</strong></li>
+                </ul>
+
+                <div class="alert alert-success">
+                    <strong>🏆 {% trans "Winner: Python" %}</strong> ({% trans "beats everyone in head-to-head matchups" %})
+                </div>
+            </section>
+
+            <!-- Advantages -->
+            <section class="mb-5">
+                <h2>{% trans "Advantages vs Traditional Voting" %}</h2>
+
+                <h4>🔴 {% trans "First-Past-The-Post (Single Vote)" %}</h4>
+                <div class="bg-danger bg-opacity-10 p-3 rounded mb-3">
+                    <strong>{% trans "Problem:" %}</strong> {% trans "Vote splitting and strategic voting" %}<br>
+                    <strong>{% trans "Example:" %}</strong> {% trans "With 45% Python, 30% JavaScript, 25% Java → Python wins even if 55% prefer JavaScript! (see example above)" %}<br>
+                    <strong>{% trans "Result:" %}</strong> {% trans "Not representative of voter preferences" %}
+                </div>
+
+                <h4>🟠 {% trans "Runoff System (Two Rounds)" %}</h4>
+                <div class="bg-warning bg-opacity-10 p-3 rounded mb-3">
+                    <strong>{% trans "Problem:" %}</strong> {% trans "Time-consuming, expensive, doesn't consider all preferences" %}<br>
+                    <strong>{% trans "Example:" %}</strong> {% trans "If Java is eliminated in round 1, their voters' 2nd choices aren't considered" %}<br>
+                    <strong>{% trans "Result:" %}</strong> {% trans "Still not fully representative" %}
+                </div>
+
+                <h4>🟢 {% trans "Condorcet Method" %}</h4>
+                <div class="bg-success bg-opacity-10 p-3 rounded mb-3">
+                    <strong>{% trans "Benefits:" %}</strong>
+                    <ul>
+                        <li>✅ {% trans "Reflects true voter preferences (all preferences considered)" %}</li>
+                        <li>✅ {% trans "Eliminates vote splitting" %}</li>
+                        <li>✅ {% trans "Fair and mathematically sound" %}</li>
+                        <li>✅ {% trans "No strategic voting needed" %}</li>
+                        <li>✅ {% trans "Highly representative results" %}</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- The Condorcet Paradox -->
+            <section class="mb-5">
+                <h2>{% trans "The Condorcet Paradox" %}</h2>
+                <p>
+                    {% trans "Sometimes, no candidate beats all others in pairwise comparisons. This creates a cycle: A beats B, B beats C, but C beats A. This is called the" %} <strong>{% trans "Condorcet Paradox" %}</strong>.
+                </p>
+
+                <h4>{% trans "Example:" %}</h4>
+                <p>{% trans "Imagine 3 voters ranking 3 candidates:" %}</p>
+                <table class="table table-striped">
+                    <tr>
+                        <td><strong>{% trans "Voter 1:" %}</strong> A > B > C</td>
+                        <td><strong>{% trans "Voter 2:" %}</strong> B > C > A</td>
+                        <td><strong>{% trans "Voter 3:" %}</strong> C > A > B</td>
+                    </tr>
+                </table>
+
+                <p>{% trans "Pairwise results:" %}</p>
+                <ul>
+                    <li>A vs B: {% trans "A wins" %} ({% trans "Voters" %} 1,3)</li>
+                    <li>B vs C: {% trans "B wins" %} ({% trans "Voters" %} 1,2)</li>
+                    <li>C vs A: {% trans "C wins" %} ({% trans "Voters" %} 2,3)</li>
+                </ul>
+
+                <div class="alert alert-info">
+                    {% trans "It's a cycle! No single Condorcet winner exists." %}
+                </div>
+
+                <h4>{% trans "Solution: Tiebreaker Methods" %}</h4>
+                <p>{% trans "When no Condorcet winner exists, we use tiebreaker methods:" %}</p>
+
+                <div class="accordion" id="tiebreakerAccordion">
+                    <div class="accordion-item">
+                        <h5 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#schulze">
+                                <strong>{% trans "Schulze Method (Recommended)" %}</strong>
+                            </button>
+                        </h5>
+                        <div id="schulze" class="accordion-collapse collapse show" data-bs-parent="#tiebreakerAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    {% trans "Finds the candidate with the strongest \"path\" through the preference graph. It's the most sophisticated method and often preferred." %}
+                                </p>
+                                <strong>{% trans "Advantages:" %}</strong>
+                                <ul>
+                                    <li>{% trans "Resolves cycles fairly" %}</li>
+                                    <li>{% trans "Based on strong mathematical principles" %}</li>
+                                    <li>{% trans "Widely used in consensus voting" %}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h5 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#borda">
+                                <strong>{% trans "Borda Count" %}</strong>
+                            </button>
+                        </h5>
+                        <div id="borda" class="accordion-collapse collapse" data-bs-parent="#tiebreakerAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    {% trans "Each voter awards points based on ranking position (1st = n points, 2nd = n-1 points, etc.). The candidate with the most points wins." %}
+                                </p>
+                                <strong>{% trans "Advantages:" %}</strong>
+                                <ul>
+                                    <li>{% trans "Simple to understand and calculate" %}</li>
+                                    <li>{% trans "Considers all preferences" %}</li>
+                                </ul>
+                                <strong>{% trans "Disadvantages:" %}</strong>
+                                <ul>
+                                    <li>{% trans "Can be susceptible to vote splitting" %}</li>
+                                    <li>{% trans "May not reflect true majority preferences" %}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h5 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#random">
+                                <strong>{% trans "Random Selection" %}</strong>
+                            </button>
+                        </h5>
+                        <div id="random" class="accordion-collapse collapse" data-bs-parent="#tiebreakerAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    {% trans "When a cycle is truly intractable and all methods tie, randomly select from top candidates. This is rarely used but available as a fallback." %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- When to Use -->
+            <section class="mb-5">
+                <h2>{% trans "When Should You Use Condorcet Voting?" %}</h2>
+                <ul>
+                    <li>✅ {% trans "Team decisions (choosing a project, tooling, etc.)" %}</li>
+                    <li>✅ {% trans "Community elections where fairness is important" %}</li>
+                    <li>✅ {% trans "Awards or merit-based selections" %}</li>
+                    <li>✅ {% trans "Any situation where multiple preferences matter" %}</li>
+                    <li>✅ {% trans "When you want to avoid controversial outcomes" %}</li>
+                </ul>
+            </section>
+
+            <!-- Call to Action -->
+            <section class="mb-5 text-center">
+                <h2>{% trans "Ready to Vote Fairly?" %}</h2>
+                <p>{% trans "Create a poll and experience Condorcet voting yourself!" %}</p>
+                <a href="{% url 'voting:create_poll' %}" class="btn btn-lg btn-primary">
+                    {% trans "Create a Poll Now" %}
+                </a>
+            </section>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-opacity-10 {
+        background-color: rgba(var(--bs-danger-rgb), 0.1) !important;
+    }
+    .bg-warning.bg-opacity-10 {
+        background-color: rgba(var(--bs-warning-rgb), 0.1) !important;
+    }
+    .bg-success.bg-opacity-10 {
+        background-color: rgba(var(--bs-success-rgb), 0.1) !important;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,217 @@
+{% extends 'voting/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Vote" %} - {{ poll.title }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <!-- Poll Header -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h1 class="card-title mb-2">{{ poll.title }}</h1>
+                {% if poll.description %}
+                    <p class="card-text text-muted">{{ poll.description }}</p>
+                {% endif %}
+                <div class="small text-muted">
+                    <span class="badge bg-info">{{ poll.get_vote_count }} {% trans "votes" %}</span>
+                    {% if poll.max_votes %}
+                        <span class="badge bg-warning">{% trans "Max" %}: {{ poll.max_votes }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Error Messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <!-- Voting Form -->
+        <div class="card shadow">
+            <div class="card-body p-4">
+                <h5 class="card-title mb-4">{% trans "Rank the candidates" %}</h5>
+                <p class="text-muted mb-4">
+                    {% trans "Drag to reorder candidates, or use the select dropdowns. Your first choice is your strongest preference." %}
+                </p>
+                
+                <form method="post" id="vote-form" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    
+                    <!-- Candidates List (Draggable) -->
+                    <div id="candidates-list" class="list-group mb-4">
+                        {% for candidate in poll.get_candidates %}
+                            <div class="list-group-item candidate-item" draggable="true" data-candidate-id="{{ candidate.id }}">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <div class="drag-handle">
+                                            ⋮⋮
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="rank-badge">
+                                            <span class="rank-number" data-rank="1">1</span>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <h6 class="mb-0">{{ candidate.name }}</h6>
+                                        {% if candidate.description %}
+                                            <small class="text-muted">{{ candidate.description }}</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <!-- Hidden input for ranking (Django form format) -->
+                                <input type="hidden" name="rank_{{ candidate.id }}" value="1" class="ranking-input" data-candidate-id="{{ candidate.id }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Instructions -->
+                    <div class="alert alert-info mb-4">
+                        <h6>📝 {% trans "How to Vote:" %}</h6>
+                        <ul class="mb-0 small">
+                            <li>{% trans "Rank candidates by dragging them in order of preference" %}</li>
+                            <li>{% trans "First position = your strongest choice" %}</li>
+                            <li>{% trans "Last position = your weakest choice" %}</li>
+                            <li>{% trans "All candidates must be ranked exactly once" %}</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Form Actions -->
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg flex-grow-1">
+                            ✅ {% trans "Submit Vote" %}
+                        </button>
+                        <a href="{% url 'voting:index' %}" class="btn btn-outline-secondary">
+                            {% trans "Cancel" %}
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Info Box -->
+        <div class="alert alert-secondary mt-4 small">
+            <strong>{% trans "What is Condorcet Voting?" %}</strong><br>
+            {% trans "Instead of just picking one candidate, you rank them. The system then finds the candidate who would win in a fair head-to-head matchup against any other candidate. This method is considered one of the fairest voting systems." %}
+        </div>
+    </div>
+</div>
+
+<!-- Drag-and-drop functionality -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const candidatesList = document.getElementById('candidates-list');
+        let draggedElement = null;
+        
+        // Drag and Drop Event Listeners
+        candidatesList.addEventListener('dragstart', function(e) {
+            if (e.target.classList.contains('candidate-item')) {
+                draggedElement = e.target;
+                e.target.style.opacity = '0.5';
+                e.dataTransfer.effectAllowed = 'move';
+            }
+        });
+        
+        candidatesList.addEventListener('dragend', function(e) {
+            if (draggedElement) {
+                draggedElement.style.opacity = '1';
+                draggedElement = null;
+            }
+        });
+        
+        candidatesList.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            
+            const afterElement = getDragAfterElement(candidatesList, e.clientY);
+            if (afterElement == null) {
+                candidatesList.appendChild(draggedElement);
+            } else {
+                candidatesList.insertBefore(draggedElement, afterElement);
+            }
+        });
+        
+        function getDragAfterElement(container, y) {
+            const draggableElements = [...container.querySelectorAll('.candidate-item:not(.dragging)')];
+            
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+        
+        // Update ranking numbers and hidden inputs when dragged
+        function updateRankings() {
+            const items = document.querySelectorAll('.candidate-item');
+            items.forEach((item, index) => {
+                const rank = index + 1;
+                // Update visual rank number
+                item.querySelector('.rank-number').textContent = rank;
+                // Update hidden input value
+                const candidateId = item.getAttribute('data-candidate-id');
+                const input = item.querySelector(`input[data-candidate-id="${candidateId}"]`);
+                if (input) {
+                    input.value = rank;
+                }
+            });
+        }
+        
+        candidatesList.addEventListener('dragend', updateRankings);
+        
+        // Initial ranking setup
+        updateRankings();
+        
+        // Form submission - already has correct ranking values in hidden inputs
+        document.getElementById('vote-form').addEventListener('submit', function(e) {
+            // Just make sure rankings are up to date
+            updateRankings();
+            // Form will submit with correct rank_<id> values
+        });
+    });
+</script>
+
+<style>
+    .drag-handle {
+        cursor: move;
+        color: #999;
+        font-weight: bold;
+    }
+    
+    .candidate-item {
+        cursor: move;
+        transition: background-color 0.2s;
+    }
+    
+    .candidate-item:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .rank-badge {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+    }
+    
+    .rank-number {
+        font-size: 1.1em;
+    }
+</style>
+{% endblock %}

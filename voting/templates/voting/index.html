@@ -1,0 +1,114 @@
+{% extends 'voting/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Condorcet Vote - Home" %}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-lg-8">
+        <h1 class="mb-3">{% trans "Welcome to Condorcet Vote" %}</h1>
+        <p class="lead text-muted">
+            {% trans "Create fair polls using the Condorcet voting method. No registration required, just vote and see instant results." %}
+        </p>
+    </div>
+    <div class="col-lg-4">
+        <a href="{% url 'voting:create_poll' %}" class="btn btn-primary btn-lg w-100">
+            ➕ {% trans "Create New Poll" %}
+        </a>
+    </div>
+</div>
+
+<!-- Active Polls Section -->
+<div class="row">
+    <div class="col-lg-12">
+        <h2 class="mb-4">{% trans "Active Polls" %}</h2>
+        
+        {% if polls %}
+            <div class="row">
+                {% for poll in polls %}
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm hover-card">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ poll.title }}</h5>
+                                
+                                {% if poll.description %}
+                                    <p class="card-text text-muted small">{{ poll.description|truncatewords:20 }}</p>
+                                {% endif %}
+                                
+                                <div class="mt-auto">
+                                    <!-- Poll Stats -->
+                                <div class="small text-muted mb-3">
+                                    <p class="mb-1">
+                                        <strong>{{ poll.get_candidates_count }}</strong> {% trans "candidates" %}
+                                    </p>
+                                    <p class="mb-1">
+                                        <strong>{{ poll.get_vote_count }}</strong> {% trans "votes" %}
+                                        {% if poll.max_votes %}
+                                            / {{ poll.max_votes }}
+                                        {% endif %}
+                                    </p>
+                                    <p class="mb-0">
+                                        {% trans "Created" %}: {{ poll.created_at|date:"short" }}
+                                    </p>
+                                </div>                                    <!-- Action Buttons -->
+                                    <div class="d-grid gap-2">
+                                        <a href="{% url 'voting:vote_poll' poll.id %}" class="btn btn-sm btn-outline-primary">
+                                            🗳️ {% trans "Vote" %}
+                                        </a>
+                                        <a href="{% url 'voting:results_poll' poll.id %}" class="btn btn-sm btn-outline-secondary">
+                                            📊 {% trans "Results" %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- Empty State -->
+            <div class="alert alert-info" role="alert">
+                <h4 class="alert-heading">{% trans "No active polls yet" %}</h4>
+                <p>{% trans "Be the first to create a poll!" %}</p>
+                <a href="{% url 'voting:create_poll' %}" class="btn btn-sm btn-info">{% trans "Create Poll" %}</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- How it Works Section -->
+<div class="row mt-5">
+    <div class="col-lg-12">
+        <h2 class="mb-4">{% trans "How Condorcet Voting Works" %}</h2>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">1️⃣ {% trans "Rank Candidates" %}</h5>
+                        <p class="card-text">{% trans "Vote by ranking candidates in your preferred order. First choice, second choice, etc." %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">2️⃣ {% trans "Pairwise Comparison" %}</h5>
+                        <p class="card-text">{% trans "We compare each candidate against every other candidate one-on-one." %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">3️⃣ {% trans "Find Winner" %}</h5>
+                        <p class="card-text">{% trans "The candidate who beats all others in head-to-head matchups wins." %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="text-muted mt-3 small">
+            <strong>{% trans "Note:" %}</strong> {% trans "If there's a tie, the system uses the Schulze method to find the most-likely winner." %}
+        </p>
+    </div>
+</div>
+{% endblock %}

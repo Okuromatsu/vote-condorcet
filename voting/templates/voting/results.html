@@ -1,0 +1,225 @@
+{% extends 'voting/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Results" %} - {{ poll.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Main Results Column -->
+    <div class="col-lg-8">
+        <!-- Poll Header -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h1 class="card-title mb-2">{{ poll.title }}</h1>
+                {% if poll.description %}
+                    <p class="card-text text-muted">{{ poll.description }}</p>
+                {% endif %}
+                <div class="small text-muted">
+                    <span class="badge bg-info">{{ total_votes }} {% trans "votes" %}</span>
+                    {% if poll.max_votes %}
+                        <span class="badge bg-warning">{% trans "Max" %}: {{ poll.max_votes }}</span>
+                    {% endif %}
+                    <span class="badge {% if poll.is_active %}bg-success{% else %}bg-danger{% endif %}">
+                        {% if poll.is_active %}{% trans "Active" %}{% else %}{% trans "Closed" %}{% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Winner Card -->
+        {% if winner %}
+            <div class="card border-success mb-4 shadow">
+                <div class="card-body bg-light">
+                    <h5 class="card-title text-success">
+                        🏆 {% trans "Condorcet Winner" %}
+                    </h5>
+                    <h2 class="mb-0 text-success">{{ winner.name }}</h2>
+                    {% if winner.description %}
+                        <p class="text-muted mt-2 mb-0">{{ winner.description }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-warning mb-4">
+                <strong>⚠️ {% trans "No Clear Winner" %}</strong><br>
+                {% trans "Not enough votes yet, or there's a tie. Check pairwise matchups below." %}
+            </div>
+        {% endif %}
+        
+        <!-- Vote Statistics -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">📊 {% trans "Voting Statistics" %}</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <h4>{{ total_votes }}</h4>
+                        <small class="text-muted">{% trans "Total Votes" %}</small>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <h4>{{ num_candidates }}</h4>
+                        <small class="text-muted">{% trans "Candidates" %}</small>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <h4>{{ first_choice_votes|length }}</h4>
+                        <small class="text-muted">{% trans "Unique Voters" %}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- First Choice Votes -->
+        {% if first_choice_votes %}
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">🥇 {% trans "First Choice Votes" %}</h5>
+                </div>
+                <div class="card-body">
+                    {% for item in first_choice_votes %}
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fw-semibold">{{ item.candidate.name }}</span>
+                                <span class="badge bg-primary">{{ item.count }}</span>
+                            </div>
+                            <div class="progress">
+                                <div 
+                                    class="progress-bar bg-primary" 
+                                    role="progressbar" 
+                                    style="width: {{ item.percentage }}%"
+                                    aria-valuenow="{{ item.count }}" 
+                                    aria-valuemin="0" 
+                                    aria-valuemax="{{ total_votes }}"
+                                ></div>
+                            </div>
+                            <small class="text-muted">{{ item.percentage }}%</small>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        
+        <!-- Pairwise Results Table -->
+        {% if pairwise_results %}
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">⚖️ {% trans "Head-to-Head Matchups" %}</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>{% trans "Matchup" %}</th>
+                                <th class="text-center">{% trans "Votes" %}</th>
+                                <th class="text-center">{% trans "Winner" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for matchup_key, result in pairwise_results.items %}
+                                <tr>
+                                    <td>
+                                        {% comment %} Parse matchup key to get candidate IDs {% endcomment %}
+                                        <strong>Matchup {{ forloop.counter }}</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        {{ result.votes.0 }} : {{ result.votes.1 }}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if result.votes.0 > result.votes.1 %}
+                                            <span class="badge bg-success">1st</span>
+                                        {% elif result.votes.1 > result.votes.0 %}
+                                            <span class="badge bg-success">2nd</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">{% trans "Tie" %}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+        <!-- Actions Card -->
+        <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title mb-3">{% trans "Actions" %}</h5>
+                <div class="d-grid gap-2">
+                    {% if poll.is_active %}
+                        <a href="{% url 'voting:vote_poll' poll.id %}" class="btn btn-primary">
+                            🗳️ {% trans "Vote" %}
+                        </a>
+                    {% else %}
+                        <button class="btn btn-secondary" disabled>
+                            {% trans "Poll Closed" %}
+                        </button>
+                    {% endif %}
+                    
+                    <a href="{% url 'voting:index' %}" class="btn btn-outline-secondary">
+                        ← {% trans "Back to Polls" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Share Card -->
+        <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title mb-3">{% trans "Share Poll" %}</h5>
+                <div class="input-group input-group-sm">
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="poll-link"
+                        value="{{ request.build_absolute_uri }}"
+                        readonly
+                    >
+                    <button class="btn btn-outline-secondary" type="button" id="copy-btn">
+                        📋 {% trans "Copy" %}
+                    </button>
+                </div>
+                <small class="text-muted mt-2 d-block">
+                    {% trans "Share this link to get more votes" %}
+                </small>
+            </div>
+        </div>
+        
+        <!-- Info Card -->
+        <div class="card bg-light">
+            <div class="card-body small">
+                <h6 class="card-title">ℹ️ {% trans "Condorcet Method" %}</h6>
+                <p class="mb-0">
+                    {% trans "The winner is the candidate who would beat all others in one-on-one matchups. This method is considered the fairest way to find a consensus choice." %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Copy to Clipboard Script -->
+<script>
+    document.getElementById('copy-btn').addEventListener('click', function() {
+        const link = document.getElementById('poll-link');
+        link.select();
+        document.execCommand('copy');
+        
+        // Show feedback
+        const originalText = this.textContent;
+        this.textContent = '✅ {% trans "Copied!" %}';
+        setTimeout(() => {
+            this.textContent = originalText;
+        }, 2000);
+    });
+    
+    // Auto-refresh results (optional)
+    // Uncomment to enable auto-refresh every 5 seconds
+    // setInterval(function() {
+    //     location.reload();
+    // }, 5000);
+</script>
+
+{% endblock %}

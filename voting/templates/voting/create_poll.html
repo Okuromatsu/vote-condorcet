@@ -1,0 +1,144 @@
+{% extends 'voting/base.html' %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block title %}{% trans "Create Poll - Condorcet Vote" %}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow">
+            <div class="card-body p-4">
+                <h1 class="card-title mb-4">{% trans "Create a New Poll" %}</h1>
+                
+                <form method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    
+                    <!-- Poll Title -->
+                    <div class="mb-3">
+                        <label for="{{ form.title.id_for_label }}" class="form-label">
+                            {% trans "Poll Title" %}
+                        </label>
+                        <input type="text" 
+                            class="form-control" 
+                            name="{{ form.title.name }}" 
+                            id="{{ form.title.id_for_label }}"
+                            value="{{ form.title.value|default:'' }}"
+                            maxlength="200"
+                            placeholder='{% trans "e.g., Best Programming Language?" %}'
+                            required>
+                        {% if form.title.errors %}
+                            <div class="alert alert-danger mt-2">
+                                {{ form.title.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Poll Description -->
+                    <div class="mb-3">
+                        <label for="{{ form.description.id_for_label }}" class="form-label">
+                            {% trans "Poll Description" %}
+                        </label>
+                        <textarea 
+                            class="form-control" 
+                            name="{{ form.description.name }}" 
+                            id="{{ form.description.id_for_label }}"
+                            rows="3"
+                            maxlength="1000"
+                            placeholder='{% trans "Optional details about this poll..." %}'></textarea>
+                        {% if form.description.errors %}
+                            <div class="alert alert-danger mt-2">
+                                {{ form.description.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Tiebreaker Method -->
+                    <div class="mb-3">
+                        <label for="{{ form.tiebreaker_method.id_for_label }}" class="form-label">
+                            {% trans "Tiebreaker Method" %}
+                        </label>
+                        {{ form.tiebreaker_method }}
+                        <small class="form-text text-muted mt-1 d-block">
+                            {% trans "How to resolve the Condorcet paradox if no clear winner:" %}
+                            <a href="{% url 'voting:about_condorcet' %}" target="_blank">{% trans "Learn more" %}</a>
+                        </small>
+                    </div>
+                    
+                    <!-- Candidates -->
+                    <div class="mb-3">
+                        <label for="{{ form.candidates.id_for_label }}" class="form-label">
+                            {% trans "Candidates" %} <span class="text-danger">*</span>
+                        </label>
+                        <textarea 
+                            class="form-control" 
+                            name="candidates" 
+                            id="{{ form.candidates.id_for_label }}"
+                            rows="6" 
+                            placeholder="{% trans 'Enter one candidate per line' %}&#10;{% trans 'Example:' %}&#10;Alice&#10;Bob&#10;Charlie"
+                            required
+                        >{{ form.candidates.value|default:'' }}</textarea>
+                        
+                        {% if form.candidates.errors %}
+                            <div class="alert alert-danger mt-2">
+                                {{ form.candidates.errors }}
+                            </div>
+                        {% endif %}
+                        
+                        <small class="form-text text-muted mt-2 d-block">
+                            • {% trans "Minimum 2 candidates, maximum 50" %}<br>
+                            • {% trans "One candidate per line" %}<br>
+                            • {% trans "No duplicate names" %}
+                        </small>
+                    </div>
+                    
+                    <!-- Display Non-Field Errors -->
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Form Actions -->
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            ✅ {% trans "Create Poll" %}
+                        </button>
+                        <a href="{% url 'voting:index' %}" class="btn btn-outline-secondary">
+                            {% trans "Cancel" %}
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Info Box -->
+        <div class="alert alert-info mt-4">
+            <h5>💡 {% trans "Tips:" %}</h5>
+            <ul class="mb-0">
+                <li>{% trans "Poll titles should be clear questions (e.g., Best Programming Language?)" %}</li>
+                <li>{% trans "Keep candidate names short and distinct" %}</li>
+                <li>{% trans "Once created, polls cannot be edited - double-check before submitting!" %}</li>
+                <li>{% trans "Voters rank candidates by preference - the Condorcet method finds the fairest winner" %}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Bootstrap form validation
+    (function() {
+        'use strict';
+        const forms = document.querySelectorAll('.needs-validation');
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>
+{% endblock %}
