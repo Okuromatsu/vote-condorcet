@@ -144,8 +144,11 @@ SITE_NAME = 'Condorcet Vote'
 
 # Use simpler storage for development to avoid manifest issues
 # Only use CompressedManifestStaticFilesStorage after running collectstatic in production
-if DEBUG:
-    # Development: Use simple storage (no manifest required)
+# Check if we are in a build process (dummy secret key)
+IS_BUILD_PROCESS = SECRET_KEY == 'dummy-key-for-build'
+
+if DEBUG or IS_BUILD_PROCESS:
+    # Development or Build: Use simple storage (no manifest required)
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 else:
     # Production: Use whitenoise with manifest for efficiency
