@@ -120,8 +120,8 @@ msgstr "Combien d'électeurs préfèrent JavaScript ? Combien préfèrent Java ?
 msgid "Step 3: Find the Winner"
 msgstr "Étape 3 : Trouver le gagnant"
 
-msgid "Finds the candidate with the strongest 'path' through the preference graph. It's the most sophisticated method and often preferred. "
-msgstr "Trouve le candidat avec le 'chemin' le plus fort dans le graphe des préférences. C'est la méthode la plus sophistiquée et souvent la préférée. "
+msgid "Finds the candidate with the strongest 'path' through the preference graph. It's the most sophisticated method and often preferred."
+msgstr "Trouve le candidat avec le 'chemin' le plus fort dans le graphe des préférences. C'est la méthode la plus sophistiquée et souvent la préférée."
 
 msgid ""
 "If one candidate beats ALL others in their head-to-head matchups, they are "

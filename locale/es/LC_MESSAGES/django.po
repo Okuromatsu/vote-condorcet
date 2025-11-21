@@ -291,8 +291,8 @@ msgstr "Cuando no existe un ganador de Condorcet, usamos métodos de desempate:"
 msgid "Schulze Method (Recommended)"
 msgstr "Método de Schulze (Recomendado)"
 
-msgid "Finds the candidate with the strongest \\"
-msgstr "Encuentra el candidato con el camino más fuerte\\"
+msgid "Finds the candidate with the strongest 'path' through the preference graph. It's the most sophisticated method and often preferred."
+msgstr "Encuentra el candidato con el 'camino' más fuerte a través del gráfico de preferencias. Es el método más sofisticado y a menudo preferido."
 
 msgid "Advantages:"
 msgstr "Ventajas:"
