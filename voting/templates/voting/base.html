@@ -18,14 +18,14 @@
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:title" content="{% block og_title %}Condorcet Voting System{% endblock %}">
     <meta property="og:description" content="{% block og_description %}{% trans 'Create and participate in Condorcet voting polls. A fair and transparent ranked-choice voting system.' %}{% endblock %}">
-    <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/og-image.png' %}{% endblock %}">
+    <!-- <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/og-image.png' %}{% endblock %}"> -->
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
     <meta property="twitter:title" content="{% block twitter_title %}Condorcet Voting System{% endblock %}">
     <meta property="twitter:description" content="{% block twitter_description %}{% trans 'Create and participate in Condorcet voting polls. A fair and transparent ranked-choice voting system.' %}{% endblock %}">
-    <meta property="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/og-image.png' %}{% endblock %}">
+    <!-- <meta property="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/og-image.png' %}{% endblock %}"> -->
 
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
