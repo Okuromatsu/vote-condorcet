@@ -33,7 +33,8 @@ RUN chmod +x /app/entrypoint.sh
 # On utilise un dummy secret key juste pour cette étape de build
 # Note: collectstatic est aussi lancé dans entrypoint.sh pour gérer les volumes montés,
 # mais on le garde ici pour l'image de base.
-RUN python manage.py collectstatic --noinput --clear
+# On définit SECRET_KEY temporairement pour que collectstatic fonctionne
+RUN SECRET_KEY=dummy-key-for-build python manage.py collectstatic --noinput --clear
 
 # Compiler les fichiers de traduction (.po -> .mo)
 RUN python manage.py compilemessages
