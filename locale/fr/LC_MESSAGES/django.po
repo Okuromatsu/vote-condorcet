@@ -35,13 +35,13 @@ msgid "Tiebreaker Method"
 msgstr "Méthode de départage"
 
 msgid "e.g., Best Programming Language?"
-msgstr "ex., Meilleur language de programmation?"
+msgstr "ex : Meilleur langage de programmation ?"
 
 msgid "Optional details about this poll..."
 msgstr "Détails optionnels pour ce scrutin..."
 
 msgid "About Condorcet Voting"
-msgstr "Comment fonctionne le vote Condorcet"
+msgstr "À propos du vote Condorcet"
 
 # About Condorcet page
 msgid "The Condorcet Voting Method"
@@ -50,19 +50,15 @@ msgstr "La méthode de vote Condorcet"
 msgid ""
 "A fair and mathematically superior voting system for collective decision-"
 "making"
-msgstr ""
-"Un système de vote juste et mathématiquement supérieur pour la prise de "
-"décision collective"
+msgstr "Un système de vote juste et mathématiquement supérieur pour la prise de décision collective"
 
 msgid "What is Condorcet Voting?"
-msgstr "Quand le vote Condorcet est-il utilisé?"
+msgstr "Qu'est-ce que le vote Condorcet ?"
 
 msgid ""
 "The Condorcet method is a voting system named after the 18th-century French "
 "mathematician and philosopher"
-msgstr ""
-"La méthode Condorcet est un système de vote nommé d'après le mathématicien "
-"et philosophe français du 18e siècle"
+msgstr "La méthode Condorcet est un système de vote nommé d'après le mathématicien et philosophe français du 18e siècle"
 
 msgid "Marquis de Condorcet"
 msgstr "Marquis de Condorcet"
@@ -79,36 +75,29 @@ msgid ""
 "In Condorcet voting, each voter ranks all candidates by preference (1st "
 "choice, 2nd choice, etc.). The system then performs pairwise comparisons "
 "between all candidates to find the most preferred candidate overall."
-msgstr ""
-"Dans le vote Condorcet, chaque électeur classe tous les candidats selon ses "
-"préférences (1er choix, 2e choix, etc.). Le système effectue ensuite des "
-"comparaisons par paires entre tous les candidats pour trouver le candidat "
-"préféré globalement."
+msgstr "Dans le vote Condorcet, chaque électeur classe tous les candidats selon ses préférences (1er choix, 2e choix, etc.). Le système effectue ensuite des comparaisons par paires entre tous les candidats pour trouver le candidat préféré globalement."
 
 msgid "How It Works"
-msgstr "Comment ça marche"
+msgstr "Comment ça fonctionne"
 
 msgid "Step 1: Voters Rank Candidates"
-msgstr "Etape 1: Classer les candidats"
+msgstr "Étape 1 : Les électeurs classent les candidats"
 
 msgid ""
 "Instead of voting for just one candidate, voters rank ALL candidates in "
 "order of preference:"
-msgstr ""
-"Au lieu de voter pour un seul candidat, les électeurs classent TOUS les "
-"candidats selon leur ordre de préférence :"
+msgstr "Au lieu de voter pour un seul candidat, les électeurs classent TOUS les candidats selon leur ordre de préférence :"
 
 msgid "Example: \\"
-msgstr "Scénario d'exemple"
+msgstr "Exemple : \\"
 
 msgid "Step 2: Pairwise Comparisons"
-msgstr "Etape 2: Comparaison par paire"
+msgstr "Étape 2 : Comparaisons par paires"
 
 msgid ""
 "The system compares each candidate against every other candidate head-to-"
 "head:"
-msgstr ""
-"Nous comparons chaque candidat avec tous les autres candidats en tête-à-tête."
+msgstr "Nous comparons chaque candidat avec tous les autres candidats en tête-à-tête."
 
 msgid "Python vs JavaScript:"
 msgstr "Python contre JavaScript :"
@@ -129,10 +118,10 @@ msgid "How many voters prefer JavaScript? How many prefer Java?"
 msgstr "Combien d'électeurs préfèrent JavaScript ? Combien préfèrent Java ?"
 
 msgid "Step 3: Find the Winner"
-msgstr "Etape 3: Trouver le gagnant"
+msgstr "Étape 3 : Trouver le gagnant"
 
 msgid "Finds the candidate with the strongest 'path' through the preference graph. It's the most sophisticated method and often preferred. "
-msgstr "Trouve le candidat avec le 'chemin' le plus fort. C'est la méthode la plus sophisitqué mais souvent la préféré. "
+msgstr "Trouve le candidat avec le 'chemin' le plus fort dans le graphe des préférences. C'est la méthode la plus sophistiquée et souvent la préférée. "
 
 msgid ""
 "If one candidate beats ALL others in their head-to-head matchups, they are "
@@ -143,26 +132,25 @@ msgid "Condorcet winner"
 msgstr "vainqueur de Condorcet"
 
 msgid "Real Example"
-msgstr "Exemple reel"
+msgstr "Exemple réel"
 
 msgid "Question:"
-msgstr "Question:"
+msgstr "Question :"
 
 msgid "Which programming language should we use for our project?"
-msgstr ""
-"Quel langage de programmation devrions-nous utiliser pour notre projet ?"
+msgstr "Quel langage de programmation devrions-nous utiliser pour notre projet ?"
 
 msgid "Candidates:"
-msgstr "Candidats"
+msgstr "Candidats :"
 
 msgid "Votes:"
-msgstr "Voter"
+msgstr "Votes :"
 
 msgid "100 voters ranked them as follows:"
 msgstr "100 électeurs les ont classés comme suit :"
 
 msgid "Voters"
-msgstr "Voter"
+msgstr "Électeurs"
 
 msgid "1st Choice"
 msgstr "1er choix"
@@ -174,7 +162,7 @@ msgid "3rd Choice"
 msgstr "3e choix"
 
 msgid "Pairwise Results:"
-msgstr "Résultats des votes par paires"
+msgstr "Résultats par paires :"
 
 msgid "prefer Python"
 msgstr "préfèrent Python"
@@ -192,10 +180,10 @@ msgid "JavaScript wins"
 msgstr "JavaScript gagne"
 
 msgid "Winner: Python"
-msgstr "Gagnant"
+msgstr "Gagnant : Python"
 
 msgid "beats everyone in head-to-head matchups"
-msgstr "Le candidat qui bat tous les autres dans les matchs directs gagne."
+msgstr "bat tout le monde dans les affrontements directs"
 
 msgid "Advantages vs Traditional Voting"
 msgstr "Avantages par rapport aux votes traditionnels"
@@ -204,24 +192,22 @@ msgid "First-Past-The-Post (Single Vote)"
 msgstr "Scrutin majoritaire à un tour (vote unique)"
 
 msgid "Problem:"
-msgstr "Problème:"
+msgstr "Problème :"
 
 msgid "Vote splitting and strategic voting"
 msgstr "Fragmentation des voix et vote stratégique"
 
 msgid "Example:"
-msgstr "Exemple:"
+msgstr "Exemple :"
 
 #, python-format
 msgid ""
 "With 45%% Python, 30%% JavaScript, 25%% Java → Python wins even if 55%% "
 "prefer JavaScript! (see example above)"
-msgstr ""
-"Avec 45 %% Python, 30 %% JavaScript, 25 %% Java → Python gagne même si 55 %% "
-"préfèrent JavaScript ! (voir l'exemple ci-dessus)"
+msgstr "Avec 45 %% Python, 30 %% JavaScript, 25 %% Java → Python gagne même si 55 %% préfèrent JavaScript ! (voir l'exemple ci-dessus)"
 
 msgid "Result:"
-msgstr "Résultat:"
+msgstr "Résultat :"
 
 msgid "Not representative of voter preferences"
 msgstr "Ne reflète pas les préférences des électeurs"
@@ -230,28 +216,23 @@ msgid "Runoff System (Two Rounds)"
 msgstr "Scrutin de ballottage (deux tours)"
 
 msgid "Time-consuming, expensive, doesn't consider all preferences"
-msgstr ""
-"Consomme beaucoup de temps, coûteux, ne considère pas toutes les préférences"
+msgstr "Consomme beaucoup de temps, coûteux, ne considère pas toutes les préférences"
 
 msgid ""
 "If Java is eliminated in round 1, their voters' 2nd choices aren't considered"
-msgstr ""
-"Si Java est éliminé au premier tour, les deuxièmes choix de ses électeurs ne "
-"sont pas considérés"
+msgstr "Si Java est éliminé au premier tour, les deuxièmes choix de ses électeurs ne sont pas considérés"
 
 msgid "Still not fully representative"
 msgstr "Toujours pas complètement représentatif"
 
 msgid "Condorcet Method"
-msgstr "La méthode de vote Condorcet"
+msgstr "Méthode de Condorcet"
 
 msgid "Benefits:"
-msgstr "Avantages:"
+msgstr "Avantages :"
 
 msgid "Reflects true voter preferences (all preferences considered)"
-msgstr ""
-"Reflète les véritables préférences des électeurs (toutes les préférences "
-"considérées)"
+msgstr "Reflète les véritables préférences des électeurs (toutes les préférences considérées)"
 
 msgid "Eliminates vote splitting"
 msgstr "Élimine la fragmentation des voix"
@@ -266,33 +247,30 @@ msgid "Highly representative results"
 msgstr "Résultats hautement représentatifs"
 
 msgid "The Condorcet Paradox"
-msgstr "Qu'est-ce que le paradoxe Condorcet?"
+msgstr "Le paradoxe de Condorcet"
 
 msgid ""
 "Sometimes, no candidate beats all others in pairwise comparisons. This "
 "creates a cycle: A beats B, B beats C, but C beats A. This is called the"
-msgstr ""
-"Parfois, aucun candidat ne bat tous les autres dans les comparaisons par "
-"paires. Cela crée un cycle : A bat B, B bat C, mais C bat A. C'est ce qu'on "
-"appelle"
+msgstr "Parfois, aucun candidat ne bat tous les autres dans les comparaisons par paires. Cela crée un cycle : A bat B, B bat C, mais C bat A. C'est ce qu'on appelle"
 
 msgid "Condorcet Paradox"
-msgstr "Qu'est-ce que le paradoxe Condorcet?"
+msgstr "Paradoxe de Condorcet"
 
 msgid "Imagine 3 voters ranking 3 candidates:"
 msgstr "Imaginez 3 électeurs classant 3 candidats :"
 
 msgid "Voter 1:"
-msgstr "Voter"
+msgstr "Électeur 1 :"
 
 msgid "Voter 2:"
-msgstr "Voter"
+msgstr "Électeur 2 :"
 
 msgid "Voter 3:"
-msgstr "Voter"
+msgstr "Électeur 3 :"
 
 msgid "Pairwise results:"
-msgstr "Résultats des votes par paires"
+msgstr "Résultats par paires :"
 
 msgid "A wins"
 msgstr "A gagne"
@@ -310,12 +288,10 @@ msgid "Solution: Tiebreaker Methods"
 msgstr "Méthode de départage"
 
 msgid "When no Condorcet winner exists, we use tiebreaker methods:"
-msgstr ""
-"Quand aucun gagnant Condorcet n'existe, nous utilisons des méthodes de "
-"départage :"
+msgstr "Quand aucun gagnant Condorcet n'existe, nous utilisons des méthodes de départage :"
 
 msgid "Schulze Method (Recommended)"
-msgstr "Méthode Schulze (Recommandée)"
+msgstr "Méthode de Schulze (Recommandée)"
 
 msgid "Finds the candidate with the strongest \\"
 msgstr "Trouve le candidat ayant le plus fort chemin \\"
@@ -338,10 +314,7 @@ msgstr "Méthode de Borda"
 msgid ""
 "Each voter awards points based on ranking position (1st = n points, 2nd = "
 "n-1 points, etc.). The candidate with the most points wins."
-msgstr ""
-"Chaque électeur attribue des points en fonction de la position du classement "
-"(1er = n points, 2e = n-1 points, etc.). Le candidat avec le plus de points "
-"gagne."
+msgstr "Chaque électeur attribue des points en fonction de la position du classement (1er = n points, 2e = n-1 points, etc.). Le candidat avec le plus de points gagne."
 
 msgid "Simple to understand and calculate"
 msgstr "Simple à comprendre et à calculer"
@@ -356,7 +329,7 @@ msgid "Can be susceptible to vote splitting"
 msgstr "Peut être susceptible à la fragmentation des voix"
 
 msgid "May not reflect true majority preferences"
-msgstr "Reflète la véritable préférence de la majorité"
+msgstr "Peut ne pas refléter les véritables préférences de la majorité"
 
 msgid "Random Selection"
 msgstr "Sélection aléatoire"
@@ -364,13 +337,10 @@ msgstr "Sélection aléatoire"
 msgid ""
 "When a cycle is truly intractable and all methods tie, randomly select from "
 "top candidates. This is rarely used but available as a fallback."
-msgstr ""
-"Quand un cycle est vraiment insoluble et que toutes les méthodes "
-"s'équivalent, sélectionnez aléatoirement parmi les meilleurs candidats. "
-"C'est rarement utilisé mais disponible comme solution de secours."
+msgstr "Quand un cycle est vraiment insoluble et que toutes les méthodes s'équivalent, sélectionnez aléatoirement parmi les meilleurs candidats. C'est rarement utilisé mais disponible comme solution de secours."
 
 msgid "When Should You Use Condorcet Voting?"
-msgstr "Quand le vote Condorcet est-il utilisé?"
+msgstr "Quand devriez-vous utiliser le vote Condorcet ?"
 
 msgid "Team decisions (choosing a project, tooling, etc.)"
 msgstr "Décisions d'équipe (choix d'un projet, d'outils, etc.)"
@@ -416,32 +386,29 @@ msgid "Warning:"
 msgstr "Avertissement :"
 
 msgid "Success:"
-msgstr "Succes :"
+msgstr "Succès :"
 
 msgid "Info:"
 msgstr "Info :"
 
 msgid "Condorcet Voting System"
-msgstr "Comment fonctionne le vote Condorcet"
+msgstr "Système de vote de Condorcet"
 
 msgid "Documentation"
 msgstr "Documentation"
 
 msgid "Using Condorcet voting method with Schulze tiebreaker"
-msgstr ""
-"Utilisation de la méthode de vote Condorcet avec le mécanisme de départage "
-"Schulze"
+msgstr "Utilisation de la méthode de vote Condorcet avec le mécanisme de départage Schulze"
 
 msgid "Create Poll - Condorcet Vote"
-msgstr "Bienvenue sur Sondage Condorcet"
+msgstr "Créer un sondage - Vote Condorcet"
 
 # Create Poll page
 msgid "Create a New Poll"
 msgstr "Créer un nouveau sondage"
 
 msgid "How to resolve the Condorcet paradox if no clear winner:"
-msgstr ""
-"Comment résoudre le paradoxe Condorcet s'il n'y a pas de gagnant clair:"
+msgstr "Comment résoudre le paradoxe Condorcet s'il n'y a pas de gagnant clair :"
 
 msgid "Learn more"
 msgstr "En savoir plus"
@@ -463,24 +430,18 @@ msgstr "Conseils :"
 
 msgid ""
 "Poll titles should be clear questions (e.g., Best Programming Language?)"
-msgstr ""
-"Les titres des sondages doivent être des questions claires (par ex., "
-"Meilleur language de programmation?) "
+msgstr "Les titres des sondages doivent être des questions claires (par ex. : Meilleur langage de programmation ?) "
 
 msgid "Keep candidate names short and distinct"
 msgstr "Gardez les noms des candidats courts et distincts"
 
 msgid "Once created, polls cannot be edited - double-check before submitting!"
-msgstr ""
-"Une fois créés, les sondages ne peuvent pas être modifiés - vérifiez bien "
-"avant de soumettre !"
+msgstr "Une fois créés, les sondages ne peuvent pas être modifiés - vérifiez bien avant de soumettre !"
 
 msgid ""
 "Voters rank candidates by preference - the Condorcet method finds the "
 "fairest winner"
-msgstr ""
-"Les électeurs classent les candidats selon leurs préférences - la méthode "
-"Condorcet trouve le gagnant le plus équitable"
+msgstr "Les électeurs classent les candidats selon leurs préférences - la méthode Condorcet trouve le gagnant le plus équitable"
 
 msgid "Creator Dashboard"
 msgstr "Tableau de bord du créateur"
@@ -492,7 +453,7 @@ msgid "Copy Code"
 msgstr "Copier le code"
 
 msgid "All Polls"
-msgstr "Mes sondages"
+msgstr "Tous les sondages"
 
 msgid "Active"
 msgstr "Actif"
@@ -501,7 +462,7 @@ msgid "Closed"
 msgstr "Fermé"
 
 msgid "Created:"
-msgstr "Créé"
+msgstr "Créé :"
 
 msgid "Public"
 msgstr "Public"
@@ -519,7 +480,7 @@ msgid "Current Leader:"
 msgstr "Leader actuel :"
 
 msgid "No votes yet"
-msgstr "Aucun sondage actif pour le moment"
+msgstr "Pas encore de votes"
 
 msgid "Results"
 msgstr "Résultats"
@@ -528,7 +489,7 @@ msgid "Vote"
 msgstr "Voter"
 
 msgid "Share"
-msgstr "Créer un sondage"
+msgstr "Partager"
 
 msgid "Make Private"
 msgstr "Rendre privé"
@@ -549,32 +510,32 @@ msgid "Delete"
 msgstr "Supprimer"
 
 msgid "Hide Results"
-msgstr "Voir les résultats"
+msgstr "Masquer les résultats"
 
 msgid "Release Results"
 msgstr "Publier les résultats"
 
 msgid "No polls found"
-msgstr "Sondage non trouvé"
+msgstr "Aucun sondage trouvé"
 
 # Messages
 msgid "You haven't created any polls yet."
 msgstr "Vous n'avez pas encore créé de sondage."
 
 msgid "Create one now!"
-msgstr "Créez-en un maintenant!"
+msgstr "Créez-en un maintenant !"
 
 msgid "votes"
 msgstr "votes"
 
 msgid "No active polls"
-msgstr "Aucun sondage actif pour le moment"
+msgstr "Aucun sondage actif"
 
 msgid "Winner:"
-msgstr "Gagnant"
+msgstr "Gagnant :"
 
 msgid "No closed polls"
-msgstr "Aucun sondage actif pour le moment"
+msgstr "Aucun sondage fermé"
 
 msgid "Create New Poll"
 msgstr "Créer un nouveau sondage"
@@ -583,13 +544,13 @@ msgid "Back to Home"
 msgstr "Retour à l'accueil"
 
 msgid "Share Poll"
-msgstr "Créer un sondage"
+msgstr "Partager le sondage"
 
 msgid "Voting Link:"
 msgstr "Lien de vote :"
 
 msgid "Copy"
-msgstr "Copier le lien"
+msgstr "Copier"
 
 msgid "QR Code:"
 msgstr "Code QR :"
@@ -598,22 +559,19 @@ msgid "Creator code copied!"
 msgstr "Code créateur copié !"
 
 msgid "Link copied!"
-msgstr "Lien copié dans le presse-papiers!"
+msgstr "Lien copié !"
 
 # Index page
 msgid "Condorcet Vote - Home"
-msgstr "Sondage Condorcet - Accueil"
+msgstr "Vote Condorcet - Accueil"
 
 msgid "Welcome to Condorcet Vote"
-msgstr "Bienvenue sur Sondage Condorcet"
+msgstr "Bienvenue sur Vote Condorcet"
 
 msgid ""
 "Create fair polls using the Condorcet voting method. No registration "
 "required, just vote and see instant results."
-msgstr ""
-"Créez des sondages équitables en utilisant la méthode de vote Condorcet. "
-"Aucune inscription requise, votez simplement et voyez les résultats "
-"instantanés."
+msgstr "Créez des sondages équitables en utilisant la méthode de vote Condorcet. Aucune inscription requise, votez simplement et voyez les résultats instantanés."
 
 msgid "Active Polls"
 msgstr "Sondages actifs"
@@ -628,7 +586,7 @@ msgid "No active polls yet"
 msgstr "Aucun sondage actif pour le moment"
 
 msgid "Be the first to create a poll!"
-msgstr "Soyez le premier à créer un sondage!"
+msgstr "Soyez le premier à créer un sondage !"
 
 msgid "How Condorcet Voting Works"
 msgstr "Comment fonctionne le vote Condorcet"
@@ -639,16 +597,13 @@ msgstr "Classer les candidats"
 msgid ""
 "Vote by ranking candidates in your preferred order. First choice, second "
 "choice, etc."
-msgstr ""
-"Votez en classant les candidats dans votre ordre préféré. Premier choix, "
-"deuxième choix, etc."
+msgstr "Votez en classant les candidats dans votre ordre préféré. Premier choix, deuxième choix, etc."
 
 msgid "Pairwise Comparison"
-msgstr "Comparaison par paire"
+msgstr "Comparaison par paires"
 
 msgid "We compare each candidate against every other candidate one-on-one."
-msgstr ""
-"Nous comparons chaque candidat avec tous les autres candidats en tête-à-tête."
+msgstr "Nous comparons chaque candidat avec tous les autres candidats en tête-à-tête."
 
 msgid "Find Winner"
 msgstr "Trouver le gagnant"
@@ -657,21 +612,19 @@ msgid "The candidate who beats all others in head-to-head matchups wins."
 msgstr "Le candidat qui bat tous les autres dans les matchs directs gagne."
 
 msgid "Note:"
-msgstr "Remarque:"
+msgstr "Remarque :"
 
 msgid ""
 "If there's a tie, the system uses the Schulze method to find the most-likely "
 "winner."
-msgstr ""
-"S'il y a une égalité, le système utilise la méthode de Schulze pout le plus "
-"probable."
+msgstr "S'il y a une égalité, le système utilise la méthode de Schulze pour trouver le gagnant le plus probable."
 
 msgid "Poll Created"
-msgstr "Créé"
+msgstr "Sondage créé"
 
 # Poll confirmation page
 msgid "Poll Created Successfully!"
-msgstr "Sondage créé avec succès!"
+msgstr "Sondage créé avec succès !"
 
 msgid "Your poll"
 msgstr "Votre sondage"
@@ -680,18 +633,16 @@ msgid "has been created."
 msgstr "a été créé."
 
 msgid "Creator Code"
-msgstr "Tableau de bord du créateur"
+msgstr "Code créateur"
 
 msgid "Save this code to manage your poll (view results, make public, delete):"
-msgstr ""
-"Enregistrez ce code pour gérer votre sondage (afficher les résultats, le "
-"rendre public, le supprimer) :"
+msgstr "Enregistrez ce code pour gérer votre sondage (afficher les résultats, le rendre public, le supprimer) :"
 
 msgid "Go to Creator Dashboard"
-msgstr "Tableau de bord du créateur"
+msgstr "Aller au tableau de bord du créateur"
 
 msgid "Voting Link"
-msgstr "Copier le lien"
+msgstr "Lien de vote"
 
 msgid "Share this link with voters:"
 msgstr "Partagez ce lien avec les électeurs :"
@@ -709,18 +660,18 @@ msgid "Poll Summary"
 msgstr "Résumé du sondage"
 
 msgid "Description:"
-msgstr "Description:"
+msgstr "Description :"
 
 # Results page
 msgid "Voting Method:"
-msgstr "Résultats du vote"
+msgstr "Méthode de vote :"
 
 # Index page
 msgid "Condorcet"
-msgstr "Sondage Condorcet - Accueil"
+msgstr "Condorcet"
 
 msgid "Status:"
-msgstr "Statut"
+msgstr "Statut :"
 
 msgid "Start Voting"
 msgstr "Commencer à voter"
@@ -735,7 +686,7 @@ msgid "Visit your Creator Dashboard to:"
 msgstr "Visitez votre <strong>Tableau de bord du créateur</strong> pour :"
 
 msgid "View live voting results"
-msgstr "Résultats des votes par paires"
+msgstr "Voir les résultats des votes en direct"
 
 msgid "Make the poll public (visible on homepage)"
 msgstr "Rendre le sondage public (visible sur la page d'accueil)"
@@ -753,15 +704,13 @@ msgid "Max"
 msgstr "Max"
 
 msgid "Condorcet Winner"
-msgstr "Trouver le gagnant"
+msgstr "Gagnant de Condorcet"
 
 msgid "No Clear Winner"
 msgstr "Pas de gagnant clair"
 
 msgid "Not enough votes yet, or there's a tie. Check pairwise matchups below."
-msgstr ""
-"Pas encore assez de votes, ou il y a une égalité. Vérifiez les comparaisons "
-"par paires ci-dessous."
+msgstr "Pas encore assez de votes, ou il y a une égalité. Vérifiez les comparaisons par paires ci-dessous."
 
 msgid "Voting Statistics"
 msgstr "Statistiques de vote"
@@ -773,7 +722,7 @@ msgid "Unique Voters"
 msgstr "Électeurs uniques"
 
 msgid "First Choice Votes"
-msgstr "Votes du premier choix"
+msgstr "Votes de premier choix"
 
 msgid "Head-to-Head Matchups"
 msgstr "Affrontements directs"
@@ -782,22 +731,22 @@ msgid "Matchup"
 msgstr "Affrontement"
 
 msgid "Votes"
-msgstr "Voter"
+msgstr "Votes"
 
 msgid "Winner"
 msgstr "Gagnant"
 
 msgid "Tie"
-msgstr "Titre"
+msgstr "Égalité"
 
 msgid "Actions"
 msgstr "Actions"
 
 msgid "Poll Closed"
-msgstr "Fermé"
+msgstr "Sondage fermé"
 
 msgid "Back to Polls"
-msgstr "Sondages actifs"
+msgstr "Retour aux sondages"
 
 msgid "Share this link to get more votes"
 msgstr "Partagez ce lien pour obtenir plus de votes"
@@ -806,13 +755,10 @@ msgid ""
 "The winner is the candidate who would beat all others in one-on-one "
 "matchups. This method is considered the fairest way to find a consensus "
 "choice."
-msgstr ""
-"Le gagnant est le candidat qui battrait tous les autres dans les "
-"affrontements directs. Cette méthode est considérée comme le moyen le plus "
-"équitable de trouver un choix consensuel."
+msgstr "Le gagnant est le candidat qui battrait tous les autres dans les affrontements directs. Cette méthode est considérée comme le moyen le plus équitable de trouver un choix consensuel."
 
 msgid "Copied!"
-msgstr "Copie !"
+msgstr "Copié !"
 
 # Vote page
 msgid "Rank the candidates"
@@ -821,12 +767,10 @@ msgstr "Classez les candidats"
 msgid ""
 "Drag to reorder candidates, or use the select dropdowns. Your first choice "
 "is your strongest preference."
-msgstr ""
-"Glissez-déposez pour réorganiser les candidats, ou utilisez les menus "
-"déroulants. Votre premier choix est votre préférence la plus forte."
+msgstr "Glissez-déposez pour réorganiser les candidats, ou utilisez les menus déroulants. Votre premier choix est votre préférence la plus forte."
 
 msgid "How to Vote:"
-msgstr "Votes totaux"
+msgstr "Comment voter :"
 
 msgid "Rank candidates by dragging them in order of preference"
 msgstr "Classez les candidats en les glissant dans l'ordre de préférence"
@@ -841,17 +785,13 @@ msgid "All candidates must be ranked exactly once"
 msgstr "Tous les candidats doivent être classés exactement une fois"
 
 msgid "Submit Vote"
-msgstr "Soumettre votre vote"
+msgstr "Soumettre le vote"
 
 msgid ""
 "Instead of just picking one candidate, you rank them. The system then finds "
 "the candidate who would win in a fair head-to-head matchup against any other "
 "candidate. This method is considered one of the fairest voting systems."
-msgstr ""
-"Au lieu de simplement choisir un candidat, vous les classez. Le système "
-"trouve ensuite le candidat qui gagnerait dans un affrontement équitable "
-"contre n'importe quel autre candidat. Cette méthode est considérée comme "
-"l'un des systèmes de vote les plus équitables."
+msgstr "Au lieu de simplement choisir un candidat, vous les classez. Le système trouve ensuite le candidat qui gagnerait dans un affrontement équitable contre n'importe quel autre candidat. Cette méthode est considérée comme l'un des systèmes de vote les plus équitables."
 
 #~ msgid "Maximum Votes (Optional)"
 #~ msgstr "Votes maximum (Optionnel)"
@@ -989,3 +929,106 @@ msgstr ""
 
 #~ msgid "Refresh"
 #~ msgstr "Actualiser"
+
+
+msgid "Real Example: The Spoiler Effect"
+msgstr "Exemple réel : L'effet spoiler"
+
+msgid "Imagine a vote for the 'Best Programming Language' with three candidates:"
+msgstr "Imaginez un vote pour le 'Meilleur langage de programmation' avec trois candidats :"
+
+msgid "and"
+msgstr "et"
+
+msgid "Python and Ruby are similar (modern, dynamic), while Assembly is very different (low-level). Ideally, the winner should reflect the majority's preference for modern languages, but traditional voting fails here."
+msgstr "Python et Ruby sont similaires (modernes, dynamiques), tandis que l'Assembleur est très différent (bas niveau). Idéalement, le gagnant devrait refléter la préférence de la majorité pour les langages modernes, mais le vote traditionnel échoue ici."
+
+msgid "Traditional Voting (FPTP)"
+msgstr "Vote traditionnel (Scrutin majoritaire)"
+
+msgid "Only 1st choices are counted:"
+msgstr "Seuls les 1ers choix sont comptés :"
+
+msgid "Assembly: 40% (Winner)"
+msgstr "Assembleur : 40% (Gagnant)"
+
+msgid "Assembly wins even though 60% of voters preferred a modern language (Python or Ruby). Python and Ruby 'split' the vote, acting as spoilers for each other."
+msgstr "L'Assembleur gagne même si 60% des électeurs préféraient un langage moderne (Python ou Ruby). Python et Ruby 'divisent' le vote, agissant comme des parasites l'un pour l'autre."
+
+msgid "Condorcet Voting"
+msgstr "Vote Condorcet"
+
+msgid "We compare head-to-head:"
+msgstr "Nous comparons en tête-à-tête :"
+
+msgid "Ruby vs Assembly:"
+msgstr "Ruby contre Assembleur :"
+
+msgid "Ruby wins"
+msgstr "Ruby gagne"
+
+msgid "Ruby vs Python:"
+msgstr "Ruby contre Python :"
+
+msgid "Ruby beats everyone head-to-head. It is the true consensus winner."
+msgstr "Ruby bat tout le monde en tête-à-tête. C'est le véritable gagnant consensuel."
+
+msgid "Why Condorcet is Superior"
+msgstr "Pourquoi Condorcet est supérieur"
+
+msgid "Traditional voting methods suffer from serious mathematical flaws that Condorcet solves."
+msgstr "Les méthodes de vote traditionnelles souffrent de graves défauts mathématiques que Condorcet résout."
+
+msgid "Problems with Traditional Methods"
+msgstr "Problèmes des méthodes traditionnelles"
+
+msgid "The Spoiler Effect"
+msgstr "L'effet spoiler"
+
+msgid "Similar candidates split the vote, allowing a less popular candidate to win (violates Independence of Irrelevant Alternatives)."
+msgstr "Des candidats similaires divisent le vote, permettant à un candidat moins populaire de gagner (viole l'Indépendance des Alternatives Non Pertinentes)."
+
+msgid "Strategic Voting (Non-sincerity)"
+msgstr "Vote stratégique (Non-sincérité)"
+
+msgid "Voters are forced to vote for the 'lesser of two evils' instead of their true favorite to avoid wasting their vote."
+msgstr "Les électeurs sont obligés de voter pour le 'moindre mal' au lieu de leur vrai favori pour éviter de gâcher leur vote."
+
+msgid "Non-Monotonicity"
+msgstr "Non-monotonie"
+
+msgid "In some systems (like Instant Runoff), ranking a candidate HIGHER can actually cause them to LOSE. This is a major flaw."
+msgstr "Dans certains systèmes (comme le vote alternatif), classer un candidat PLUS HAUT peut en fait le faire PERDRE. C'est un défaut majeur."
+
+msgid "Center Squeeze"
+msgstr "Compression du centre"
+
+msgid "Moderate candidates who would beat everyone head-to-head often lose because they lack strong 'first choice' support."
+msgstr "Les candidats modérés qui battraient tout le monde en tête-à-tête perdent souvent parce qu'ils manquent de soutien fort en 'premier choix'."
+
+msgid "Condorcet Advantages"
+msgstr "Avantages de Condorcet"
+
+msgid "Condorcet Consistency"
+msgstr "Cohérence de Condorcet"
+
+msgid "If a candidate can beat every other candidate in a one-on-one race, they are guaranteed to win."
+msgstr "Si un candidat peut battre tous les autres candidats dans une course en tête-à-tête, il est garanti de gagner."
+
+msgid "Sincere Voting"
+msgstr "Vote sincère"
+
+msgid "Voters can support their true favorite without fear of helping their least favorite win."
+msgstr "Les électeurs peuvent soutenir leur vrai favori sans craindre d'aider leur moins favori à gagner."
+
+msgid "Resistance to Manipulation"
+msgstr "Résistance à la manipulation"
+
+msgid "It is much harder to manipulate the outcome through strategic nomination or voting."
+msgstr "Il est beaucoup plus difficile de manipuler le résultat par une nomination ou un vote stratégique."
+
+msgid "Stable Consensus"
+msgstr "Consensus stable"
+
+msgid "Selects the candidate with the broadest appeal, not just the most passionate minority."
+msgstr "Sélectionne le candidat avec l'attrait le plus large, pas seulement la minorité la plus passionnée."
