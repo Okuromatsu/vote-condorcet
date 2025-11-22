@@ -940,6 +940,345 @@ msgstr ""
 "Si hay un empate, el sistema utiliza el método de Schulze para encontrar el "
 "ganador más probable."
 
+#: voting/templates/voting/dashboard_login.html:4
+#: voting/templates/voting/base.html:86
+msgid "Access Dashboard"
+msgstr "Acceder al panel"
+
+#: voting/templates/voting/dashboard_login.html:10
+msgid "Access Creator Dashboard"
+msgstr "Acceder al panel del creador"
+
+#: voting/templates/voting/dashboard_login.html:14
+msgid "Enter your creator code to manage your polls."
+msgstr "Ingrese su código de creador para administrar sus encuestas."
+
+#: voting/templates/voting/dashboard_login.html:20
+msgid "Creator Code"
+msgstr "Código de creador"
+
+#: voting/templates/voting/dashboard_login.html:26
+msgid "If you did not save your creator code, unfortunately we cannot recover it for you as we do not store personal information."
+msgstr "Si no guardó su código de creador, lamentablemente no podemos recuperarlo por usted ya que no almacenamos información personal."
+
+#: voting/templates/voting/create_poll.html:63
+msgid "How to resolve the Condorcet paradox if no clear winner:"
+msgstr "Cómo resolver la paradoja de Condorcet si no hay un ganador claro:"
+
+#: voting/templates/voting/create_poll.html:64
+msgid "Learn more"
+msgstr "Aprende más"
+
+#: voting/templates/voting/create_poll.html:89
+msgid "Minimum 2 candidates, maximum 50"
+msgstr "Mínimo 2 candidatos, máximo 50"
+
+#: voting/templates/voting/create_poll.html:90
+msgid "One candidate per line"
+msgstr "Ingrese un candidato por línea"
+
+#: voting/templates/voting/create_poll.html:91
+msgid "No duplicate names"
+msgstr "Sin nombres duplicados"
+
+#: voting/templates/voting/create_poll.html:108
+#: voting/templates/voting/vote.html:91
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: voting/templates/voting/create_poll.html:117
+msgid "Tips:"
+msgstr "Consejos:"
+
+#: voting/templates/voting/create_poll.html:119
+msgid ""
+"Poll titles should be clear questions (e.g., Best Programming Language?)"
+msgstr ""
+"Los títulos de las encuestas deben ser preguntas claras (por ejemplo, ¿Mejor "
+"lenguaje de programación?)"
+
+#: voting/templates/voting/create_poll.html:120
+msgid "Keep candidate names short and distinct"
+msgstr "Mantén los nombres de los candidatos cortos y distintos"
+
+#: voting/templates/voting/create_poll.html:121
+msgid "Once created, polls cannot be edited - double-check before submitting!"
+msgstr ""
+"Una vez creadas, las encuestas no pueden ser editadas - ¡verifica dos veces "
+"antes de enviar!"
+
+#: voting/templates/voting/create_poll.html:122
+msgid ""
+"Voters rank candidates by preference - the Condorcet method finds the "
+"fairest winner"
+msgstr ""
+"Los votantes clasifican a los candidatos por preferencia - el método "
+"Condorcet encuentra el ganador más justo"
+
+#: voting/templates/voting/creator_dashboard.html:4
+#: voting/templates/voting/creator_dashboard.html:11
+msgid "Creator Dashboard"
+msgstr "Panel del creador"
+
+#: voting/templates/voting/creator_dashboard.html:12
+msgid "Manage your polls with creator code:"
+msgstr "Administra tus encuestas con código de creador:"
+
+#: voting/templates/voting/creator_dashboard.html:16
+msgid "Copy Code"
+msgstr "Copiar código"
+
+#: voting/templates/voting/creator_dashboard.html:25
+msgid "All Polls"
+msgstr "Todas las encuestas"
+
+#: voting/templates/voting/creator_dashboard.html:30
+#: voting/templates/voting/results.html:23
+msgid "Active"
+msgstr "Activo"
+
+#: voting/templates/voting/creator_dashboard.html:35
+#: voting/templates/voting/creator_dashboard.html:64
+#: voting/templates/voting/results.html:23
+msgid "Closed"
+msgstr "Cerrado"
+
+#: voting/templates/voting/creator_dashboard.html:53
+msgid "Created:"
+msgstr "Creado:"
+
+#: voting/templates/voting/creator_dashboard.html:57
+#: voting/templates/voting/poll_confirmation.html:119
+msgid "Public"
+msgstr "Público"
+
+#: voting/templates/voting/creator_dashboard.html:59
+#: voting/templates/voting/poll_confirmation.html:121
+msgid "Private"
+msgstr "Privado"
+
+#: voting/templates/voting/creator_dashboard.html:62
+msgid "Open"
+msgstr "Abierto"
+
+#: voting/templates/voting/creator_dashboard.html:74
+msgid "Votes Cast"
+msgstr "Votos emitidos"
+
+#: voting/templates/voting/creator_dashboard.html:86
+msgid "Current Leader:"
+msgstr "Líder actual:"
+
+#: voting/templates/voting/creator_dashboard.html:90
+msgid "No votes yet"
+msgstr "Aún no hay votos"
+
+#: voting/templates/voting/creator_dashboard.html:101
+#: voting/templates/voting/poll_confirmation.html:102
+msgid "Candidates:"
+msgstr "Candidatos:"
+
+#: voting/templates/voting/creator_dashboard.html:114
+#: voting/templates/voting/index.html:59 voting/templates/voting/results.html:4
+msgid "Results"
+msgstr "Resultados"
+
+#: voting/templates/voting/creator_dashboard.html:118
+#: voting/templates/voting/creator_dashboard.html:122
+#: voting/templates/voting/index.html:56
+#: voting/templates/voting/results.html:170 voting/templates/voting/vote.html:4
+msgid "Vote"
+msgstr "Votar"
+
+#: voting/templates/voting/creator_dashboard.html:127
+msgid "Share"
+msgstr "Compartir"
+
+#: voting/templates/voting/creator_dashboard.html:133
+msgid "Make Private"
+msgstr "Hacer privado"
+
+#: voting/templates/voting/creator_dashboard.html:137
+msgid "Make Public"
+msgstr "Hacer público"
+
+#: voting/templates/voting/creator_dashboard.html:142
+msgid "Close"
+msgstr "Cerrar"
+
+#: voting/templates/voting/creator_dashboard.html:146
+msgid "Reopen"
+msgstr "Reabrir"
+
+#: voting/templates/voting/creator_dashboard.html:150
+msgid "Are you sure you want to delete this poll?"
+msgstr "¿Estás seguro de que deseas eliminar esta encuesta?"
+
+#: voting/templates/voting/creator_dashboard.html:152
+msgid "Delete"
+msgstr "Eliminar"
+
+#: voting/templates/voting/creator_dashboard.html:156
+msgid "Hide Results"
+msgstr "Ocultar resultados"
+
+#: voting/templates/voting/creator_dashboard.html:160
+msgid "Release Results"
+msgstr "Publicar resultados"
+
+#: voting/templates/voting/creator_dashboard.html:171
+msgid "No polls found"
+msgstr "Encuesta no encontrada"
+
+# Messages
+#: voting/templates/voting/creator_dashboard.html:172
+msgid "You haven't created any polls yet."
+msgstr "Aún no ha creado ninguna encuesta."
+
+#: voting/templates/voting/creator_dashboard.html:172
+msgid "Create one now!"
+msgstr "¡Cree una ahora!"
+
+#: voting/templates/voting/creator_dashboard.html:181
+#: voting/templates/voting/creator_dashboard.html:192
+#: voting/templates/voting/index.html:45
+#: voting/templates/voting/results.html:18 voting/templates/voting/vote.html:17
+msgid "votes"
+msgstr "votos"
+
+#: voting/templates/voting/creator_dashboard.html:184
+msgid "No active polls"
+msgstr "No hay encuestas activas"
+
+#: voting/templates/voting/creator_dashboard.html:193
+msgid "Winner:"
+msgstr "Ganador:"
+
+#: voting/templates/voting/creator_dashboard.html:196
+msgid "No closed polls"
+msgstr "No hay encuestas cerradas"
+
+#: voting/templates/voting/creator_dashboard.html:204
+#: voting/templates/voting/index.html:16
+msgid "Create New Poll"
+msgstr "Crear nueva encuesta"
+
+#: voting/templates/voting/creator_dashboard.html:207
+#: voting/templates/voting/poll_confirmation.html:137
+msgid "Back to Home"
+msgstr "Volver al inicio"
+
+#: voting/templates/voting/creator_dashboard.html:217
+#: voting/templates/voting/results.html:188
+msgid "Share Poll"
+msgstr "Compartir encuesta"
+
+#: voting/templates/voting/creator_dashboard.html:222
+msgid "Voting Link:"
+msgstr "Enlace de votación:"
+
+#: voting/templates/voting/creator_dashboard.html:225
+#: voting/templates/voting/poll_confirmation.html:37
+#: voting/templates/voting/poll_confirmation.html:68
+#: voting/templates/voting/results.html:198
+msgid "Copy"
+msgstr "Copiar"
+
+#: voting/templates/voting/creator_dashboard.html:229
+msgid "QR Code:"
+msgstr "Código QR:"
+
+#: voting/templates/voting/creator_dashboard.html:244
+msgid "Creator code copied!"
+msgstr "¡Código de creador copiado!"
+
+#: voting/templates/voting/creator_dashboard.html:259
+msgid "Link copied!"
+msgstr "¡Enlace copiado!"
+
+# Index page
+#: voting/templates/voting/index.html:4
+msgid "Condorcet Vote - Home"
+msgstr "Voto Condorcet - Inicio"
+
+#: voting/templates/voting/index.html:9
+msgid "Welcome to Condorcet Vote"
+msgstr "Bienvenido a Voto Condorcet"
+
+#: voting/templates/voting/index.html:11
+msgid ""
+"Create fair polls using the Condorcet voting method. No registration "
+"required, just vote and see instant results."
+msgstr ""
+"Cree encuestas justas utilizando el método de votación Condorcet. No se "
+"requiere registro, simplemente vote y vea resultados instantáneos."
+
+#: voting/templates/voting/index.html:24
+msgid "Active Polls"
+msgstr "Encuestas activas"
+
+#: voting/templates/voting/index.html:42
+msgid "candidates"
+msgstr "candidatos"
+
+#: voting/templates/voting/index.html:51
+msgid "Created"
+msgstr "Creado"
+
+#: voting/templates/voting/index.html:71
+msgid "No active polls yet"
+msgstr "Aún no hay encuestas activas"
+
+#: voting/templates/voting/index.html:72
+msgid "Be the first to create a poll!"
+msgstr "¡Sé el primero en crear una encuesta!"
+
+#: voting/templates/voting/index.html:82
+msgid "How Condorcet Voting Works"
+msgstr "Cómo funciona la votación Condorcet"
+
+#: voting/templates/voting/index.html:87
+msgid "Rank Candidates"
+msgstr "Clasificar candidatos"
+
+#: voting/templates/voting/index.html:88
+msgid ""
+"Vote by ranking candidates in your preferred order. First choice, second "
+"choice, etc."
+msgstr ""
+"Vote clasificando a los candidatos en su orden preferido. Primera opción, "
+"segunda opción, etc."
+
+#: voting/templates/voting/index.html:95
+msgid "Pairwise Comparison"
+msgstr "Comparación por pares"
+
+#: voting/templates/voting/index.html:96
+msgid "We compare each candidate against every other candidate one-on-one."
+msgstr "Comparamos cada candidato contra todos los demás candidatos uno a uno."
+
+#: voting/templates/voting/index.html:103
+msgid "Find Winner"
+msgstr "Encontrar ganador"
+
+#: voting/templates/voting/index.html:104
+msgid "The candidate who beats all others in head-to-head matchups wins."
+msgstr ""
+"El candidato que vence a todos los demás en enfrentamientos directos gana."
+
+#: voting/templates/voting/index.html:110
+#: voting/templates/voting/results.html:46
+msgid "Note:"
+msgstr "Nota:"
+
+#: voting/templates/voting/index.html:110
+msgid ""
+"If there's a tie, the system uses the Schulze method to find the most-likely "
+"winner."
+msgstr ""
+"Si hay un empate, el sistema utiliza el método de Schulze para encontrar el "
+"ganador más probable."
+
 #: voting/templates/voting/poll_confirmation.html:4
 msgid "Poll Created"
 msgstr "Encuesta creada"

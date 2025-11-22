@@ -949,9 +949,22 @@ msgstr ""
 "S'il y a une égalité, le système utilise la méthode de Schulze pour trouver "
 "le gagnant le plus probable."
 
-#: voting/templates/voting/poll_confirmation.html:4
-msgid "Poll Created"
-msgstr "Sondage créé"
+#: voting/templates/voting/dashboard_login.html:4
+#: voting/templates/voting/base.html:86
+msgid "Access Dashboard"
+msgstr "Accéder au tableau de bord"
+
+#: voting/templates/voting/dashboard_login.html:10
+msgid "Access Creator Dashboard"
+msgstr "Accéder au tableau de bord créateur"
+
+#: voting/templates/voting/dashboard_login.html:14
+msgid "Enter your creator code to manage your polls."
+msgstr "Entrez votre code créateur pour gérer vos sondages."
+
+#: voting/templates/voting/dashboard_login.html:26
+msgid "If you did not save your creator code, unfortunately we cannot recover it for you as we do not store personal information."
+msgstr "Si vous n'avez pas sauvegardé votre code créateur, nous ne pouvons malheureusement pas le récupérer pour vous car nous ne stockons pas d'informations personnelles."
 
 # Poll confirmation page
 #: voting/templates/voting/poll_confirmation.html:11

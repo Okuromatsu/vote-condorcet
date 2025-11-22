@@ -32,6 +32,9 @@ urlpatterns = [
     # Creator dashboard
     path('creator/<str:creator_code>/', views.creator_dashboard, name='creator_dashboard'),
     
+    # Creator dashboard login
+    path('dashboard/login/', views.dashboard_login, name='dashboard_login'),
+    
     # Voting interface
     path('vote/<uuid:poll_id>/', views.vote_poll, name='vote_poll'),
     

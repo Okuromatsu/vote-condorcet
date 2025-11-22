@@ -43,11 +43,6 @@ def calculate_condorcet_winner(votes_list: List[List[str]], tiebreaker_method: s
     if not votes_list:
         raise ValueError("Cannot calculate winner from empty votes list.")
     
-    # Validate all votes have same length (same candidates)
-    vote_lengths = set(len(vote) for vote in votes_list)
-    if len(vote_lengths) > 1:
-        raise ValueError("All votes must have same number of candidates.")
-    
     if not votes_list[0]:
         raise ValueError("Votes cannot be empty.")
     

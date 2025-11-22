@@ -712,3 +712,23 @@ def poll_api_results(request, poll_id):
         'winner': winner_id,
         'winner_method': winner_method,
     })
+
+
+@require_http_methods(["GET", "POST"])
+@csrf_protect
+def dashboard_login(request):
+    """
+    Allow creators to access their dashboard by entering their creator code.
+    """
+    if request.method == 'POST':
+        creator_code = request.POST.get('creator_code')
+        if creator_code:
+            # Check if any poll exists with this code
+            if Poll.objects.filter(creator_code=creator_code, is_deleted=False).exists():
+                return redirect('voting:creator_dashboard', creator_code=creator_code)
+            else:
+                messages.error(request, 'Invalid creator code. No polls found.')
+        else:
+            messages.error(request, 'Please enter a creator code.')
+            
+    return render(request, 'voting/dashboard_login.html')
