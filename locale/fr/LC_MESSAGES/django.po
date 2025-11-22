@@ -930,6 +930,8 @@ msgstr "Au lieu de simplement choisir un candidat, vous les classez. Le système
 #~ msgid "Refresh"
 #~ msgstr "Actualiser"
 
+msgid "Assembly wins even though 60% of voters preferred a modern language (Python or Ruby). Python and Ruby split the vote, acting as spoilers for each other."
+msgstr "L'Assembleur gagne même si 60 % des électeurs préféraient un langage moderne (Python ou Ruby). Python et Ruby ont divisé les votes, se nuisant mutuellement."
 
 msgid "Real Example: The Spoiler Effect"
 msgstr "Exemple réel : L'effet spoiler"

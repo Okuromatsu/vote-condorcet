@@ -211,14 +211,23 @@ def vote_poll(request, poll_id):
             request.voter_user_agent
         )
         
-        # Check if this voter already voted on this poll
-        existing_vote = Vote.objects.filter(
+        # Check if this voter already voted on this poll (by fingerprint)
+        existing_vote_fingerprint = Vote.objects.filter(
             poll=poll,
             voter_fingerprint=voter_fingerprint
         ).exists()
+
+        # Check if this voter already voted on this poll (by cookie session)
+        existing_vote_session = False
+        if hasattr(request, 'voter_session_token'):
+             existing_vote_session = VoterSession.objects.filter(
+                poll=poll,
+                cookie_token=request.voter_session_token,
+                vote_count__gt=0
+            ).exists()
         
-        if existing_vote:
-            logger.warning(f"Duplicate vote attempt: {voter_fingerprint} "
+        if existing_vote_fingerprint or existing_vote_session:
+            logger.warning(f"Duplicate vote attempt: {voter_fingerprint} (cookie match: {existing_vote_session}) "
                           f"on poll {poll.id}")
             messages.error(request, 
                           'You have already voted on this poll.')
@@ -250,13 +259,17 @@ def vote_poll(request, poll_id):
                     )
                     
                     # Update voter session
+                    defaults = {
+                        'ip_address': request.voter_ip,
+                        'user_agent': request.voter_user_agent,
+                    }
+                    if hasattr(request, 'voter_session_token'):
+                        defaults['cookie_token'] = request.voter_session_token
+
                     voter_session, _ = VoterSession.objects.get_or_create(
                         poll=poll,
                         voter_fingerprint=voter_fingerprint,
-                        defaults={
-                            'ip_address': request.voter_ip,
-                            'user_agent': request.voter_user_agent,
-                        }
+                        defaults=defaults
                     )
                     voter_session.vote_count += 1
                     voter_session.save()
