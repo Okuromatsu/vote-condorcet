@@ -1036,5 +1036,5 @@ msgid "Selects the candidate with the broadest appeal, not just the most passion
 msgstr "Selecciona al candidato con el atractivo más amplio, no solo a la minoría más apasionada."
 
 
-msgid "Assembly wins even though 60% of voters preferred a modern language (Python or Ruby). Python and Ruby split the vote, acting as spoilers for each other."
-msgstr "Assembly gana aunque el 60% de los votantes prefería un lenguaje moderno (Python o Ruby). Python y Ruby dividieron el voto, actuando como saboteadores el uno del otro."
+msgid "Assembly wins even though 60%% of voters preferred a modern language (Python or Ruby). Python and Ruby split the vote, acting as spoilers for each other."
+msgstr "Assembly gana aunque el 60%% de los votantes prefería un lenguaje moderno (Python o Ruby). Python y Ruby dividieron el voto, actuando como saboteadores el uno del otro."

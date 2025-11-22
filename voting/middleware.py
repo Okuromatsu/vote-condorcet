@@ -124,10 +124,12 @@ class DuplicateVoteMiddleware(MiddlewareMixin):
             token = uuid.uuid4().hex
             request.voter_session_token = token
             request.voter_session_new = True
+            logger.debug(f"Generated NEW voter token: {token}")
         else:
             # Returning voter
             request.voter_session_token = request.COOKIES[self.VOTER_COOKIE_NAME]
             request.voter_session_new = False
+            logger.debug(f"Retrieved EXISTING voter token: {request.voter_session_token}")
         
         # Extract voter fingerprint data
         request.voter_ip = self.get_client_ip(request)

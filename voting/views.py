@@ -22,7 +22,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponseForbidden
 from django.core.exceptions import ValidationError
-from django.db import transaction
+from django.db import transaction, IntegrityError
 from django.conf import settings
 import json
 import logging
@@ -211,6 +211,11 @@ def vote_poll(request, poll_id):
             request.voter_user_agent
         )
         
+        cookie_token = getattr(request, 'voter_session_token', 'MISSING')
+        
+        logger.info(f"Vote attempt on poll {poll.id} | IP: {request.voter_ip} | "
+                    f"Fingerprint: {voter_fingerprint} | Cookie: {cookie_token}")
+
         # Check if this voter already voted on this poll (by fingerprint)
         existing_vote_fingerprint = Vote.objects.filter(
             poll=poll,
@@ -227,8 +232,10 @@ def vote_poll(request, poll_id):
             ).exists()
         
         if existing_vote_fingerprint or existing_vote_session:
-            logger.warning(f"Duplicate vote attempt: {voter_fingerprint} (cookie match: {existing_vote_session}) "
-                          f"on poll {poll.id}")
+            logger.warning(f"Duplicate vote blocked: {voter_fingerprint} | "
+                           f"Fingerprint match: {existing_vote_fingerprint} | "
+                           f"Cookie match: {existing_vote_session} | "
+                           f"Poll: {poll.id}")
             messages.error(request, 
                           'You have already voted on this poll.')
             return redirect('voting:vote_poll', poll_id=poll.id)
@@ -266,19 +273,57 @@ def vote_poll(request, poll_id):
                     if hasattr(request, 'voter_session_token'):
                         defaults['cookie_token'] = request.voter_session_token
 
-                    voter_session, _ = VoterSession.objects.get_or_create(
+                    # Try to get existing session by fingerprint
+                    # If not found, create new one with current cookie token
+                    # If found, we might need to update the cookie token if it changed?
+                    # No, if fingerprint matches, we assume it's the same physical device/network.
+                    # But if they cleared cookies, they have a new token.
+                    # We should probably update the token to the new one to track them?
+                    # But wait, if we update the token, we lose the link to the OLD token?
+                    # Actually, we want to BLOCK them if they have EITHER the old fingerprint OR the old token.
+                    # If they have the old fingerprint, they are blocked by Vote check anyway.
+                    
+                    voter_session, created = VoterSession.objects.get_or_create(
                         poll=poll,
                         voter_fingerprint=voter_fingerprint,
                         defaults=defaults
                     )
+                    
+                    # If session existed but with different cookie token (e.g. user cleared cookies),
+                    # we should probably NOT update it, because that would allow them to vote again 
+                    # if they change IP later?
+                    # Actually, if they are here, it means they passed the Vote check (so fingerprint is NEW).
+                    # So 'created' must be True.
+                    # If 'created' is False, it means fingerprint existed.
+                    # But if fingerprint existed, 'existing_vote_fingerprint' would be True and we would have returned early.
+                    # So 'created' SHOULD be True here.
+                    
+                    if not created:
+                        # This should theoretically not happen if Vote check works, 
+                        # unless Vote exists but VoterSession doesn't (data inconsistency)
+                        # or race condition.
+                        logger.warning(f"VoterSession existed but Vote didn't? Fingerprint: {voter_fingerprint}")
+                        if hasattr(request, 'voter_session_token') and voter_session.cookie_token != request.voter_session_token:
+                             logger.info(f"Updating session token from {voter_session.cookie_token} to {request.voter_session_token}")
+                             voter_session.cookie_token = request.voter_session_token
+                             # Note: This update might fail if new token is already used by another session (IntegrityError)
+                             # which is good! It means this cookie already voted.
+
                     voter_session.vote_count += 1
                     voter_session.save()
                     
-                    logger.info(f"Vote recorded: {vote.id} on poll {poll.id}")
+                    logger.info(f"Vote recorded: {vote.id} on poll {poll.id} | "
+                                f"Session Token: {voter_session.cookie_token}")
                     messages.success(request, 'Your vote has been recorded!')
                     
                     return redirect('voting:results_poll', poll_id=poll.id)
-                    
+            
+            except IntegrityError as e:
+                # Catch unique constraint violation (likely cookie_token collision)
+                logger.warning(f"IntegrityError during vote (likely duplicate cookie): {str(e)}")
+                messages.error(request, 'You have already voted on this poll.')
+                return redirect('voting:vote_poll', poll_id=poll.id)
+
             except Exception as e:
                 logger.error(f"Error recording vote: {str(e)}")
                 messages.error(request, 
