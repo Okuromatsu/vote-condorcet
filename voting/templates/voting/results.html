@@ -115,22 +115,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for matchup_key, result in pairwise_results.items %}
+                            {% for matchup in pairwise_results %}
                                 <tr>
                                     <td>
-                                        {% comment %} Parse matchup key to get candidate IDs {% endcomment %}
-                                        <strong>Matchup {{ forloop.counter }}</strong>
+                                        <strong>{{ matchup.candidate_a.name }}</strong> vs <strong>{{ matchup.candidate_b.name }}</strong>
                                     </td>
                                     <td class="text-center">
-                                        {{ result.votes.0 }} : {{ result.votes.1 }}
+                                        {{ matchup.votes_a }} : {{ matchup.votes_b }}
                                     </td>
                                     <td class="text-center">
-                                        {% if result.votes.0 > result.votes.1 %}
-                                            <span class="badge bg-success">1st</span>
-                                        {% elif result.votes.1 > result.votes.0 %}
-                                            <span class="badge bg-success">2nd</span>
-                                        {% else %}
+                                        {% if matchup.is_tie %}
                                             <span class="badge bg-secondary">{% trans "Tie" %}</span>
+                                        {% elif matchup.winner == matchup.candidate_a %}
+                                            <span class="badge bg-success">{{ matchup.candidate_a.name }}</span>
+                                        {% else %}
+                                            <span class="badge bg-success">{{ matchup.candidate_b.name }}</span>
                                         {% endif %}
                                     </td>
                                 </tr>

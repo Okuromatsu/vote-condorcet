@@ -113,6 +113,10 @@ class DuplicateVoteMiddleware(MiddlewareMixin):
     def process_request(self, request):
         """Check or create voter session cookie."""
         
+        # Skip static files to prevent race conditions and unnecessary processing
+        if request.path.startswith(settings.STATIC_URL) or request.path.startswith(settings.MEDIA_URL):
+            return None
+
         # Generate or retrieve voter session token
         if self.VOTER_COOKIE_NAME not in request.COOKIES:
             # New voter - generate token
@@ -143,9 +147,9 @@ class DuplicateVoteMiddleware(MiddlewareMixin):
                 self.VOTER_COOKIE_NAME,
                 request.voter_session_token,
                 max_age=self.VOTER_COOKIE_AGE,
-                secure=True,  # HTTPS only
+                secure=not settings.DEBUG,  # HTTPS only in production
                 httponly=True,  # No JavaScript access
-                samesite='Strict',  # CSRF protection
+                samesite='Lax',  # Allow cookies on top-level navigation
             )
             logger.info(f"New voter session cookie set: "
                        f"{request.voter_session_token}")

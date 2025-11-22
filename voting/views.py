@@ -356,16 +356,52 @@ def results_poll(request, poll_id):
             # Sort by count descending
             first_choice_data.sort(key=lambda x: x['count'], reverse=True)
             
+            # Process pairwise results for template
+            raw_pairwise = stats.get('pairwise_results', {})
+            pairwise_list = []
+            processed_pairs = set()
+            
+            for (cand_a_id, cand_b_id), votes_a in raw_pairwise.items():
+                # Skip if we already processed this pair (in reverse)
+                pair_key = tuple(sorted([cand_a_id, cand_b_id]))
+                if pair_key in processed_pairs:
+                    continue
+                
+                processed_pairs.add(pair_key)
+                
+                cand_a = candidate_dict.get(cand_a_id)
+                cand_b = candidate_dict.get(cand_b_id)
+                
+                if cand_a and cand_b:
+                    votes_b = raw_pairwise.get((cand_b_id, cand_a_id), 0)
+                    
+                    winner = None
+                    if votes_a > votes_b:
+                        winner = cand_a
+                    elif votes_b > votes_a:
+                        winner = cand_b
+                        
+                    pairwise_list.append({
+                        'candidate_a': cand_a,
+                        'candidate_b': cand_b,
+                        'votes_a': votes_a,
+                        'votes_b': votes_b,
+                        'winner': winner,
+                        'is_tie': votes_a == votes_b
+                    })
+
         except Exception as e:
             logger.error(f"Error calculating results: {str(e)}")
             winner = None
             stats = {}
             first_choice_data = []
+            pairwise_list = []
             messages.error(request, 'Error calculating results.')
     else:
         winner = None
         stats = {}
         first_choice_data = []
+        pairwise_list = []
     
     context = {
         'poll': poll,
@@ -374,7 +410,7 @@ def results_poll(request, poll_id):
         'num_candidates': len(candidates),
         'candidates': candidate_dict,
         'first_choice_votes': first_choice_data,
-        'pairwise_results': stats.get('pairwise_results', {}),
+        'pairwise_results': pairwise_list,
     }
     
     return render(request, 'voting/results.html', context)
