@@ -1,12 +1,12 @@
 # Spanish translations for Condorcet Vote
 # Copyright (C) 2025
 # This file is distributed under the same license as the Condorcet Vote package.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Condorcet Vote 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-20 20:19+0000\n"
+"POT-Creation-Date: 2025-11-22 12:46+0000\n"
 "PO-Revision-Date: 2025-11-20 12:50+0000\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
@@ -16,1021 +16,944 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: voting/forms.py:40 voting/templates/voting/create_poll.html:78
 msgid "Enter one candidate per line"
 msgstr "Ingrese un candidato por línea"
 
+#: voting/forms.py:43
 msgid "Enter one candidate per line (minimum 2, maximum 50)"
 msgstr "Ingrese un candidato por línea (mínimo 2, máximo 50)"
 
+#: voting/forms.py:44 voting/templates/voting/create_poll.html:71
+#: voting/templates/voting/creator_dashboard.html:78
+#: voting/templates/voting/results.html:79
 msgid "Candidates"
 msgstr "Candidatos"
 
+#: voting/forms.py:51 voting/templates/voting/create_poll.html:20
 msgid "Poll Title"
 msgstr "Título de la encuesta"
 
+#: voting/forms.py:52 voting/templates/voting/create_poll.html:40
 msgid "Poll Description"
 msgstr "Descripción de la encuesta"
 
+#: voting/forms.py:53 voting/templates/voting/create_poll.html:59
 msgid "Tiebreaker Method"
 msgstr "Método de desempate"
 
+#: voting/forms.py:58 voting/templates/voting/create_poll.html:28
 msgid "e.g., Best Programming Language?"
 msgstr "ej., ¿Mejor lenguaje de programación?"
 
+#: voting/forms.py:64 voting/templates/voting/create_poll.html:48
 msgid "Optional details about this poll..."
 msgstr "Detalles opcionales sobre esta encuesta..."
 
+#: voting/templates/voting/about_condorcet.html:4
 msgid "About Condorcet Voting"
 msgstr "Acerca de la votación Condorcet"
 
 # About Condorcet page
+#: voting/templates/voting/about_condorcet.html:11
 msgid "The Condorcet Voting Method"
 msgstr "El método de votación Condorcet"
 
+#: voting/templates/voting/about_condorcet.html:12
 msgid ""
 "A fair and mathematically superior voting system for collective decision-"
 "making"
-msgstr "Un sistema de votación justo y matemáticamente superior para la toma de decisiones colectiva"
+msgstr ""
+"Un sistema de votación justo y matemáticamente superior para la toma de "
+"decisiones colectiva"
 
+#: voting/templates/voting/about_condorcet.html:21
+#: voting/templates/voting/vote.html:100
 msgid "What is Condorcet Voting?"
 msgstr "¿Qué es la votación Condorcet?"
 
+#: voting/templates/voting/about_condorcet.html:23
 msgid ""
 "The Condorcet method is a voting system named after the 18th-century French "
 "mathematician and philosopher"
-msgstr "El método de Condorcet es un sistema de votación nombrado después del matemático y filósofo francés del siglo XVIII"
+msgstr ""
+"El método de Condorcet es un sistema de votación nombrado después del "
+"matemático y filósofo francés del siglo XVIII"
 
+#: voting/templates/voting/about_condorcet.html:24
 msgid "Marquis de Condorcet"
 msgstr "Marquis de Condorcet"
 
+#: voting/templates/voting/about_condorcet.html:24
 msgid "It's based on a simple but powerful principle:"
 msgstr "Se basa en un principio simple pero poderoso:"
 
+#: voting/templates/voting/about_condorcet.html:27
 msgid ""
 "The Condorcet winner is the candidate who would beat every other candidate "
 "in a head-to-head matchup."
-msgstr "El candidato que vence a todos los demás en enfrentamientos directos gana."
+msgstr ""
+"El candidato que vence a todos los demás en enfrentamientos directos gana."
 
+#: voting/templates/voting/about_condorcet.html:30
 msgid ""
 "In Condorcet voting, each voter ranks all candidates by preference (1st "
 "choice, 2nd choice, etc.). The system then performs pairwise comparisons "
 "between all candidates to find the most preferred candidate overall."
-msgstr "En la votación Condorcet, cada votante clasifica a todos los candidatos por preferencia (primera opción, segunda opción, etc.). El sistema realiza comparaciones por pares entre todos los candidatos para encontrar el candidato más preferido en general."
+msgstr ""
+"En la votación Condorcet, cada votante clasifica a todos los candidatos por "
+"preferencia (primera opción, segunda opción, etc.). El sistema realiza "
+"comparaciones por pares entre todos los candidatos para encontrar el "
+"candidato más preferido en general."
 
+#: voting/templates/voting/about_condorcet.html:36
 msgid "How It Works"
 msgstr "Cómo funciona"
 
+#: voting/templates/voting/about_condorcet.html:37
 msgid "Step 1: Voters Rank Candidates"
 msgstr "Paso 1: Los votantes clasifican a los candidatos"
 
+#: voting/templates/voting/about_condorcet.html:38
 msgid ""
 "Instead of voting for just one candidate, voters rank ALL candidates in "
 "order of preference:"
-msgstr "En lugar de votar solo por un candidato, los votantes clasifican TODOS los candidatos en orden de preferencia:"
+msgstr ""
+"En lugar de votar solo por un candidato, los votantes clasifican TODOS los "
+"candidatos en orden de preferencia:"
 
+#: voting/templates/voting/about_condorcet.html:40
 msgid "Example: \\"
 msgstr "Ejemplo: \\"
 
+#: voting/templates/voting/about_condorcet.html:46
 msgid "Step 2: Pairwise Comparisons"
 msgstr "Paso 2: Comparaciones por pares"
 
+#: voting/templates/voting/about_condorcet.html:47
 msgid ""
 "The system compares each candidate against every other candidate head-to-"
 "head:"
 msgstr "El sistema compara a cada candidato contra todos los demás uno a uno:"
 
+#: voting/templates/voting/about_condorcet.html:49
 msgid "Python vs JavaScript:"
 msgstr "Python vs JavaScript:"
 
+#: voting/templates/voting/about_condorcet.html:49
 msgid "How many voters prefer Python? How many prefer JavaScript?"
 msgstr "¿Cuántos votantes prefieren Python? ¿Cuántos prefieren JavaScript?"
 
+#: voting/templates/voting/about_condorcet.html:50
 msgid "Python vs Java:"
 msgstr "Python vs Java:"
 
+#: voting/templates/voting/about_condorcet.html:50
 msgid "How many voters prefer Python? How many prefer Java?"
 msgstr "¿Cuántos votantes prefieren Python? ¿Cuántos prefieren Java?"
 
+#: voting/templates/voting/about_condorcet.html:51
 msgid "JavaScript vs Java:"
 msgstr "JavaScript vs Java:"
 
+#: voting/templates/voting/about_condorcet.html:51
 msgid "How many voters prefer JavaScript? How many prefer Java?"
 msgstr "¿Cuántos votantes prefieren JavaScript? ¿Cuántos prefieren Java?"
 
+#: voting/templates/voting/about_condorcet.html:54
 msgid "Step 3: Find the Winner"
 msgstr "Paso 3: Encontrar el ganador"
 
+#: voting/templates/voting/about_condorcet.html:56
 msgid ""
 "If one candidate beats ALL others in their head-to-head matchups, they are "
 "the"
-msgstr "Si un candidato vence a TODOS los demás en sus enfrentamientos directos, es el"
+msgstr ""
+"Si un candidato vence a TODOS los demás en sus enfrentamientos directos, es "
+"el"
 
+#: voting/templates/voting/about_condorcet.html:56
 msgid "Condorcet winner"
 msgstr "ganador Condorcet"
 
-msgid "Real Example"
-msgstr "Ejemplo real"
+#: voting/templates/voting/about_condorcet.html:62
+msgid "Real Example: The Spoiler Effect"
+msgstr "Ejemplo real: El efecto spoiler"
 
-msgid "Question:"
-msgstr "Pregunta:"
+#: voting/templates/voting/about_condorcet.html:63
+msgid ""
+"Imagine a vote for the 'Best Programming Language' with three candidates:"
+msgstr ""
+"Imagina una votación para el 'Mejor lenguaje de programación' con tres "
+"candidatos:"
 
-msgid "Which programming language should we use for our project?"
-msgstr "¿Qué lenguaje de programación debemos usar para nuestro proyecto?"
+#: voting/templates/voting/about_condorcet.html:63
+msgid "and"
+msgstr "y"
 
-msgid "Candidates:"
-msgstr "Candidatos:"
+#: voting/templates/voting/about_condorcet.html:64
+msgid ""
+"Python and Ruby are similar (modern, dynamic), while Assembly is very "
+"different (low-level). Ideally, the winner should reflect the majority's "
+"preference for modern languages, but traditional voting fails here."
+msgstr ""
+"Python y Ruby son similares (modernos, dinámicos), mientras que Assembly es "
+"muy diferente (bajo nivel). Idealmente, el ganador debería reflejar la "
+"preferencia de la mayoría por los lenguajes modernos, pero la votación "
+"tradicional falla aquí."
 
+#: voting/templates/voting/about_condorcet.html:66
 msgid "Votes:"
 msgstr "Votos:"
 
+#: voting/templates/voting/about_condorcet.html:66
 msgid "100 voters ranked them as follows:"
 msgstr "100 votantes los clasificaron de la siguiente manera:"
 
+#: voting/templates/voting/about_condorcet.html:70
+#: voting/templates/voting/about_condorcet.html:217
+#: voting/templates/voting/about_condorcet.html:218
+#: voting/templates/voting/about_condorcet.html:219
 msgid "Voters"
 msgstr "Votantes"
 
+#: voting/templates/voting/about_condorcet.html:71
 msgid "1st Choice"
 msgstr "Primera opción"
 
+#: voting/templates/voting/about_condorcet.html:72
 msgid "2nd Choice"
 msgstr "Segunda opción"
 
+#: voting/templates/voting/about_condorcet.html:73
 msgid "3rd Choice"
 msgstr "Tercera opción"
 
-msgid "Pairwise Results:"
-msgstr "Resultados por pares:"
+#: voting/templates/voting/about_condorcet.html:102
+msgid "Traditional Voting (FPTP)"
+msgstr "Votación tradicional (Escrutinio mayoritario)"
 
-msgid "prefer Python"
-msgstr "prefieren Python"
+#: voting/templates/voting/about_condorcet.html:105
+msgid "Only 1st choices are counted:"
+msgstr "Solo se cuentan las primeras opciones:"
 
-msgid "prefer JavaScript"
-msgstr "prefieren JavaScript"
-
-msgid "Python wins"
-msgstr "Python gana"
-
-msgid "prefer Java"
-msgstr "prefieren Java"
-
-msgid "JavaScript wins"
-msgstr "JavaScript gana"
-
-msgid "Winner: Python"
-msgstr "Ganador: Python"
-
-msgid "beats everyone in head-to-head matchups"
-msgstr "vence a todos en enfrentamientos directos"
-
-msgid "Advantages vs Traditional Voting"
-msgstr "Beneficios sobre la votación tradicional"
-
-msgid "First-Past-The-Post (Single Vote)"
-msgstr "Escrutinio mayoritario de una vuelta (voto único)"
-
+#: voting/templates/voting/about_condorcet.html:112
 msgid "Problem:"
 msgstr "Problema:"
 
-msgid "Vote splitting and strategic voting"
-msgstr "División de votos y votación estratégica"
-
-msgid "Example:"
-msgstr "Ejemplo:"
-
+#: voting/templates/voting/about_condorcet.html:112
 #, python-format
 msgid ""
-"With 45%% Python, 30%% JavaScript, 25%% Java → Python wins even if 55%% "
-"prefer JavaScript! (see example above)"
-msgstr "Con 45 %% Python, 30 %% JavaScript, 25 %% Java → ¡Python gana incluso si el 55 %% prefiere JavaScript! (ver ejemplo arriba)"
+"Assembly wins even though 60%% of voters preferred a modern language (Python "
+"or Ruby). Python and Ruby split the vote, acting as spoilers for each other."
+msgstr ""
+"Assembly gana aunque el 60%% de los votantes prefería un lenguaje moderno "
+"(Python o Ruby). Python y Ruby dividieron el voto, actuando como "
+"saboteadores el uno del otro."
 
+#: voting/templates/voting/about_condorcet.html:120
+msgid "Condorcet Voting"
+msgstr "Votación Condorcet"
+
+#: voting/templates/voting/about_condorcet.html:123
+msgid "We compare head-to-head:"
+msgstr "Comparamos cara a cara:"
+
+#: voting/templates/voting/about_condorcet.html:129
+#: voting/templates/voting/about_condorcet.html:135
+msgid "Ruby wins"
+msgstr "Ruby gana"
+
+#: voting/templates/voting/about_condorcet.html:139
 msgid "Result:"
 msgstr "Resultado:"
 
-msgid "Not representative of voter preferences"
-msgstr "No representativo de las preferencias de los votantes"
+#: voting/templates/voting/about_condorcet.html:139
+msgid "Ruby beats everyone head-to-head. It is the true consensus winner."
+msgstr "Ruby vence a todos cara a cara. Es el verdadero ganador por consenso."
 
-msgid "Runoff System (Two Rounds)"
-msgstr "Sistema de segunda vuelta (dos rondas)"
+#: voting/templates/voting/about_condorcet.html:149
+msgid "Why Condorcet is Superior"
+msgstr "Por qué Condorcet es superior"
 
-msgid "Time-consuming, expensive, doesn't consider all preferences"
-msgstr "Consume mucho tiempo, es costoso, no considera todas las preferencias"
-
+#: voting/templates/voting/about_condorcet.html:150
 msgid ""
-"If Java is eliminated in round 1, their voters' 2nd choices aren't considered"
-msgstr "Si Java se elimina en la primera vuelta, no se consideran las segundas opciones de sus votantes"
+"Traditional voting methods suffer from serious mathematical flaws that "
+"Condorcet solves."
+msgstr ""
+"Los métodos de votación tradicionales sufren graves fallos matemáticos que "
+"Condorcet resuelve."
 
-msgid "Still not fully representative"
-msgstr "Todavía no completamente representativo"
+#: voting/templates/voting/about_condorcet.html:154
+msgid "Problems with Traditional Methods"
+msgstr "Problemas con los métodos tradicionales"
 
-# About Condorcet page
-msgid "Condorcet Method"
-msgstr "El método de votación Condorcet"
+#: voting/templates/voting/about_condorcet.html:157
+msgid "The Spoiler Effect"
+msgstr "El efecto spoiler"
 
-msgid "Benefits:"
-msgstr "Beneficios:"
+#: voting/templates/voting/about_condorcet.html:158
+msgid ""
+"Similar candidates split the vote, allowing a less popular candidate to win "
+"(violates Independence of Irrelevant Alternatives)."
+msgstr ""
+"Candidatos similares dividen el voto, permitiendo que gane un candidato "
+"menos popular (viola la Independencia de Alternativas Irrelevantes)."
 
-msgid "Reflects true voter preferences (all preferences considered)"
-msgstr "Refleja las verdaderas preferencias de los votantes (se consideran todas las preferencias)"
+#: voting/templates/voting/about_condorcet.html:161
+msgid "Strategic Voting (Non-sincerity)"
+msgstr "Voto estratégico (No sinceridad)"
 
-msgid "Eliminates vote splitting"
-msgstr "Elimina la división de votos"
+#: voting/templates/voting/about_condorcet.html:162
+msgid ""
+"Voters are forced to vote for the 'lesser of two evils' instead of their "
+"true favorite to avoid wasting their vote."
+msgstr ""
+"Los votantes se ven obligados a votar por el 'mal menor' en lugar de su "
+"verdadero favorito para evitar desperdiciar su voto."
 
-msgid "Fair and mathematically sound"
-msgstr "Justo y matemáticamente riguroso"
+#: voting/templates/voting/about_condorcet.html:165
+msgid "Non-Monotonicity"
+msgstr "No monotonicidad"
 
-msgid "No strategic voting needed"
-msgstr "No se requiere votación estratégica"
+#: voting/templates/voting/about_condorcet.html:166
+msgid ""
+"In some systems (like Instant Runoff), ranking a candidate HIGHER can "
+"actually cause them to LOSE. This is a major flaw."
+msgstr ""
+"En algunos sistemas (como la segunda vuelta instantánea), clasificar a un "
+"candidato MÁS ALTO puede hacer que PIERDA. Esto es un fallo grave."
 
-msgid "Highly representative results"
-msgstr "Resultados altamente representativos"
+#: voting/templates/voting/about_condorcet.html:169
+msgid "Center Squeeze"
+msgstr "Compresión del centro"
 
+#: voting/templates/voting/about_condorcet.html:170
+msgid ""
+"Moderate candidates who would beat everyone head-to-head often lose because "
+"they lack strong 'first choice' support."
+msgstr ""
+"Los candidatos moderados que vencerían a todos cara a cara a menudo pierden "
+"porque carecen de un fuerte apoyo de 'primera opción'."
+
+#: voting/templates/voting/about_condorcet.html:175
+msgid "Condorcet Advantages"
+msgstr "Ventajas de Condorcet"
+
+#: voting/templates/voting/about_condorcet.html:178
+msgid "Condorcet Consistency"
+msgstr "Consistencia de Condorcet"
+
+#: voting/templates/voting/about_condorcet.html:179
+msgid ""
+"If a candidate can beat every other candidate in a one-on-one race, they are "
+"guaranteed to win."
+msgstr ""
+"Si un candidato puede vencer a todos los demás candidatos en una carrera uno "
+"contra uno, tiene garantizada la victoria."
+
+#: voting/templates/voting/about_condorcet.html:182
+msgid "Sincere Voting"
+msgstr "Voto sincero"
+
+#: voting/templates/voting/about_condorcet.html:183
+msgid ""
+"Voters can support their true favorite without fear of helping their least "
+"favorite win."
+msgstr ""
+"Los votantes pueden apoyar a su verdadero favorito sin temor a ayudar a "
+"ganar a su menos favorito."
+
+#: voting/templates/voting/about_condorcet.html:186
+msgid "Resistance to Manipulation"
+msgstr "Resistencia a la manipulación"
+
+#: voting/templates/voting/about_condorcet.html:187
+msgid ""
+"It is much harder to manipulate the outcome through strategic nomination or "
+"voting."
+msgstr ""
+"Es mucho más difícil manipular el resultado mediante nominaciones o "
+"votaciones estratégicas."
+
+#: voting/templates/voting/about_condorcet.html:190
+msgid "Stable Consensus"
+msgstr "Consenso estable"
+
+#: voting/templates/voting/about_condorcet.html:191
+msgid ""
+"Selects the candidate with the broadest appeal, not just the most passionate "
+"minority."
+msgstr ""
+"Selecciona al candidato con el atractivo más amplio, no solo a la minoría "
+"más apasionada."
+
+#: voting/templates/voting/about_condorcet.html:200
 msgid "The Condorcet Paradox"
 msgstr "La paradoja de Condorcet"
 
+#: voting/templates/voting/about_condorcet.html:202
 msgid ""
 "Sometimes, no candidate beats all others in pairwise comparisons. This "
 "creates a cycle: A beats B, B beats C, but C beats A. This is called the"
-msgstr "A veces, ningún candidato vence a todos los demás en enfrentamientos por pares. Esta es la paradoja de Condorcet."
+msgstr ""
+"A veces, ningún candidato vence a todos los demás en enfrentamientos por "
+"pares. Esta es la paradoja de Condorcet."
 
+#: voting/templates/voting/about_condorcet.html:202
 msgid "Condorcet Paradox"
 msgstr "Paradoja de Condorcet"
 
+#: voting/templates/voting/about_condorcet.html:205
+#: voting/templates/voting/create_poll.html:78
+msgid "Example:"
+msgstr "Ejemplo:"
+
+#: voting/templates/voting/about_condorcet.html:206
 msgid "Imagine 3 voters ranking 3 candidates:"
 msgstr "Imagina 3 votantes clasificando 3 candidatos:"
 
+#: voting/templates/voting/about_condorcet.html:209
 msgid "Voter 1:"
 msgstr "Votante 1:"
 
+#: voting/templates/voting/about_condorcet.html:210
 msgid "Voter 2:"
 msgstr "Votante 2:"
 
+#: voting/templates/voting/about_condorcet.html:211
 msgid "Voter 3:"
 msgstr "Votante 3:"
 
+#: voting/templates/voting/about_condorcet.html:215
 msgid "Pairwise results:"
 msgstr "Resultados por pares:"
 
+#: voting/templates/voting/about_condorcet.html:217
 msgid "A wins"
 msgstr "A gana"
 
+#: voting/templates/voting/about_condorcet.html:218
 msgid "B wins"
 msgstr "B gana"
 
+#: voting/templates/voting/about_condorcet.html:219
 msgid "C wins"
 msgstr "C gana"
 
+#: voting/templates/voting/about_condorcet.html:223
 msgid "It's a cycle! No single Condorcet winner exists."
 msgstr "¡Es un ciclo! No existe un único ganador de Condorcet."
 
+#: voting/templates/voting/about_condorcet.html:226
 msgid "Solution: Tiebreaker Methods"
 msgstr "Método de desempate"
 
+#: voting/templates/voting/about_condorcet.html:227
 msgid "When no Condorcet winner exists, we use tiebreaker methods:"
 msgstr "Cuando no existe un ganador de Condorcet, usamos métodos de desempate:"
 
+#: voting/templates/voting/about_condorcet.html:233
 msgid "Schulze Method (Recommended)"
 msgstr "Método de Schulze (Recomendado)"
 
-msgid "Finds the candidate with the strongest 'path' through the preference graph. It's the most sophisticated method and often preferred."
-msgstr "Encuentra el candidato con el 'camino' más fuerte a través del gráfico de preferencias. Es el método más sofisticado y a menudo preferido."
+#: voting/templates/voting/about_condorcet.html:239
+msgid ""
+"Finds the candidate with the strongest 'path' through the preference graph. "
+"It's the most sophisticated method and often preferred."
+msgstr ""
+"Encuentra el candidato con el 'camino' más fuerte a través del gráfico de "
+"preferencias. Es el método más sofisticado y a menudo preferido."
 
+#: voting/templates/voting/about_condorcet.html:241
+#: voting/templates/voting/about_condorcet.html:262
 msgid "Advantages:"
 msgstr "Ventajas:"
 
+#: voting/templates/voting/about_condorcet.html:243
 msgid "Resolves cycles fairly"
 msgstr "Resuelve ciclos de manera justa"
 
+#: voting/templates/voting/about_condorcet.html:244
 msgid "Based on strong mathematical principles"
 msgstr "Basado en principios matemáticos sólidos"
 
+#: voting/templates/voting/about_condorcet.html:245
 msgid "Widely used in consensus voting"
 msgstr "Ampliamente utilizado en votaciones por consenso"
 
+#: voting/templates/voting/about_condorcet.html:254
 msgid "Borda Count"
 msgstr "Recuento de Borda"
 
+#: voting/templates/voting/about_condorcet.html:260
 msgid ""
 "Each voter awards points based on ranking position (1st = n points, 2nd = "
 "n-1 points, etc.). The candidate with the most points wins."
-msgstr "Cada votante otorga puntos según la posición de clasificación (1º = n puntos, 2º = n-1 puntos, etc.). El candidato con más puntos gana."
+msgstr ""
+"Cada votante otorga puntos según la posición de clasificación (1º = n "
+"puntos, 2º = n-1 puntos, etc.). El candidato con más puntos gana."
 
+#: voting/templates/voting/about_condorcet.html:264
 msgid "Simple to understand and calculate"
 msgstr "Fácil de entender y calcular"
 
+#: voting/templates/voting/about_condorcet.html:265
 msgid "Considers all preferences"
 msgstr "Considera todas las preferencias"
 
+#: voting/templates/voting/about_condorcet.html:267
 msgid "Disadvantages:"
 msgstr "Desventajas:"
 
+#: voting/templates/voting/about_condorcet.html:269
 msgid "Can be susceptible to vote splitting"
 msgstr "Puede ser susceptible a la división de votos"
 
+#: voting/templates/voting/about_condorcet.html:270
 msgid "May not reflect true majority preferences"
 msgstr "Puede no reflejar las verdaderas preferencias de la mayoría"
 
+#: voting/templates/voting/about_condorcet.html:279
 msgid "Random Selection"
 msgstr "Selección aleatoria"
 
+#: voting/templates/voting/about_condorcet.html:285
 msgid ""
 "When a cycle is truly intractable and all methods tie, randomly select from "
 "top candidates. This is rarely used but available as a fallback."
-msgstr "Cuando un ciclo es realmente intratable y todos los métodos se empatan, selecciona aleatoriamente de los mejores candidatos. Esto se usa raramente pero está disponible como alternativa."
+msgstr ""
+"Cuando un ciclo es realmente intratable y todos los métodos se empatan, "
+"selecciona aleatoriamente de los mejores candidatos. Esto se usa raramente "
+"pero está disponible como alternativa."
 
+#: voting/templates/voting/about_condorcet.html:295
 msgid "When Should You Use Condorcet Voting?"
 msgstr "¿Cuándo se utiliza la votación Condorcet?"
 
+#: voting/templates/voting/about_condorcet.html:297
 msgid "Team decisions (choosing a project, tooling, etc.)"
 msgstr "Decisiones de equipo (elegir un proyecto, herramientas, etc.)"
 
+#: voting/templates/voting/about_condorcet.html:298
 msgid "Community elections where fairness is important"
 msgstr "Elecciones comunitarias donde la equidad es importante"
 
+#: voting/templates/voting/about_condorcet.html:299
 msgid "Awards or merit-based selections"
 msgstr "Premios o selecciones basadas en mérito"
 
+#: voting/templates/voting/about_condorcet.html:300
 msgid "Any situation where multiple preferences matter"
 msgstr "Cualquier situación donde importan múltiples preferencias"
 
+#: voting/templates/voting/about_condorcet.html:301
 msgid "When you want to avoid controversial outcomes"
 msgstr "Cuando quieres evitar resultados controvertidos"
 
+#: voting/templates/voting/about_condorcet.html:307
 msgid "Ready to Vote Fairly?"
 msgstr "¿Listo para votar equitativamente?"
 
+#: voting/templates/voting/about_condorcet.html:308
 msgid "Create a poll and experience Condorcet voting yourself!"
 msgstr "¡Crea una encuesta y experimenta la votación Condorcet por ti mismo!"
 
+#: voting/templates/voting/about_condorcet.html:310
 msgid "Create a Poll Now"
 msgstr "Crear encuesta"
 
+#: voting/templates/voting/base.html:11 voting/templates/voting/base.html:20
+#: voting/templates/voting/base.html:27 voting/templates/voting/base.html:45
+msgid ""
+"Create and participate in Condorcet voting polls. A fair and transparent "
+"ranked-choice voting system."
+msgstr ""
+
 # Navigation
+#: voting/templates/voting/base.html:82
 msgid "Home"
 msgstr "Inicio"
 
+#: voting/templates/voting/base.html:85
+#: voting/templates/voting/create_poll.html:105
+#: voting/templates/voting/index.html:73
 msgid "Create Poll"
 msgstr "Crear encuesta"
 
+#: voting/templates/voting/base.html:88
 msgid "About"
 msgstr "Acerca de"
 
+#: voting/templates/voting/base.html:92
 msgid "Language"
 msgstr "Idioma"
 
+#: voting/templates/voting/base.html:129
 msgid "Error:"
 msgstr "Error:"
 
+#: voting/templates/voting/base.html:134
 msgid "Warning:"
 msgstr "Advertencia:"
 
+#: voting/templates/voting/base.html:139
 msgid "Success:"
 msgstr "Éxito:"
 
+#: voting/templates/voting/base.html:144
 msgid "Info:"
 msgstr "Información:"
 
+#: voting/templates/voting/base.html:163
 msgid "Condorcet Voting System"
 msgstr "Sistema de votación Condorcet"
 
-msgid "Documentation"
-msgstr "Documentación"
-
+#: voting/templates/voting/base.html:167
 msgid "Using Condorcet voting method with Schulze tiebreaker"
 msgstr "Utilizando el método de votación Condorcet con desempate de Schulze"
 
+#: voting/templates/voting/create_poll.html:5
 msgid "Create Poll - Condorcet Vote"
 msgstr "Crear encuesta - Voto Condorcet"
 
 # Create Poll page
+#: voting/templates/voting/create_poll.html:12
 msgid "Create a New Poll"
 msgstr "Crear una nueva encuesta"
 
+#: voting/templates/voting/create_poll.html:63
 msgid "How to resolve the Condorcet paradox if no clear winner:"
 msgstr "Cómo resolver la paradoja de Condorcet si no hay un ganador claro:"
 
+#: voting/templates/voting/create_poll.html:64
 msgid "Learn more"
 msgstr "Aprende más"
 
+#: voting/templates/voting/create_poll.html:89
 msgid "Minimum 2 candidates, maximum 50"
 msgstr "Mínimo 2 candidatos, máximo 50"
 
+#: voting/templates/voting/create_poll.html:90
 msgid "One candidate per line"
 msgstr "Ingrese un candidato por línea"
 
+#: voting/templates/voting/create_poll.html:91
 msgid "No duplicate names"
 msgstr "Sin nombres duplicados"
 
+#: voting/templates/voting/create_poll.html:108
+#: voting/templates/voting/vote.html:91
 msgid "Cancel"
 msgstr "Cancelar"
 
+#: voting/templates/voting/create_poll.html:117
 msgid "Tips:"
 msgstr "Consejos:"
 
+#: voting/templates/voting/create_poll.html:119
 msgid ""
 "Poll titles should be clear questions (e.g., Best Programming Language?)"
-msgstr "Los títulos de las encuestas deben ser preguntas claras (por ejemplo, ¿Mejor lenguaje de programación?)"
+msgstr ""
+"Los títulos de las encuestas deben ser preguntas claras (por ejemplo, ¿Mejor "
+"lenguaje de programación?)"
 
+#: voting/templates/voting/create_poll.html:120
 msgid "Keep candidate names short and distinct"
 msgstr "Mantén los nombres de los candidatos cortos y distintos"
 
+#: voting/templates/voting/create_poll.html:121
 msgid "Once created, polls cannot be edited - double-check before submitting!"
-msgstr "Una vez creadas, las encuestas no pueden ser editadas - ¡verifica dos veces antes de enviar!"
+msgstr ""
+"Una vez creadas, las encuestas no pueden ser editadas - ¡verifica dos veces "
+"antes de enviar!"
 
+#: voting/templates/voting/create_poll.html:122
 msgid ""
 "Voters rank candidates by preference - the Condorcet method finds the "
 "fairest winner"
-msgstr "Los votantes clasifican a los candidatos por preferencia - el método Condorcet encuentra el ganador más justo"
+msgstr ""
+"Los votantes clasifican a los candidatos por preferencia - el método "
+"Condorcet encuentra el ganador más justo"
 
+#: voting/templates/voting/creator_dashboard.html:4
+#: voting/templates/voting/creator_dashboard.html:11
 msgid "Creator Dashboard"
 msgstr "Panel del creador"
 
+#: voting/templates/voting/creator_dashboard.html:12
 msgid "Manage your polls with creator code:"
 msgstr "Administra tus encuestas con código de creador:"
 
+#: voting/templates/voting/creator_dashboard.html:16
 msgid "Copy Code"
 msgstr "Copiar código"
 
+#: voting/templates/voting/creator_dashboard.html:25
 msgid "All Polls"
 msgstr "Todas las encuestas"
 
+#: voting/templates/voting/creator_dashboard.html:30
+#: voting/templates/voting/results.html:23
 msgid "Active"
 msgstr "Activo"
 
+#: voting/templates/voting/creator_dashboard.html:35
+#: voting/templates/voting/creator_dashboard.html:64
+#: voting/templates/voting/results.html:23
 msgid "Closed"
 msgstr "Cerrado"
 
+#: voting/templates/voting/creator_dashboard.html:53
 msgid "Created:"
 msgstr "Creado:"
 
+#: voting/templates/voting/creator_dashboard.html:57
+#: voting/templates/voting/poll_confirmation.html:119
 msgid "Public"
 msgstr "Público"
 
+#: voting/templates/voting/creator_dashboard.html:59
+#: voting/templates/voting/poll_confirmation.html:121
 msgid "Private"
 msgstr "Privado"
 
+#: voting/templates/voting/creator_dashboard.html:62
 msgid "Open"
 msgstr "Abierto"
 
+#: voting/templates/voting/creator_dashboard.html:74
 msgid "Votes Cast"
 msgstr "Votos emitidos"
 
+#: voting/templates/voting/creator_dashboard.html:86
 msgid "Current Leader:"
 msgstr "Líder actual:"
 
+#: voting/templates/voting/creator_dashboard.html:90
 msgid "No votes yet"
 msgstr "Aún no hay votos"
 
+#: voting/templates/voting/creator_dashboard.html:101
+#: voting/templates/voting/poll_confirmation.html:102
+msgid "Candidates:"
+msgstr "Candidatos:"
+
+#: voting/templates/voting/creator_dashboard.html:114
+#: voting/templates/voting/index.html:59 voting/templates/voting/results.html:4
 msgid "Results"
 msgstr "Resultados"
 
+#: voting/templates/voting/creator_dashboard.html:118
+#: voting/templates/voting/creator_dashboard.html:122
+#: voting/templates/voting/index.html:56
+#: voting/templates/voting/results.html:170 voting/templates/voting/vote.html:4
 msgid "Vote"
 msgstr "Votar"
 
+#: voting/templates/voting/creator_dashboard.html:127
 msgid "Share"
 msgstr "Compartir"
 
+#: voting/templates/voting/creator_dashboard.html:133
 msgid "Make Private"
 msgstr "Hacer privado"
 
+#: voting/templates/voting/creator_dashboard.html:137
 msgid "Make Public"
 msgstr "Hacer público"
 
+#: voting/templates/voting/creator_dashboard.html:142
 msgid "Close"
 msgstr "Cerrar"
 
+#: voting/templates/voting/creator_dashboard.html:146
 msgid "Reopen"
 msgstr "Reabrir"
 
+#: voting/templates/voting/creator_dashboard.html:150
 msgid "Are you sure you want to delete this poll?"
 msgstr "¿Estás seguro de que deseas eliminar esta encuesta?"
 
+#: voting/templates/voting/creator_dashboard.html:152
 msgid "Delete"
 msgstr "Eliminar"
 
+#: voting/templates/voting/creator_dashboard.html:156
 msgid "Hide Results"
 msgstr "Ocultar resultados"
 
+#: voting/templates/voting/creator_dashboard.html:160
 msgid "Release Results"
 msgstr "Publicar resultados"
 
+#: voting/templates/voting/creator_dashboard.html:171
 msgid "No polls found"
 msgstr "Encuesta no encontrada"
 
 # Messages
+#: voting/templates/voting/creator_dashboard.html:172
 msgid "You haven't created any polls yet."
 msgstr "Aún no ha creado ninguna encuesta."
 
+#: voting/templates/voting/creator_dashboard.html:172
 msgid "Create one now!"
 msgstr "¡Cree una ahora!"
 
+#: voting/templates/voting/creator_dashboard.html:181
+#: voting/templates/voting/creator_dashboard.html:192
+#: voting/templates/voting/index.html:45
+#: voting/templates/voting/results.html:18 voting/templates/voting/vote.html:17
 msgid "votes"
 msgstr "votos"
 
+#: voting/templates/voting/creator_dashboard.html:184
 msgid "No active polls"
 msgstr "No hay encuestas activas"
 
+#: voting/templates/voting/creator_dashboard.html:193
 msgid "Winner:"
 msgstr "Ganador:"
 
+#: voting/templates/voting/creator_dashboard.html:196
 msgid "No closed polls"
 msgstr "No hay encuestas cerradas"
 
+#: voting/templates/voting/creator_dashboard.html:204
+#: voting/templates/voting/index.html:16
 msgid "Create New Poll"
 msgstr "Crear nueva encuesta"
 
+#: voting/templates/voting/creator_dashboard.html:207
+#: voting/templates/voting/poll_confirmation.html:137
 msgid "Back to Home"
 msgstr "Volver al inicio"
 
+#: voting/templates/voting/creator_dashboard.html:217
+#: voting/templates/voting/results.html:188
 msgid "Share Poll"
 msgstr "Compartir encuesta"
 
+#: voting/templates/voting/creator_dashboard.html:222
 msgid "Voting Link:"
 msgstr "Enlace de votación:"
 
+#: voting/templates/voting/creator_dashboard.html:225
+#: voting/templates/voting/poll_confirmation.html:37
+#: voting/templates/voting/poll_confirmation.html:68
+#: voting/templates/voting/results.html:198
 msgid "Copy"
 msgstr "Copiar"
 
+#: voting/templates/voting/creator_dashboard.html:229
 msgid "QR Code:"
 msgstr "Código QR:"
 
+#: voting/templates/voting/creator_dashboard.html:244
 msgid "Creator code copied!"
 msgstr "¡Código de creador copiado!"
 
+#: voting/templates/voting/creator_dashboard.html:259
 msgid "Link copied!"
 msgstr "¡Enlace copiado!"
 
 # Index page
+#: voting/templates/voting/index.html:4
 msgid "Condorcet Vote - Home"
 msgstr "Voto Condorcet - Inicio"
 
+#: voting/templates/voting/index.html:9
 msgid "Welcome to Condorcet Vote"
 msgstr "Bienvenido a Voto Condorcet"
 
+#: voting/templates/voting/index.html:11
 msgid ""
 "Create fair polls using the Condorcet voting method. No registration "
 "required, just vote and see instant results."
-msgstr "Cree encuestas justas utilizando el método de votación Condorcet. No se requiere registro, simplemente vote y vea resultados instantáneos."
+msgstr ""
+"Cree encuestas justas utilizando el método de votación Condorcet. No se "
+"requiere registro, simplemente vote y vea resultados instantáneos."
 
+#: voting/templates/voting/index.html:24
 msgid "Active Polls"
 msgstr "Encuestas activas"
 
+#: voting/templates/voting/index.html:42
 msgid "candidates"
 msgstr "candidatos"
 
+#: voting/templates/voting/index.html:51
 msgid "Created"
 msgstr "Creado"
 
+#: voting/templates/voting/index.html:71
 msgid "No active polls yet"
 msgstr "Aún no hay encuestas activas"
 
+#: voting/templates/voting/index.html:72
 msgid "Be the first to create a poll!"
 msgstr "¡Sé el primero en crear una encuesta!"
 
+#: voting/templates/voting/index.html:82
 msgid "How Condorcet Voting Works"
 msgstr "Cómo funciona la votación Condorcet"
 
+#: voting/templates/voting/index.html:87
 msgid "Rank Candidates"
 msgstr "Clasificar candidatos"
 
+#: voting/templates/voting/index.html:88
 msgid ""
 "Vote by ranking candidates in your preferred order. First choice, second "
 "choice, etc."
-msgstr "Vote clasificando a los candidatos en su orden preferido. Primera opción, segunda opción, etc."
+msgstr ""
+"Vote clasificando a los candidatos en su orden preferido. Primera opción, "
+"segunda opción, etc."
 
+#: voting/templates/voting/index.html:95
 msgid "Pairwise Comparison"
 msgstr "Comparación por pares"
 
+#: voting/templates/voting/index.html:96
 msgid "We compare each candidate against every other candidate one-on-one."
 msgstr "Comparamos cada candidato contra todos los demás candidatos uno a uno."
 
+#: voting/templates/voting/index.html:103
 msgid "Find Winner"
 msgstr "Encontrar ganador"
 
+#: voting/templates/voting/index.html:104
 msgid "The candidate who beats all others in head-to-head matchups wins."
-msgstr "El candidato que vence a todos los demás en enfrentamientos directos gana."
+msgstr ""
+"El candidato que vence a todos los demás en enfrentamientos directos gana."
 
+#: voting/templates/voting/index.html:110
+#: voting/templates/voting/results.html:46
 msgid "Note:"
 msgstr "Nota:"
 
+#: voting/templates/voting/index.html:110
 msgid ""
 "If there's a tie, the system uses the Schulze method to find the most-likely "
 "winner."
-msgstr "Si hay un empate, el sistema utiliza el método de Schulze para encontrar el ganador más probable."
+msgstr ""
+"Si hay un empate, el sistema utiliza el método de Schulze para encontrar el "
+"ganador más probable."
+
+#: voting/templates/voting/dashboard_login.html:4
+#: voting/templates/voting/base.html:86
+msgid "Access Dashboard"
+msgstr "Acceder al panel"
+
+#: voting/templates/voting/dashboard_login.html:10
+msgid "Access Creator Dashboard"
+msgstr "Acceder al panel del creador"
+
+#: voting/templates/voting/dashboard_login.html:14
+msgid "Enter your creator code to manage your polls."
+msgstr "Ingrese su código de creador para administrar sus encuestas."
+
+#: voting/templates/voting/dashboard_login.html:26
+msgid "If you did not save your creator code, unfortunately we cannot recover it for you as we do not store personal information."
+msgstr "Si no guardó su código de creador, lamentablemente no podemos recuperarlo por usted ya que no almacenamos información personal."
 
-msgid "Poll Created"
-msgstr "Encuesta creada"
-
-# Poll confirmation page
-msgid "Poll Created Successfully!"
-msgstr "¡Encuesta creada exitosamente!"
-
-msgid "Your poll"
-msgstr "Tu encuesta"
-
-msgid "has been created."
-msgstr "ha sido creada."
-
-msgid "Creator Code"
-msgstr "Código de creador"
-
-msgid "Save this code to manage your poll (view results, make public, delete):"
-msgstr "Guarda este código para administrar tu encuesta (ver resultados, hacer público, eliminar):"
-
-msgid "Go to Creator Dashboard"
-msgstr "Ir al Panel del creador"
-
-msgid "Voting Link"
-msgstr "Enlace de votación"
-
-msgid "Share this link with voters:"
-msgstr "Comparte este enlace con los votantes:"
-
-msgid "QR Code"
-msgstr "Código QR"
-
-msgid "Voters can scan this QR code to vote:"
-msgstr "Los votantes pueden escanear este código QR para votar:"
-
-msgid "Download QR Code"
-msgstr "Descargar código QR"
-
-msgid "Poll Summary"
-msgstr "Resumen de la encuesta"
-
-msgid "Description:"
-msgstr "Descripción:"
-
-# Results page
-msgid "Voting Method:"
-msgstr "Método de votación:"
-
-# Index page
-msgid "Condorcet"
-msgstr "Condorcet"
-
-msgid "Status:"
-msgstr "Estado:"
-
-msgid "Start Voting"
-msgstr "Comenzar votación"
-
-msgid "Next Steps:"
-msgstr "Próximos pasos:"
-
-msgid "Share the voting link or QR code with voters"
-msgstr "Comparte el enlace de votación o código QR con los votantes"
-
-msgid "Visit your Creator Dashboard to:"
-msgstr "Visita tu <strong>Panel del creador</strong> para:"
-
-msgid "View live voting results"
-msgstr "Ver resultados de votación en vivo"
-
-msgid "Make the poll public (visible on homepage)"
-msgstr "Hacer la encuesta pública (visible en la página de inicio)"
-
-msgid "Close the poll when done voting"
-msgstr "Cerrar la encuesta cuando termine la votación"
-
-msgid "Delete the poll"
-msgstr "Eliminar la encuesta"
-
-msgid "Only you with the creator code can modify this poll"
-msgstr "Solo tú con el código de creador puedes modificar esta encuesta"
-
-msgid "Max"
-msgstr "Máx"
-
-msgid "Condorcet Winner"
-msgstr "Ganador de Condorcet"
-
-msgid "No Clear Winner"
-msgstr "Sin ganador claro"
-
-msgid "Not enough votes yet, or there's a tie. Check pairwise matchups below."
-msgstr "No hay suficientes votos aún, o hay un empate. Verifica los enfrentamientos por pares a continuación."
-
-msgid "Voting Statistics"
-msgstr "Estadísticas de votación"
-
-msgid "Total Votes"
-msgstr "Votos totales"
-
-msgid "Unique Voters"
-msgstr "Votantes únicos"
-
-msgid "First Choice Votes"
-msgstr "Votos de primera opción"
-
-msgid "Head-to-Head Matchups"
-msgstr "Enfrentamientos directos"
-
-msgid "Matchup"
-msgstr "Enfrentamiento"
-
-msgid "Votes"
-msgstr "Votos"
-
-msgid "Winner"
-msgstr "Ganador"
-
-msgid "Tie"
-msgstr "Empate"
-
-msgid "Actions"
-msgstr "Acciones"
-
-msgid "Poll Closed"
-msgstr "Encuesta cerrada"
-
-msgid "Back to Polls"
-msgstr "Volver a las encuestas"
-
-msgid "Share this link to get more votes"
-msgstr "Comparte este enlace para obtener más votos"
-
-msgid ""
-"The winner is the candidate who would beat all others in one-on-one "
-"matchups. This method is considered the fairest way to find a consensus "
-"choice."
-msgstr "El ganador es el candidato que vencería a todos los demás en enfrentamientos uno a uno. Este método se considera la forma más justa de encontrar una opción de consenso."
-
-msgid "Copied!"
-msgstr "¡Copiado!"
-
-# Vote page
-msgid "Rank the candidates"
-msgstr "Clasificar los candidatos"
-
-msgid ""
-"Drag to reorder candidates, or use the select dropdowns. Your first choice "
-"is your strongest preference."
-msgstr "Arrastra para reordenar candidatos, o usa los menús desplegables. Tu primera opción es tu preferencia más fuerte."
-
-msgid "How to Vote:"
-msgstr "Cómo votar:"
-
-msgid "Rank candidates by dragging them in order of preference"
-msgstr "Clasifica candidatos arrastrándolos en orden de preferencia"
-
-msgid "First position = your strongest choice"
-msgstr "Primer lugar = tu opción más fuerte"
-
-msgid "Last position = your weakest choice"
-msgstr "Última posición = tu opción más débil"
-
-msgid "All candidates must be ranked exactly once"
-msgstr "Todos los candidatos deben ser clasificados exactamente una vez"
-
-msgid "Submit Vote"
-msgstr "Enviar voto"
-
-msgid ""
-"Instead of just picking one candidate, you rank them. The system then finds "
-"the candidate who would win in a fair head-to-head matchup against any other "
-"candidate. This method is considered one of the fairest voting systems."
-msgstr "En lugar de solo elegir un candidato, los clasificas. El sistema luego encuentra el candidato que ganaría en un enfrentamiento justo uno a uno contra cualquier otro candidato. Este método se considera uno de los sistemas de votación más justos."
-
-#~ msgid "Maximum Votes (Optional)"
-#~ msgstr "Votos máximos (opcional)"
-
-#~ msgid "Leave empty for unlimited votes"
-#~ msgstr "Dejar vacío para votos ilimitados"
-
-#, python-format
-#~ msgid "Your poll \"<strong>%(poll.title)s</strong>\" has been created."
-#~ msgstr "Tu encuesta \"<strong>%(poll.title)s</strong>\" ha sido creada."
-
-#~ msgid "Submit"
-#~ msgstr "Enviar"
-
-#~ msgid "Your poll has been created. Share the link below for others to vote."
-#~ msgstr ""
-#~ "Su encuesta ha sido creada. Comparta el enlace a continuación para que "
-#~ "otros voten."
-
-#~ msgid "Poll ID"
-#~ msgstr "ID de encuesta"
-
-#~ msgid "Share Link"
-#~ msgstr "Compartir enlace"
-
-# Creator Dashboard
-#~ msgid "Dashboard"
-#~ msgstr "Panel de control"
-
-#~ msgid "View Poll"
-#~ msgstr "Ver encuesta"
-
-#~ msgid "Statistics"
-#~ msgstr "Estadísticas"
-
-#~ msgid "Ranking"
-#~ msgstr "Clasificación"
-
-#~ msgid "Thank you for voting!"
-#~ msgstr "¡Gracias por votar!"
-
-#~ msgid "Your vote has been recorded"
-#~ msgstr "Tu voto ha sido registrado"
-
-#~ msgid "Winning Candidate"
-#~ msgstr "Candidato ganador"
-
-#~ msgid "Pairwise Matchups"
-#~ msgstr "Enfrentamientos por pares"
-
-#~ msgid "Votes in favor"
-#~ msgstr "Votos a favor"
-
-#~ msgid "Export as CSV"
-#~ msgstr "Exportar como CSV"
-
-#~ msgid "Understanding Condorcet Voting"
-#~ msgstr "Comprendiendo la votación Condorcet"
-
-#~ msgid ""
-#~ "The Condorcet method is a voting system that selects the candidate who "
-#~ "would beat any other candidate in a head-to-head matchup. It aims to "
-#~ "reflect the preferences of the majority more accurately than simple "
-#~ "plurality voting."
-#~ msgstr ""
-#~ "El método de Condorcet es un sistema de votación que selecciona el "
-#~ "candidato que vencería a cualquier otro candidato en un enfrentamiento "
-#~ "directo. Tiene como objetivo reflejar las preferencias de la mayoría con "
-#~ "mayor precisión que la votación por pluralidad simple."
-
-#~ msgid "How does Condorcet voting work?"
-#~ msgstr "¿Cómo funciona la votación Condorcet?"
-
-#~ msgid ""
-#~ "In Condorcet voting, voters rank candidates from most to least preferred. "
-#~ "The system then compares each candidate against every other candidate. If "
-#~ "one candidate beats all others in pairwise comparisons, they are the "
-#~ "Condorcet winner."
-#~ msgstr ""
-#~ "En la votación Condorcet, los votantes clasifican a los candidatos de más "
-#~ "a menos preferidos. El sistema luego compara cada candidato contra todos "
-#~ "los demás. Si un candidato vence a todos los demás en comparaciones por "
-#~ "pares, es el ganador de Condorcet."
-
-#~ msgid "Key advantages of Condorcet voting:"
-#~ msgstr "Ventajas clave de la votación Condorcet:"
-
-#~ msgid "Reduces the spoiler effect"
-#~ msgstr "Reduce el efecto de spoiler"
-
-#~ msgid "More democratic than plurality voting"
-#~ msgstr "Más democrático que la votación por pluralidad"
-
-#~ msgid "How do we resolve the Condorcet paradox?"
-#~ msgstr "¿Cómo resolvemos la paradoja de Condorcet?"
-
-#~ msgid "Several tiebreaker methods exist:"
-#~ msgstr "Existen varios métodos de desempate:"
-
-#~ msgid "Copeland Method"
-#~ msgstr "Método de Copeland"
-
-#~ msgid "Select the candidate who wins the most pairwise matchups."
-#~ msgstr ""
-#~ "Selecciona el candidato que gana el mayor número de enfrentamientos por "
-#~ "pares."
-
-#~ msgid "The Mathematics of Pairwise Voting"
-#~ msgstr "Las matemáticas de la votación por pares"
-
-#~ msgid "This poll is closed."
-#~ msgstr "Esta encuesta está cerrada."
-
-#~ msgid "Error recording vote. Please try again."
-#~ msgstr "Error al registrar el voto. Por favor intenta de nuevo."
-
-#~ msgid "Your vote has been recorded!"
-#~ msgstr "¡Tu voto ha sido registrado!"
-
-#~ msgid "Poll closed successfully"
-#~ msgstr "Encuesta cerrada exitosamente"
-
-#~ msgid "Poll deleted successfully"
-#~ msgstr "Encuesta eliminada exitosamente"
-
-#~ msgid "Results released successfully"
-#~ msgstr "Resultados publicados exitosamente"
-
-#~ msgid "English"
-#~ msgstr "Inglés"
-
-#~ msgid "French"
-#~ msgstr "Francés"
-
-#~ msgid "Spanish"
-#~ msgstr "Español"
-
-#~ msgid "Save"
-#~ msgstr "Guardar"
-
-#~ msgid "Refresh"
-#~ msgstr "Actualizar"
-
-msgid "Real Example: The Spoiler Effect"
-msgstr "Ejemplo real: El efecto spoiler"
-
-msgid "Imagine a vote for the 'Best Programming Language' with three candidates:"
-msgstr "Imagina una votación para el 'Mejor lenguaje de programación' con tres candidatos:"
-
-msgid "and"
-msgstr "y"
-
-msgid "Python and Ruby are similar (modern, dynamic), while Assembly is very different (low-level). Ideally, the winner should reflect the majority's preference for modern languages, but traditional voting fails here."
-msgstr "Python y Ruby son similares (modernos, dinámicos), mientras que Assembly es muy diferente (bajo nivel). Idealmente, el ganador debería reflejar la preferencia de la mayoría por los lenguajes modernos, pero la votación tradicional falla aquí."
-
-msgid "Traditional Voting (FPTP)"
-msgstr "Votación tradicional (Escrutinio mayoritario)"
-
-msgid "Only 1st choices are counted:"
-msgstr "Solo se cuentan las primeras opciones:"
-
-msgid "Assembly: 40% (Winner)"
-msgstr "Assembly: 40% (Ganador)"
-
-msgid "Assembly wins even though 60% of voters preferred a modern language (Python or Ruby). Python and Ruby 'split' the vote, acting as spoilers for each other."
-msgstr "Assembly gana aunque el 60% de los votantes prefería un lenguaje moderno (Python o Ruby). Python y Ruby 'dividen' el voto, actuando como spoilers entre sí."
-
-msgid "Condorcet Voting"
-msgstr "Votación Condorcet"
-
-msgid "We compare head-to-head:"
-msgstr "Comparamos cara a cara:"
-
-msgid "Ruby vs Assembly:"
-msgstr "Ruby vs Assembly:"
-
-msgid "Ruby wins"
-msgstr "Ruby gana"
-
-msgid "Ruby vs Python:"
-msgstr "Ruby vs Python:"
-
-msgid "Ruby beats everyone head-to-head. It is the true consensus winner."
-msgstr "Ruby vence a todos cara a cara. Es el verdadero ganador por consenso."
-
-msgid "Why Condorcet is Superior"
-msgstr "Por qué Condorcet es superior"
-
-msgid "Traditional voting methods suffer from serious mathematical flaws that Condorcet solves."
-msgstr "Los métodos de votación tradicionales sufren graves fallos matemáticos que Condorcet resuelve."
-
-msgid "Problems with Traditional Methods"
-msgstr "Problemas con los métodos tradicionales"
-
-msgid "The Spoiler Effect"
-msgstr "El efecto spoiler"
-
-msgid "Similar candidates split the vote, allowing a less popular candidate to win (violates Independence of Irrelevant Alternatives)."
-msgstr "Candidatos similares dividen el voto, permitiendo que gane un candidato menos popular (viola la Independencia de Alternativas Irrelevantes)."
-
-msgid "Strategic Voting (Non-sincerity)"
-msgstr "Voto estratégico (No sinceridad)"
-
-msgid "Voters are forced to vote for the 'lesser of two evils' instead of their true favorite to avoid wasting their vote."
-msgstr "Los votantes se ven obligados a votar por el 'mal menor' en lugar de su verdadero favorito para evitar desperdiciar su voto."
-
-msgid "Non-Monotonicity"
-msgstr "No monotonicidad"
-
-msgid "In some systems (like Instant Runoff), ranking a candidate HIGHER can actually cause them to LOSE. This is a major flaw."
-msgstr "En algunos sistemas (como la segunda vuelta instantánea), clasificar a un candidato MÁS ALTO puede hacer que PIERDA. Esto es un fallo grave."
-
-msgid "Center Squeeze"
-msgstr "Compresión del centro"
-
-msgid "Moderate candidates who would beat everyone head-to-head often lose because they lack strong 'first choice' support."
-msgstr "Los candidatos moderados que vencerían a todos cara a cara a menudo pierden porque carecen de un fuerte apoyo de 'primera opción'."
-
-msgid "Condorcet Advantages"
-msgstr "Ventajas de Condorcet"
-
-msgid "Condorcet Consistency"
-msgstr "Consistencia de Condorcet"
-
-msgid "If a candidate can beat every other candidate in a one-on-one race, they are guaranteed to win."
-msgstr "Si un candidato puede vencer a todos los demás candidatos en una carrera uno contra uno, tiene garantizada la victoria."
-
-msgid "Sincere Voting"
-msgstr "Voto sincero"
-
-msgid "Voters can support their true favorite without fear of helping their least favorite win."
-msgstr "Los votantes pueden apoyar a su verdadero favorito sin temor a ayudar a ganar a su menos favorito."
-
-msgid "Resistance to Manipulation"
-msgstr "Resistencia a la manipulación"
-
-msgid "It is much harder to manipulate the outcome through strategic nomination or voting."
-msgstr "Es mucho más difícil manipular el resultado mediante nominaciones o votaciones estratégicas."
-
-msgid "Stable Consensus"
-msgstr "Consenso estable"
-
-msgid "Selects the candidate with the broadest appeal, not just the most passionate minority."
-msgstr "Selecciona al candidato con el atractivo más amplio, no solo a la minoría más apasionada."

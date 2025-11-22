@@ -22,26 +22,22 @@ References:
 from collections import defaultdict
 from typing import List, Dict, Set, Tuple, Optional
 import logging
+import random
 
 logger = logging.getLogger(__name__)
 
 
-def calculate_condorcet_winner(votes_list: List[List[str]]) -> Optional[str]:
+def calculate_condorcet_winner(votes_list: List[List[str]], tiebreaker_method: str = 'schulze') -> Tuple[Optional[str], Optional[str]]:
     """
     Calculate Condorcet winner from a list of ranked votes.
     
     Args:
         votes_list: List of votes, each vote is list of candidate IDs in order
-                   Example: [
-                       ['cand_1', 'cand_2', 'cand_3'],
-                       ['cand_2', 'cand_1', 'cand_3'],
-                   ]
+        tiebreaker_method: Method to use if no Condorcet winner ('schulze', 'borda', 'random')
     
     Returns:
-        UUID of winning candidate, or None if no Condorcet winner (cycle exists)
-    
-    Raises:
-        ValueError: If votes_list is empty or invalid
+        Tuple (winner_id, method_used)
+        method_used will be 'condorcet', 'schulze', 'borda', 'random', or None
     """
     
     if not votes_list:
@@ -71,11 +67,18 @@ def calculate_condorcet_winner(votes_list: List[List[str]]) -> Optional[str]:
     
     if condorcet_winner:
         logger.info(f"Condorcet winner found: {condorcet_winner}")
-        return condorcet_winner
+        return condorcet_winner, 'condorcet'
     
-    # No Condorcet winner - use Schulze method as tiebreaker
-    logger.warning("No Condorcet winner found. Using Schulze method tiebreaker.")
-    return schulze_method(pairwise_results, all_candidates)
+    # No Condorcet winner - use tiebreaker
+    logger.warning(f"No Condorcet winner found. Using {tiebreaker_method} tiebreaker.")
+    
+    if tiebreaker_method == 'borda':
+        return borda_count_tiebreaker(votes_list), 'borda'
+    elif tiebreaker_method == 'random':
+        return random_tiebreaker(all_candidates), 'random'
+    else:
+        # Default to Schulze
+        return schulze_method(pairwise_results, all_candidates), 'schulze'
 
 
 def calculate_pairwise_results(
@@ -198,25 +201,32 @@ def schulze_method(
                     via_k = min(d[(i, k)], d[(k, j)])
                     d[(i, j)] = max(current, via_k)
     
-    # Find winner: candidate with strongest minimum path to others
-    best_candidate = None
-    best_strength = -1
+    # Find winner: candidate who beats all others in path strength
+    # Candidate X wins if p[X,Y] >= p[Y,X] for all other candidates Y
     
-    for candidate in candidates:
-        # Weakest link in their strongest paths
-        min_strength = min(
-            d[(candidate, other)] 
-            for other in candidates 
-            if other != candidate
-        )
+    schulze_winners = []
+    for i in candidates_list:
+        is_winner = True
+        for j in candidates_list:
+            if i != j:
+                # If any other candidate has a stronger path to i than i has to them, i loses
+                if d[(j, i)] > d[(i, j)]:
+                    is_winner = False
+                    break
+        if is_winner:
+            schulze_winners.append(i)
+    
+    if schulze_winners:
+        if len(schulze_winners) > 1:
+            logger.warning(f"Multiple Schulze winners found: {schulze_winners}. Picking random.")
+            return random.choice(schulze_winners)
         
-        if min_strength > best_strength:
-            best_strength = min_strength
-            best_candidate = candidate
+        logger.info(f"Schulze winner determined: {schulze_winners[0]}")
+        return schulze_winners[0]
     
-    logger.info(f"Schulze winner determined: {best_candidate} "
-                f"(strength: {best_strength})")
-    return best_candidate
+    # Fallback (should theoretically not happen)
+    logger.error("No Schulze winner found (unexpected). Returning random.")
+    return random.choice(candidates_list)
 
 
 def borda_count_tiebreaker(votes_list: List[List[str]]) -> str:
@@ -306,3 +316,16 @@ def get_ranking_statistics(votes_list: List[List[str]]) -> Dict:
         'first_choice_votes': dict(first_choices),
         'pairwise_results': calculate_pairwise_results(votes_list, candidates),
     }
+
+
+def random_tiebreaker(candidates: Set[str]) -> str:
+    """
+    Random tiebreaker method.
+    
+    Args:
+        candidates: Set of candidate IDs
+    
+    Returns:
+        Randomly selected candidate ID
+    """
+    return random.choice(list(candidates))

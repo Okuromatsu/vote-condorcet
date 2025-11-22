@@ -271,7 +271,7 @@ class VoterSession(models.Model):
     )
     cookie_token = models.CharField(
         max_length=64,
-        unique=True,
+        db_index=True,
         default=generate_token,
         help_text="Unique token stored in voter's cookie"
     )
@@ -290,7 +290,10 @@ class VoterSession(models.Model):
     )
     
     class Meta:
-        unique_together = [['poll', 'voter_fingerprint']]
+        unique_together = [
+            ['poll', 'voter_fingerprint'],
+            ['poll', 'cookie_token']
+        ]
         indexes = [
             models.Index(fields=['poll', 'voter_fingerprint']),
             models.Index(fields=['cookie_token']),

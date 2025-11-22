@@ -22,7 +22,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponseForbidden
 from django.core.exceptions import ValidationError
-from django.db import transaction
+from django.db import transaction, IntegrityError
 from django.conf import settings
 import json
 import logging
@@ -211,15 +211,31 @@ def vote_poll(request, poll_id):
             request.voter_user_agent
         )
         
-        # Check if this voter already voted on this poll
-        existing_vote = Vote.objects.filter(
+        cookie_token = getattr(request, 'voter_session_token', 'MISSING')
+        
+        logger.info(f"Vote attempt on poll {poll.id} | IP: {request.voter_ip} | "
+                    f"Fingerprint: {voter_fingerprint} | Cookie: {cookie_token}")
+
+        # Check if this voter already voted on this poll (by fingerprint)
+        existing_vote_fingerprint = Vote.objects.filter(
             poll=poll,
             voter_fingerprint=voter_fingerprint
         ).exists()
+
+        # Check if this voter already voted on this poll (by cookie session)
+        existing_vote_session = False
+        if hasattr(request, 'voter_session_token'):
+             existing_vote_session = VoterSession.objects.filter(
+                poll=poll,
+                cookie_token=request.voter_session_token,
+                vote_count__gt=0
+            ).exists()
         
-        if existing_vote:
-            logger.warning(f"Duplicate vote attempt: {voter_fingerprint} "
-                          f"on poll {poll.id}")
+        if existing_vote_fingerprint or existing_vote_session:
+            logger.warning(f"Duplicate vote blocked: {voter_fingerprint} | "
+                           f"Fingerprint match: {existing_vote_fingerprint} | "
+                           f"Cookie match: {existing_vote_session} | "
+                           f"Poll: {poll.id}")
             messages.error(request, 
                           'You have already voted on this poll.')
             return redirect('voting:vote_poll', poll_id=poll.id)
@@ -250,22 +266,64 @@ def vote_poll(request, poll_id):
                     )
                     
                     # Update voter session
-                    voter_session, _ = VoterSession.objects.get_or_create(
+                    defaults = {
+                        'ip_address': request.voter_ip,
+                        'user_agent': request.voter_user_agent,
+                    }
+                    if hasattr(request, 'voter_session_token'):
+                        defaults['cookie_token'] = request.voter_session_token
+
+                    # Try to get existing session by fingerprint
+                    # If not found, create new one with current cookie token
+                    # If found, we might need to update the cookie token if it changed?
+                    # No, if fingerprint matches, we assume it's the same physical device/network.
+                    # But if they cleared cookies, they have a new token.
+                    # We should probably update the token to the new one to track them?
+                    # But wait, if we update the token, we lose the link to the OLD token?
+                    # Actually, we want to BLOCK them if they have EITHER the old fingerprint OR the old token.
+                    # If they have the old fingerprint, they are blocked by Vote check anyway.
+                    
+                    voter_session, created = VoterSession.objects.get_or_create(
                         poll=poll,
                         voter_fingerprint=voter_fingerprint,
-                        defaults={
-                            'ip_address': request.voter_ip,
-                            'user_agent': request.voter_user_agent,
-                        }
+                        defaults=defaults
                     )
+                    
+                    # If session existed but with different cookie token (e.g. user cleared cookies),
+                    # we should probably NOT update it, because that would allow them to vote again 
+                    # if they change IP later?
+                    # Actually, if they are here, it means they passed the Vote check (so fingerprint is NEW).
+                    # So 'created' must be True.
+                    # If 'created' is False, it means fingerprint existed.
+                    # But if fingerprint existed, 'existing_vote_fingerprint' would be True and we would have returned early.
+                    # So 'created' SHOULD be True here.
+                    
+                    if not created:
+                        # This should theoretically not happen if Vote check works, 
+                        # unless Vote exists but VoterSession doesn't (data inconsistency)
+                        # or race condition.
+                        logger.warning(f"VoterSession existed but Vote didn't? Fingerprint: {voter_fingerprint}")
+                        if hasattr(request, 'voter_session_token') and voter_session.cookie_token != request.voter_session_token:
+                             logger.info(f"Updating session token from {voter_session.cookie_token} to {request.voter_session_token}")
+                             voter_session.cookie_token = request.voter_session_token
+                             # Note: This update might fail if new token is already used by another session (IntegrityError)
+                             # which is good! It means this cookie already voted.
+
                     voter_session.vote_count += 1
                     voter_session.save()
                     
-                    logger.info(f"Vote recorded: {vote.id} on poll {poll.id}")
+                    logger.info(f"Vote recorded: {vote.id} on poll {poll.id} | "
+                                f"Session Token: {voter_session.cookie_token}")
                     messages.success(request, 'Your vote has been recorded!')
                     
                     return redirect('voting:results_poll', poll_id=poll.id)
-                    
+            
+            except IntegrityError as e:
+                # Catch unique constraint violation (likely cookie_token collision)
+                logger.warning(f"IntegrityError during vote (likely duplicate cookie): {str(e)}")
+                messages.error(request, 'You have already voted on this poll.')
+                return redirect('voting:vote_poll', poll_id=poll.id)
+
             except Exception as e:
                 logger.error(f"Error recording vote: {str(e)}")
                 messages.error(request, 
@@ -333,10 +391,11 @@ def results_poll(request, poll_id):
     candidate_dict = {str(c.id): c for c in candidates}
     
     # Calculate results
+    winner_method = None
     if votes_list:
         try:
             # Calculate winner
-            winner_id = calculate_condorcet_winner(votes_list)
+            winner_id, winner_method = calculate_condorcet_winner(votes_list, poll.tiebreaker_method)
             winner = candidate_dict.get(winner_id)
             
             # Get statistics
@@ -356,25 +415,62 @@ def results_poll(request, poll_id):
             # Sort by count descending
             first_choice_data.sort(key=lambda x: x['count'], reverse=True)
             
+            # Process pairwise results for template
+            raw_pairwise = stats.get('pairwise_results', {})
+            pairwise_list = []
+            processed_pairs = set()
+            
+            for (cand_a_id, cand_b_id), votes_a in raw_pairwise.items():
+                # Skip if we already processed this pair (in reverse)
+                pair_key = tuple(sorted([cand_a_id, cand_b_id]))
+                if pair_key in processed_pairs:
+                    continue
+                
+                processed_pairs.add(pair_key)
+                
+                cand_a = candidate_dict.get(cand_a_id)
+                cand_b = candidate_dict.get(cand_b_id)
+                
+                if cand_a and cand_b:
+                    votes_b = raw_pairwise.get((cand_b_id, cand_a_id), 0)
+                    
+                    winner = None
+                    if votes_a > votes_b:
+                        winner = cand_a
+                    elif votes_b > votes_a:
+                        winner = cand_b
+                        
+                    pairwise_list.append({
+                        'candidate_a': cand_a,
+                        'candidate_b': cand_b,
+                        'votes_a': votes_a,
+                        'votes_b': votes_b,
+                        'winner': winner,
+                        'is_tie': votes_a == votes_b
+                    })
+
         except Exception as e:
             logger.error(f"Error calculating results: {str(e)}")
             winner = None
             stats = {}
             first_choice_data = []
+            pairwise_list = []
             messages.error(request, 'Error calculating results.')
     else:
         winner = None
         stats = {}
         first_choice_data = []
+        pairwise_list = []
     
     context = {
         'poll': poll,
         'winner': winner,
+        'winner_method': winner_method,
         'total_votes': len(votes_list),
         'num_candidates': len(candidates),
         'candidates': candidate_dict,
         'first_choice_votes': first_choice_data,
-        'pairwise_results': stats.get('pairwise_results', {}),
+        'pairwise_results': pairwise_list,
     }
     
     return render(request, 'voting/results.html', context)
@@ -513,7 +609,7 @@ def creator_dashboard(request, creator_code):
             votes_queryset = Vote.objects.filter(poll=poll).values_list('ranking', flat=True)
             votes_list = list(votes_queryset)
             try:
-                winner_id = calculate_condorcet_winner(votes_list)
+                winner_id, _ = calculate_condorcet_winner(votes_list, poll.tiebreaker_method)
                 winner = poll.candidate_set.get(id=winner_id) if winner_id else None
             except Exception:
                 pass
@@ -588,9 +684,10 @@ def poll_api_results(request, poll_id):
     
     # Calculate results
     winner_id = None
+    winner_method = None
     if votes_list:
         try:
-            winner_id = calculate_condorcet_winner(votes_list)
+            winner_id, winner_method = calculate_condorcet_winner(votes_list, poll.tiebreaker_method)
         except Exception as e:
             logger.error(f"Error calculating winner: {str(e)}")
     
@@ -613,4 +710,25 @@ def poll_api_results(request, poll_id):
         },
         'candidates': candidates_dict,
         'winner': winner_id,
+        'winner_method': winner_method,
     })
+
+
+@require_http_methods(["GET", "POST"])
+@csrf_protect
+def dashboard_login(request):
+    """
+    Allow creators to access their dashboard by entering their creator code.
+    """
+    if request.method == 'POST':
+        creator_code = request.POST.get('creator_code')
+        if creator_code:
+            # Check if any poll exists with this code
+            if Poll.objects.filter(creator_code=creator_code, is_deleted=False).exists():
+                return redirect('voting:creator_dashboard', creator_code=creator_code)
+            else:
+                messages.error(request, 'Invalid creator code. No polls found.')
+        else:
+            messages.error(request, 'Please enter a creator code.')
+            
+    return render(request, 'voting/dashboard_login.html')

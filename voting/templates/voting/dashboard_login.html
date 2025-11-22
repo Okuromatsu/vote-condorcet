@@ -1,0 +1,40 @@
+{% extends 'voting/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Access Dashboard" %} - Condorcet.vote{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="fas fa-key me-2"></i>{% trans "Access Creator Dashboard" %}</h4>
+            </div>
+            <div class="card-body">
+                <p class="text-muted mb-4">
+                    {% trans "Enter your creator code to manage your polls." %}
+                </p>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="creator_code" class="form-label">{% trans "Creator Code" %}</label>
+                        <input type="text" class="form-control form-control-lg" id="creator_code" name="creator_code" required placeholder="e.g. a1b2c3d4">
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        {% trans "If you did not save your creator code, unfortunately we cannot recover it for you as we do not store personal information." %}
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            {% trans "Access Dashboard" %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

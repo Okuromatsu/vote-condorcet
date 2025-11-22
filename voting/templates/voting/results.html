@@ -31,9 +31,26 @@
             <div class="card border-success mb-4 shadow">
                 <div class="card-body bg-light">
                     <h5 class="card-title text-success">
-                        🏆 {% trans "Condorcet Winner" %}
+                        🏆 
+                        {% if winner_method == 'condorcet' %}
+                            {% trans "Condorcet Winner" %}
+                        {% else %}
+                            {% trans "Winner" %} ({% trans "via" %} {{ winner_method|title }})
+                        {% endif %}
                     </h5>
                     <h2 class="mb-0 text-success">{{ winner.name }}</h2>
+                    
+                    {% if winner_method != 'condorcet' %}
+                        <div class="alert alert-info mt-3 mb-0">
+                            <small>
+                                <strong>{% trans "Note:" %}</strong> 
+                                {% trans "No clear Condorcet winner was found (no candidate beats all others)." %}
+                                <br>
+                                {% trans "The winner was determined using the" %} <strong>{{ winner_method|title }}</strong> {% trans "tiebreaker method." %}
+                            </small>
+                        </div>
+                    {% endif %}
+
                     {% if winner.description %}
                         <p class="text-muted mt-2 mb-0">{{ winner.description }}</p>
                     {% endif %}
@@ -115,22 +132,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for matchup_key, result in pairwise_results.items %}
+                            {% for matchup in pairwise_results %}
                                 <tr>
                                     <td>
-                                        {% comment %} Parse matchup key to get candidate IDs {% endcomment %}
-                                        <strong>Matchup {{ forloop.counter }}</strong>
+                                        <strong>{{ matchup.candidate_a.name }}</strong> vs <strong>{{ matchup.candidate_b.name }}</strong>
                                     </td>
                                     <td class="text-center">
-                                        {{ result.votes.0 }} : {{ result.votes.1 }}
+                                        {{ matchup.votes_a }} : {{ matchup.votes_b }}
                                     </td>
                                     <td class="text-center">
-                                        {% if result.votes.0 > result.votes.1 %}
-                                            <span class="badge bg-success">1st</span>
-                                        {% elif result.votes.1 > result.votes.0 %}
-                                            <span class="badge bg-success">2nd</span>
-                                        {% else %}
+                                        {% if matchup.is_tie %}
                                             <span class="badge bg-secondary">{% trans "Tie" %}</span>
+                                        {% elif matchup.winner == matchup.candidate_a %}
+                                            <span class="badge bg-success">{{ matchup.candidate_a.name }}</span>
+                                        {% else %}
+                                            <span class="badge bg-success">{{ matchup.candidate_b.name }}</span>
                                         {% endif %}
                                     </td>
                                 </tr>
