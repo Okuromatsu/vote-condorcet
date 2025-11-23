@@ -402,6 +402,11 @@ def results_poll(request, poll_id):
             winner_id, winner_method = calculate_condorcet_winner(votes_list, poll.tiebreaker_method, expected_candidates=valid_candidate_ids)
             winner = candidate_dict.get(winner_id)
             
+            if winner:
+                logger.info(f"Winner object found: {winner.name} ({winner.id})")
+            else:
+                logger.warning(f"Winner ID {winner_id} returned but not found in candidate_dict keys: {list(candidate_dict.keys())}")
+            
             # Get statistics
             stats = get_ranking_statistics(votes_list)
             
