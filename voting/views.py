@@ -386,6 +386,9 @@ def results_poll(request, poll_id):
     votes_queryset = Vote.objects.filter(poll=poll).values_list('ranking', flat=True)
     votes_list = list(votes_queryset)
     
+    # Count unique voters (based on fingerprint)
+    unique_voters_count = Vote.objects.filter(poll=poll).values('voter_fingerprint').distinct().count()
+    
     # Build candidate lookup
     candidates = list(poll.get_candidates())
     candidate_dict = {str(c.id): c for c in candidates}
@@ -395,8 +398,14 @@ def results_poll(request, poll_id):
     if votes_list:
         try:
             # Calculate winner
-            winner_id, winner_method = calculate_condorcet_winner(votes_list, poll.tiebreaker_method)
+            valid_candidate_ids = set(candidate_dict.keys())
+            winner_id, winner_method = calculate_condorcet_winner(votes_list, poll.tiebreaker_method, expected_candidates=valid_candidate_ids)
             winner = candidate_dict.get(winner_id)
+            
+            if winner:
+                logger.info(f"Winner object found: {winner.name} ({winner.id})")
+            else:
+                logger.warning(f"Winner ID {winner_id} returned but not found in candidate_dict keys: {list(candidate_dict.keys())}")
             
             # Get statistics
             stats = get_ranking_statistics(votes_list)
@@ -434,18 +443,18 @@ def results_poll(request, poll_id):
                 if cand_a and cand_b:
                     votes_b = raw_pairwise.get((cand_b_id, cand_a_id), 0)
                     
-                    winner = None
+                    matchup_winner = None
                     if votes_a > votes_b:
-                        winner = cand_a
+                        matchup_winner = cand_a
                     elif votes_b > votes_a:
-                        winner = cand_b
+                        matchup_winner = cand_b
                         
                     pairwise_list.append({
                         'candidate_a': cand_a,
                         'candidate_b': cand_b,
                         'votes_a': votes_a,
                         'votes_b': votes_b,
-                        'winner': winner,
+                        'winner': matchup_winner,
                         'is_tie': votes_a == votes_b
                     })
 
@@ -467,6 +476,7 @@ def results_poll(request, poll_id):
         'winner': winner,
         'winner_method': winner_method,
         'total_votes': len(votes_list),
+        'unique_voters_count': unique_voters_count,
         'num_candidates': len(candidates),
         'candidates': candidate_dict,
         'first_choice_votes': first_choice_data,
@@ -609,7 +619,8 @@ def creator_dashboard(request, creator_code):
             votes_queryset = Vote.objects.filter(poll=poll).values_list('ranking', flat=True)
             votes_list = list(votes_queryset)
             try:
-                winner_id, _ = calculate_condorcet_winner(votes_list, poll.tiebreaker_method)
+                valid_candidate_ids = set(str(c.id) for c in poll.candidate_set.all())
+                winner_id, _ = calculate_condorcet_winner(votes_list, poll.tiebreaker_method, expected_candidates=valid_candidate_ids)
                 winner = poll.candidate_set.get(id=winner_id) if winner_id else None
             except Exception:
                 pass
@@ -687,7 +698,8 @@ def poll_api_results(request, poll_id):
     winner_method = None
     if votes_list:
         try:
-            winner_id, winner_method = calculate_condorcet_winner(votes_list, poll.tiebreaker_method)
+            valid_candidate_ids = set(str(c.id) for c in poll.get_candidates())
+            winner_id, winner_method = calculate_condorcet_winner(votes_list, poll.tiebreaker_method, expected_candidates=valid_candidate_ids)
         except Exception as e:
             logger.error(f"Error calculating winner: {str(e)}")
     

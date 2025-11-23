@@ -27,13 +27,14 @@ import random
 logger = logging.getLogger(__name__)
 
 
-def calculate_condorcet_winner(votes_list: List[List[str]], tiebreaker_method: str = 'schulze') -> Tuple[Optional[str], Optional[str]]:
+def calculate_condorcet_winner(votes_list: List[List[str]], tiebreaker_method: str = 'schulze', expected_candidates: Set[str] = None) -> Tuple[Optional[str], Optional[str]]:
     """
     Calculate Condorcet winner from a list of ranked votes.
     
     Args:
         votes_list: List of votes, each vote is list of candidate IDs in order
         tiebreaker_method: Method to use if no Condorcet winner ('schulze', 'borda', 'random')
+        expected_candidates: Optional set of valid candidate IDs to filter votes
     
     Returns:
         Tuple (winner_id, method_used)
@@ -43,25 +44,55 @@ def calculate_condorcet_winner(votes_list: List[List[str]], tiebreaker_method: s
     if not votes_list:
         raise ValueError("Cannot calculate winner from empty votes list.")
     
-    # Validate all votes have same length (same candidates)
-    vote_lengths = set(len(vote) for vote in votes_list)
-    if len(vote_lengths) > 1:
-        raise ValueError("All votes must have same number of candidates.")
+    # Filter votes if expected_candidates provided
+    if expected_candidates:
+        cleaned_votes = []
+        for vote in votes_list:
+            # Keep only candidates that are in expected_candidates, preserving order
+            cleaned_vote = [c for c in vote if c in expected_candidates]
+            if cleaned_vote:
+                cleaned_votes.append(cleaned_vote)
+        votes_list = cleaned_votes
+        
+        if not votes_list:
+             raise ValueError("No valid votes remaining after filtering candidates.")
+
+        # Update all_candidates to be expected_candidates (or intersection)
+        all_candidates = expected_candidates
+    else:
+        # Validate all votes have same length (same candidates)
+        vote_lengths = set(len(vote) for vote in votes_list)
+        if len(vote_lengths) > 1:
+            raise ValueError("All votes must have same number of candidates.")
+            
+        # Get all unique candidates
+        all_candidates = set()
+        for vote in votes_list:
+            all_candidates.update(vote)
     
     if not votes_list[0]:
         raise ValueError("Votes cannot be empty.")
     
-    # Get all unique candidates
-    all_candidates = set()
-    for vote in votes_list:
-        all_candidates.update(vote)
-    
     if len(all_candidates) < 2:
+        # If only 1 candidate, they are the winner
+        if len(all_candidates) == 1:
+            return list(all_candidates)[0], 'condorcet'
         raise ValueError("Need at least 2 candidates.")
+    
+    logger.info(f"Calculating winner for {len(votes_list)} votes with {len(all_candidates)} candidates")
     
     # Calculate pairwise results
     pairwise_results = calculate_pairwise_results(votes_list, all_candidates)
     
+    # Log pairwise matrix for debugging
+    logger.info("Pairwise Matrix:")
+    for cand_a in all_candidates:
+        for cand_b in all_candidates:
+            if cand_a != cand_b:
+                wins = pairwise_results.get((cand_a, cand_b), 0)
+                losses = pairwise_results.get((cand_b, cand_a), 0)
+                logger.info(f"{cand_a} vs {cand_b}: {wins}-{losses}")
+
     # Check for Condorcet winner
     condorcet_winner = find_condorcet_winner(pairwise_results, all_candidates)
     
