@@ -443,18 +443,18 @@ def results_poll(request, poll_id):
                 if cand_a and cand_b:
                     votes_b = raw_pairwise.get((cand_b_id, cand_a_id), 0)
                     
-                    winner = None
+                    matchup_winner = None
                     if votes_a > votes_b:
-                        winner = cand_a
+                        matchup_winner = cand_a
                     elif votes_b > votes_a:
-                        winner = cand_b
+                        matchup_winner = cand_b
                         
                     pairwise_list.append({
                         'candidate_a': cand_a,
                         'candidate_b': cand_b,
                         'votes_a': votes_a,
                         'votes_b': votes_b,
-                        'winner': winner,
+                        'winner': matchup_winner,
                         'is_tie': votes_a == votes_b
                     })
 
