@@ -206,39 +206,54 @@ def vote_poll(request, poll_id):
         # Process vote submission
         
         # Check for duplicate votes
-        voter_fingerprint = Vote.generate_fingerprint(
+        # First, generate stable device fingerprint (used for session tracking and duplicate checks)
+        device_fingerprint = Vote.generate_fingerprint(
             request.voter_ip,
             request.voter_user_agent
         )
         
-        cookie_token = getattr(request, 'voter_session_token', 'MISSING')
-        
-        logger.info(f"Vote attempt on poll {poll.id} | IP: {request.voter_ip} | "
-                    f"Fingerprint: {voter_fingerprint} | Cookie: {cookie_token}")
+        # Determine fingerprint for the Vote record (may be randomized if multiple votes allowed)
+        vote_fingerprint = device_fingerprint
 
-        # Check if this voter already voted on this poll (by fingerprint)
-        existing_vote_fingerprint = Vote.objects.filter(
-            poll=poll,
-            voter_fingerprint=voter_fingerprint
-        ).exists()
+        # Only perform checks if multiple votes per device is NOT allowed
+        if not poll.allow_multiple_votes_per_device:
+            cookie_token = getattr(request, 'voter_session_token', 'MISSING')
+            
+            logger.info(f"Vote attempt on poll {poll.id} | IP: {request.voter_ip} | "
+                        f"Fingerprint: {device_fingerprint} | Cookie: {cookie_token}")
 
-        # Check if this voter already voted on this poll (by cookie session)
-        existing_vote_session = False
-        if hasattr(request, 'voter_session_token'):
-             existing_vote_session = VoterSession.objects.filter(
+            # Check if this voter already voted on this poll (by fingerprint)
+            existing_vote_fingerprint = Vote.objects.filter(
                 poll=poll,
-                cookie_token=request.voter_session_token,
-                vote_count__gt=0
+                voter_fingerprint=device_fingerprint
             ).exists()
-        
-        if existing_vote_fingerprint or existing_vote_session:
-            logger.warning(f"Duplicate vote blocked: {voter_fingerprint} | "
-                           f"Fingerprint match: {existing_vote_fingerprint} | "
-                           f"Cookie match: {existing_vote_session} | "
-                           f"Poll: {poll.id}")
-            messages.error(request, 
-                          'You have already voted on this poll.')
-            return redirect('voting:vote_poll', poll_id=poll.id)
+
+            # Check if this voter already voted on this poll (by cookie session)
+            existing_vote_session = False
+            if hasattr(request, 'voter_session_token'):
+                existing_vote_session = VoterSession.objects.filter(
+                    poll=poll,
+                    cookie_token=request.voter_session_token,
+                    vote_count__gt=0
+                ).exists()
+            
+            if existing_vote_fingerprint or existing_vote_session:
+                logger.warning(f"Duplicate vote blocked: {device_fingerprint} | "
+                            f"Fingerprint match: {existing_vote_fingerprint} | "
+                            f"Cookie match: {existing_vote_session} | "
+                            f"Poll: {poll.id}")
+                messages.error(request, 
+                            'You have already voted on this poll.')
+                return redirect('voting:vote_poll', poll_id=poll.id)
+        else:
+            # If multiple votes are allowed, we randomize the fingerprint for the Vote record
+            # to bypass the unique_together constraint in the database.
+            import uuid
+            vote_fingerprint = Vote.generate_fingerprint(
+                request.voter_ip + str(uuid.uuid4()),
+                request.voter_user_agent
+            )
+            logger.info(f"Vote attempt on MULTI-VOTE poll {poll.id} | IP: {request.voter_ip}")
         
         # Validate form
         form = VoteForm(candidates, request.POST)
@@ -261,7 +276,7 @@ def vote_poll(request, poll_id):
                     # Create vote record
                     vote = Vote.objects.create(
                         poll=poll,
-                        voter_fingerprint=voter_fingerprint,
+                        voter_fingerprint=vote_fingerprint,
                         ranking=ranking
                     )
                     
@@ -273,36 +288,23 @@ def vote_poll(request, poll_id):
                     if hasattr(request, 'voter_session_token'):
                         defaults['cookie_token'] = request.voter_session_token
 
-                    # Try to get existing session by fingerprint
-                    # If not found, create new one with current cookie token
-                    # If found, we might need to update the cookie token if it changed?
-                    # No, if fingerprint matches, we assume it's the same physical device/network.
-                    # But if they cleared cookies, they have a new token.
-                    # We should probably update the token to the new one to track them?
-                    # But wait, if we update the token, we lose the link to the OLD token?
-                    # Actually, we want to BLOCK them if they have EITHER the old fingerprint OR the old token.
-                    # If they have the old fingerprint, they are blocked by Vote check anyway.
-                    
+                    # Try to get existing session by fingerprint (always use stable device fingerprint)
                     voter_session, created = VoterSession.objects.get_or_create(
                         poll=poll,
-                        voter_fingerprint=voter_fingerprint,
+                        voter_fingerprint=device_fingerprint,
                         defaults=defaults
                     )
                     
-                    # If session existed but with different cookie token (e.g. user cleared cookies),
-                    # we should probably NOT update it, because that would allow them to vote again 
-                    # if they change IP later?
-                    # Actually, if they are here, it means they passed the Vote check (so fingerprint is NEW).
-                    # So 'created' must be True.
-                    # If 'created' is False, it means fingerprint existed.
-                    # But if fingerprint existed, 'existing_vote_fingerprint' would be True and we would have returned early.
-                    # So 'created' SHOULD be True here.
-                    
                     if not created:
-                        # This should theoretically not happen if Vote check works, 
-                        # unless Vote exists but VoterSession doesn't (data inconsistency)
-                        # or race condition.
-                        logger.warning(f"VoterSession existed but Vote didn't? Fingerprint: {voter_fingerprint}")
+                        # If multi-vote is disabled, this implies a race condition or inconsistency 
+                        # because we checked for existence earlier.
+                        # If multi-vote is enabled, this is normal behavior (same user voting again).
+                        if not poll.allow_multiple_votes_per_device:
+                             logger.warning(f"VoterSession existed but Vote didn't? Fingerprint: {device_fingerprint}")
+                        
+                        if hasattr(request, 'voter_session_token') and voter_session.cookie_token != request.voter_session_token:
+                             logger.info(f"Updating session token from {voter_session.cookie_token} to {request.voter_session_token}")
+                             voter_session.cookie_token = request.voter_session_token
                         if hasattr(request, 'voter_session_token') and voter_session.cookie_token != request.voter_session_token:
                              logger.info(f"Updating session token from {voter_session.cookie_token} to {request.voter_session_token}")
                              voter_session.cookie_token = request.voter_session_token

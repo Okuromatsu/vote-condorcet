@@ -46,11 +46,12 @@ class CreatePollForm(forms.ModelForm):
     
     class Meta:
         model = Poll
-        fields = ['title', 'description', 'tiebreaker_method']
+        fields = ['title', 'description', 'tiebreaker_method', 'allow_multiple_votes_per_device']
         labels = {
             'title': _('Poll Title'),
             'description': _('Poll Description'),
             'tiebreaker_method': _('Tiebreaker Method'),
+            'allow_multiple_votes_per_device': _('Allow multiple votes per device'),
         }
         widgets = {
             'title': forms.TextInput(attrs={
@@ -67,6 +68,12 @@ class CreatePollForm(forms.ModelForm):
             'tiebreaker_method': forms.Select(attrs={
                 'class': 'form-select',
             }),
+            'allow_multiple_votes_per_device': forms.CheckboxInput(attrs={
+                'class': 'form-check-input',
+            }),
+        }
+        help_texts = {
+             'allow_multiple_votes_per_device': _('Enable this for shared devices (e.g., passing a tablet around). Bypasses duplicate vote protection.'),
         }
     
     def clean_candidates(self):

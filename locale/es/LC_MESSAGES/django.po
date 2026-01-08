@@ -652,11 +652,19 @@ msgid "Tips:"
 msgstr "Consejos:"
 
 #: voting/templates/voting/create_poll.html:119
-msgid ""
-"Poll titles should be clear questions (e.g., Best Programming Language?)"
-msgstr ""
-"Los títulos de las encuestas deben ser preguntas claras (por ejemplo, ¿Mejor "
-"lenguaje de programación?)"
+#: voting/templates/voting/create_poll.html:119
+msgid "Poll titles should be clear questions (e.g., Best Programming Language?)"
+msgstr "Los títulos de las encuestas deben ser preguntas claras (por ejemplo, ¿Mejor lenguaje de programación?)"
+
+msgid "Allow multiple votes per device"
+msgstr "Permitir varios votos por dispositivo"
+
+msgid "Enable this for shared devices (e.g., passing a tablet around). Bypasses duplicate vote protection."
+msgstr "Habilite esto para dispositivos compartidos (ej: pasar una tableta). Omite la protección contra votos duplicados."
+
+msgid "Warning: This poll allows multiple votes per device. Making it public carries a high risk of manipulation. Are you sure?"
+msgstr "Advertencia: Esta encuesta permite múltiples votos por dispositivo. Hacerla pública conlleva un alto riesgo de manipulación. ¿Estás seguro?""
+
 
 #: voting/templates/voting/create_poll.html:120
 msgid "Keep candidate names short and distinct"
@@ -956,4 +964,46 @@ msgstr "Ingrese su código de creador para administrar sus encuestas."
 #: voting/templates/voting/dashboard_login.html:26
 msgid "If you did not save your creator code, unfortunately we cannot recover it for you as we do not store personal information."
 msgstr "Si no guardó su código de creador, lamentablemente no podemos recuperarlo por usted ya que no almacenamos información personal."
+
+#: voting/templates/voting/create_poll.html:63
+msgid "How to resolve the Condorcet paradox if no clear winner:"
+msgstr "Cómo resolver la paradoja de Condorcet si no hay un ganador claro:"
+
+#: voting/templates/voting/create_poll.html:64
+msgid "Learn more"
+msgstr "Aprende más"
+
+#: voting/templates/voting/create_poll.html:89
+msgid "Minimum 2 candidates, maximum 50"
+msgstr "Mínimo 2 candidatos, máximo 50"
+
+#: voting/templates/voting/create_poll.html:90
+msgid "One candidate per line"
+msgstr "Ingrese un candidato por línea"
+
+#: voting/templates/voting/create_poll.html:91
+msgid "No duplicate names"
+msgstr "Sin nombres duplicados"
+
+#: voting/templates/voting/create_poll.html:108
+#: voting/templates/voting/vote.html:91
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: voting/templates/voting/create_poll.html:117
+msgid "Tips:"
+msgstr "Consejos:"
+
+#: voting/templates/voting/create_poll.html:119
+msgid ""
+"Poll titles should be clear questions (e.g., Best Programming L
+
+msgid "Allow multiple votes per device"
+msgstr "Permitir varios votos por dispositivo"
+
+msgid "Enable this for shared devices (e.g., passing a tablet around). Bypasses duplicate vote protection."
+msgstr "Habilite esto para dispositivos compartidos (ej: pasar una tableta). Omite la protecci�n contra votos duplicados."
+
+msgid "Warning: This poll allows multiple votes per device. Making it public carries a high risk of manipulation. Are you sure?"
+msgstr "Advertencia: Esta encuesta permite m�ltiples votos por dispositivo. Hacerla p�blica conlleva un alto riesgo de manipulaci�n. Est�s seguro?"
 

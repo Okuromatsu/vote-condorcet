@@ -64,7 +64,20 @@
                             <a href="{% url 'voting:about_condorcet' %}" target="_blank">{% trans "Learn more" %}</a>
                         </small>
                     </div>
-                    
+
+                    <!-- Allow Multiple Votes per Device -->
+                    <div class="mb-3">
+                        <div class="form-check">
+                            {{ form.allow_multiple_votes_per_device }}
+                            <label class="form-check-label" for="{{ form.allow_multiple_votes_per_device.id_for_label }}">
+                                {% trans "Allow multiple votes per device" %}
+                            </label>
+                        </div>
+                        <small class="form-text text-muted mt-1 d-block">
+                            {{ form.allow_multiple_votes_per_device.help_text }}
+                        </small>
+                    </div>
+
                     <!-- Candidates -->
                     <div class="mb-3">
                         <label for="{{ form.candidates.id_for_label }}" class="form-label">
