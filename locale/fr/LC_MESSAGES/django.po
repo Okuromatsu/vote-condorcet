@@ -1478,3 +1478,15 @@ msgstr ""
 
 #~ msgid "Ruby vs Python:"
 #~ msgstr "Ruby contre Python :"
+
+#: voting/forms.py:65
+msgid "Allow multiple votes per device"
+msgstr "Autoriser plusieurs votes par appareil"
+
+#: voting/forms.py:66
+msgid "Enable this for shared devices (e.g., passing a tablet around). Bypasses duplicate vote protection."
+msgstr "Activez ceci pour les appareils partagés (ex: passer une tablette). Contourne la protection contre les votes en double."
+
+#: voting/forms.py:67
+msgid "Warning: This poll allows multiple votes per device. Making it public carries a high risk of manipulation. Are you sure?"
+msgstr "Attention : Ce sondage autorise plusieurs votes par appareil. Le rendre public comporte un risque élevé de manipulation. Êtes-vous sûr ?"

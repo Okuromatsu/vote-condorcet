@@ -652,11 +652,18 @@ msgid "Tips:"
 msgstr "Consejos:"
 
 #: voting/templates/voting/create_poll.html:119
-msgid ""
-"Poll titles should be clear questions (e.g., Best Programming Language?)"
-msgstr ""
-"Los títulos de las encuestas deben ser preguntas claras (por ejemplo, ¿Mejor "
-"lenguaje de programación?)"
+#: voting/templates/voting/create_poll.html:119
+msgid "Poll titles should be clear questions (e.g., Best Programming Language?)"
+msgstr "Los títulos de las encuestas deben ser preguntas claras (por ejemplo, ¿Mejor lenguaje de programación?)"
+
+msgid "Allow multiple votes per device"
+msgstr "Permitir varios votos por dispositivo"
+
+msgid "Enable this for shared devices (e.g., passing a tablet around). Bypasses duplicate vote protection."
+msgstr "Habilite esto para dispositivos compartidos (ej: pasar una tableta). Omite la protección contra votos duplicados."
+
+msgid "Warning: This poll allows multiple votes per device. Making it public carries a high risk of manipulation. Are you sure?"
+msgstr "Advertencia: Esta encuesta permite múltiples votos por dispositivo. Hacerla pública conlleva un alto riesgo de manipulación. ¿Estás seguro?"
 
 #: voting/templates/voting/create_poll.html:120
 msgid "Keep candidate names short and distinct"
@@ -956,4 +963,3 @@ msgstr "Ingrese su código de creador para administrar sus encuestas."
 #: voting/templates/voting/dashboard_login.html:26
 msgid "If you did not save your creator code, unfortunately we cannot recover it for you as we do not store personal information."
 msgstr "Si no guardó su código de creador, lamentablemente no podemos recuperarlo por usted ya que no almacenamos información personal."
-

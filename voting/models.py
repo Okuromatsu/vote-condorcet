@@ -98,6 +98,11 @@ class Poll(models.Model):
         default=False,
         help_text="Whether results have been released by the creator while poll is active"
     )
+
+    allow_multiple_votes_per_device = models.BooleanField(
+        default=False,
+        help_text="If True, bypass cookie/fingerprint checks to allow multiple votes from same device"
+    )
     
     class Meta:
         ordering = ['-created_at']

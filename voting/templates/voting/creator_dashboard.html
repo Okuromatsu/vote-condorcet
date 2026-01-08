@@ -133,7 +133,10 @@
                                         🔒 {% trans "Make Private" %}
                                     </a>
                                     {% else %}
-                                    <a href="?action=make_public&poll_id={{ item.poll.id }}" class="btn btn-sm btn-outline-primary">
+                                    <a href="?action=make_public&poll_id={{ item.poll.id }}" 
+                                       data-allow-multivote="{{ item.poll.allow_multiple_votes_per_device|yesno:'true,false' }}"
+                                       onclick="return confirmMakePublic(this)"
+                                       class="btn btn-sm btn-outline-primary">
                                         🌍 {% trans "Make Public" %}
                                     </a>
                                     {% endif %}
@@ -147,7 +150,7 @@
                                     </a>
                                     {% endif %}
                                     <a href="?action=delete&poll_id={{ item.poll.id }}" 
-                                       onclick="return confirm('{% trans "Are you sure you want to delete this poll?" %}')"
+                                       onclick="return confirmDelete()"
                                        class="btn btn-sm btn-outline-danger">
                                         🗑️ {% trans "Delete" %}
                                     </a>
@@ -259,5 +262,17 @@ function copyShareUrl() {
         alert('{% trans "Link copied!" %}');
     });
 }
+
+function confirmMakePublic(element) {
+        const isMultivote = element.getAttribute('data-allow-multivote') === 'true';
+        if (isMultivote) {
+            return confirm("{% trans 'Warning: This poll allows multiple votes per device. Making it public carries a high risk of manipulation. Are you sure?' %}");
+        }
+        return true;
+    }
+
+    function confirmDelete() {
+        return confirm("{% trans 'Are you sure you want to delete this poll?'|escapejs %}");
+    }
 </script>
 {% endblock %}

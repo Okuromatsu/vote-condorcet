@@ -103,53 +103,26 @@
     </div>
 </div>
 
+<!-- SortableJS library for touch-friendly drag and drop -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+
 <!-- Drag-and-drop functionality -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const candidatesList = document.getElementById('candidates-list');
-        let draggedElement = null;
         
-        // Drag and Drop Event Listeners
-        candidatesList.addEventListener('dragstart', function(e) {
-            if (e.target.classList.contains('candidate-item')) {
-                draggedElement = e.target;
-                e.target.style.opacity = '0.5';
-                e.dataTransfer.effectAllowed = 'move';
-            }
-        });
-        
-        candidatesList.addEventListener('dragend', function(e) {
-            if (draggedElement) {
-                draggedElement.style.opacity = '1';
-                draggedElement = null;
-            }
-        });
-        
-        candidatesList.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            e.dataTransfer.dropEffect = 'move';
-            
-            const afterElement = getDragAfterElement(candidatesList, e.clientY);
-            if (afterElement == null) {
-                candidatesList.appendChild(draggedElement);
-            } else {
-                candidatesList.insertBefore(draggedElement, afterElement);
-            }
-        });
-        
-        function getDragAfterElement(container, y) {
-            const draggableElements = [...container.querySelectorAll('.candidate-item:not(.dragging)')];
-            
-            return draggableElements.reduce((closest, child) => {
-                const box = child.getBoundingClientRect();
-                const offset = y - box.top - box.height / 2;
-                
-                if (offset < 0 && offset > closest.offset) {
-                    return { offset: offset, element: child };
-                } else {
-                    return closest;
+        // Initialize SortableJS
+        if (candidatesList) {
+            new Sortable(candidatesList, {
+                animation: 150,
+                handle: '.drag-handle', // Drag handle selector within list items
+                ghostClass: 'sortable-ghost', // Class name for the drop placeholder
+                chosenClass: 'sortable-chosen', // Class name for the chosen item
+                dragClass: 'sortable-drag', // Class name for the dragging item
+                onEnd: function (evt) {
+                    updateRankings();
                 }
-            }, { offset: Number.NEGATIVE_INFINITY }).element;
+            });
         }
         
         // Update ranking numbers and hidden inputs when dragged
@@ -168,8 +141,6 @@
             });
         }
         
-        candidatesList.addEventListener('dragend', updateRankings);
-        
         // Initial ranking setup
         updateRankings();
         
@@ -184,18 +155,35 @@
 
 <style>
     .drag-handle {
-        cursor: move;
+        cursor: move; /* fallback */
+        cursor: grab;
         color: #999;
         font-weight: bold;
+        padding: 10px; /* Larger touch target */
+        touch-action: none; /* Prevent scrolling when touching handle */
     }
     
     .candidate-item {
-        cursor: move;
-        transition: background-color 0.2s;
+        background-color: white; /* Ensure background is solid during drag */
+        transition: background-color 0.2s, transform 0.2s;
     }
     
     .candidate-item:hover {
         background-color: #f8f9fa;
+    }
+
+    /* SortableJS Classes */
+    .sortable-ghost {
+        opacity: 0.4;
+        background-color: #e9ecef;
+        border: 2px dashed #ced4da;
+    }
+    
+    .sortable-drag {
+        cursor: grabbing;
+        opacity: 1;
+        background-color: #fff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     
     .rank-badge {
