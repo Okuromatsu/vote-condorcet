@@ -663,8 +663,7 @@ msgid "Enable this for shared devices (e.g., passing a tablet around). Bypasses 
 msgstr "Habilite esto para dispositivos compartidos (ej: pasar una tableta). Omite la protección contra votos duplicados."
 
 msgid "Warning: This poll allows multiple votes per device. Making it public carries a high risk of manipulation. Are you sure?"
-msgstr "Advertencia: Esta encuesta permite múltiples votos por dispositivo. Hacerla pública conlleva un alto riesgo de manipulación. ¿Estás seguro?""
-
+msgstr "Advertencia: Esta encuesta permite múltiples votos por dispositivo. Hacerla pública conlleva un alto riesgo de manipulación. ¿Estás seguro?"
 
 #: voting/templates/voting/create_poll.html:120
 msgid "Keep candidate names short and distinct"
