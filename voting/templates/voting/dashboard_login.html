@@ -15,11 +15,11 @@
                     {% trans "Enter your creator code to manage your polls." %}
                 </p>
                 
-                <form method="post">
+                <form method="post" action="">
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="creator_code" class="form-label">{% trans "Creator Code" %}</label>
-                        <input type="text" class="form-control form-control-lg" id="creator_code" name="creator_code" required placeholder="e.g. a1b2c3d4">
+                        <input type="password" class="form-control form-control-lg" id="creator_code" name="creator_code" required placeholder="e.g. a1b2c3d4" autocomplete="off" autocorrect="off" autocapitalize="off">
                     </div>
                     
                     <div class="alert alert-info">
