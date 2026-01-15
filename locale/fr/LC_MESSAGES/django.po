@@ -571,9 +571,9 @@ msgstr "Créer un sondage"
 #: voting/templates/voting/base.html:11 voting/templates/voting/base.html:20
 #: voting/templates/voting/base.html:27 voting/templates/voting/base.html:45
 msgid ""
-"Create and participate in Condorcet voting polls. A fair and transparent "
+"Create and participate in Condorcet voting polls online. A fair and transparent "
 "ranked-choice voting system."
-msgstr ""
+msgstr "Créer et participer dans des sondage en ligne en utilisant la méthode de Condorcet. Une méthode de vote par classement juste et transparente"
 
 # Navigation
 #: voting/templates/voting/base.html:82
@@ -615,10 +615,9 @@ msgid "Condorcet Voting System"
 msgstr "Système de vote de Condorcet"
 
 #: voting/templates/voting/base.html:167
-msgid "Using Condorcet voting method with Schulze tiebreaker"
+msgid "Create polls online using Condorcet voting method with multiple tiebreakers methods"
 msgstr ""
-"Utilisation de la méthode de vote Condorcet avec le mécanisme de départage "
-"Schulze"
+"Créer des sondages en ligne en utilisation de la méthode de vote Condorcet avec de multiples mécanisme de départage"
 
 #: voting/templates/voting/create_poll.html:5
 msgid "Create Poll - Condorcet Vote"
@@ -876,10 +875,10 @@ msgstr "Bienvenue sur Vote Condorcet"
 
 #: voting/templates/voting/index.html:11
 msgid ""
-"Create fair polls using the Condorcet voting method. No registration "
+"Create fair online polls using the Condorcet voting method. No registration "
 "required, just vote and see instant results."
 msgstr ""
-"Créez des sondages équitables en utilisant la méthode de vote Condorcet. "
+"Créez des sondages en ligne et équitables en utilisant la méthode de vote Condorcet. "
 "Aucune inscription requise, votez simplement et voyez les résultats "
 "instantanés."
 
@@ -1490,3 +1489,7 @@ msgstr "Activez ceci pour les appareils partagés (ex: passer une tablette). Con
 #: voting/forms.py:67
 msgid "Warning: This poll allows multiple votes per device. Making it public carries a high risk of manipulation. Are you sure?"
 msgstr "Attention : Ce sondage autorise plusieurs votes par appareil. Le rendre public comporte un risque élevé de manipulation. Êtes-vous sûr ?"
+
+#: voting/templates/voting/index.html:11
+msgid "Create fair polls using the Condorcet voting method. No registration required, just vote and see instant results."
+msgstr "Créer des élections et sondages juste en utilisant la méthode de Condorcet. Pas de compte requis, voter simplement et voyer les résultats en direct."

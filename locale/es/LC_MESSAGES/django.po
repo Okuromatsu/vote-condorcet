@@ -566,7 +566,7 @@ msgstr "Crear encuesta"
 #: voting/templates/voting/base.html:11 voting/templates/voting/base.html:20
 #: voting/templates/voting/base.html:27 voting/templates/voting/base.html:45
 msgid ""
-"Create and participate in Condorcet voting polls. A fair and transparent "
+"Create and participate in Condorcet voting polls online. A fair and transparent "
 "ranked-choice voting system."
 msgstr ""
 
@@ -610,7 +610,7 @@ msgid "Condorcet Voting System"
 msgstr "Sistema de votación Condorcet"
 
 #: voting/templates/voting/base.html:167
-msgid "Using Condorcet voting method with Schulze tiebreaker"
+msgid "Create polls online using Condorcet voting method with multiple tiebreakers methods"
 msgstr "Utilizando el método de votación Condorcet con desempate de Schulze"
 
 #: voting/templates/voting/create_poll.html:5

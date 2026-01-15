@@ -4,34 +4,52 @@ from django.conf import settings
 from django.utils import translation
 from .models import Poll
 
+def build_url(path, use_www):
+    domain = "vote-condorcet.com"
+    if use_www:
+        domain = "www." + domain
+    return f"https://{domain}{path}"
+
 class StaticViewSitemap(Sitemap):
     priority = 0.8
     changefreq = 'daily'
 
     def items(self):
-        # Create an item for each view in each language
+        # Generate (view_name, lang_code, use_www) tuples
         base_views = ['voting:index', 'voting:about_condorcet', 'voting:create_poll']
-        return [(view, lang_code) for view in base_views for lang_code, _ in settings.LANGUAGES]
+        return [
+            (view, lang, www)
+            for view in base_views
+            for lang, _ in settings.LANGUAGES
+            for www in [False, True]
+        ]
 
     def location(self, item):
-        view_name, lang_code = item
+        view_name, lang_code, use_www = item
         with translation.override(lang_code):
-            return reverse(view_name)
+            path = reverse(view_name)
+        return build_url(path, use_www)
 
 class PollSitemap(Sitemap):
     changefreq = 'hourly'
     priority = 0.6
 
     def items(self):
-        # Only include public, active, non-deleted polls in all languages
+        # Generate (poll, lang_code, use_www) tuples
         polls = Poll.objects.filter(is_public=True, is_active=True, is_deleted=False)
-        return [(poll, lang_code) for poll in polls for lang_code, _ in settings.LANGUAGES]
+        return [
+            (poll, lang, www)
+            for poll in polls
+            for lang, _ in settings.LANGUAGES
+            for www in [False, True]
+        ]
 
     def location(self, obj):
-        poll, lang_code = obj
+        poll, lang_code, use_www = obj
         with translation.override(lang_code):
-            return reverse('voting:vote_poll', args=[poll.id])
+            path = reverse('voting:vote_poll', args=[poll.id])
+        return build_url(path, use_www)
 
     def lastmod(self, obj):
-        poll, _ = obj
+        poll, _, _ = obj
         return poll.updated_at

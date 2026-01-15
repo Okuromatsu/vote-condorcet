@@ -2,6 +2,8 @@
 
 A fair and transparent voting system using the Condorcet method - no registration required, just rank and vote!
 
+Online public version here : ([vote-condorcet.com](https://vote-condorcet.com/en/))
+
 ## ✨ Features
 
 - **Fair Voting** - Condorcet method finds the candidate who beats all others in head-to-head matchups

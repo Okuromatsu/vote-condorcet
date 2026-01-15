@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="{% block meta_description %}{% trans 'Create and participate in Condorcet voting polls. A fair and transparent ranked-choice voting system.' %}{% endblock %}">
+    <meta name="description" content="{% block meta_description %}{% trans 'Create and participate in Condorcet voting polls online. A fair and transparent ranked-choice voting system.' %}{% endblock %}">
     <meta name="keywords" content="{% block meta_keywords %}condorcet, voting, poll, ranked choice, schulze method, election, democracy{% endblock %}">
-    <meta name="author" content="Condorcet Vote">
+    <meta name="author" content="Condorcet">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph / Facebook -->
@@ -40,9 +40,9 @@
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Condorcet Vote",
+      "name": "vote-condorcet.com",
       "url": "{{ request.scheme }}://{{ request.get_host }}",
-      "description": "{% trans 'Create and participate in Condorcet voting polls. A fair and transparent ranked-choice voting system.' %}",
+      "description": "{% trans 'Create and participate in Condorcet voting polls online. A fair and transparent ranked-choice voting system.' %}",
       "applicationCategory": "VotingApplication",
       "operatingSystem": "Any",
       "offers": {
@@ -53,7 +53,7 @@
       "featureList": "Condorcet Method, Schulze Method, Ranked Choice Voting",
       "author": {
         "@type": "Organization",
-        "name": "Condorcet Vote"
+        "name": "vote-condorcet.com"
       }
     }
     </script>
@@ -71,7 +71,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="{% url 'voting:index' %}">
-                🗳️ Condorcet Vote
+                🗳️ vote-condorcet.com
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -167,7 +167,7 @@
                 <a href="https://github.com/Okuromatsu/Condorcet.vote" class="text-decoration-none">GitHub</a> |
                 <a href="https://en.wikipedia.org/wiki/Condorcet_method" class="text-decoration-none">Wikipedia</a>
             </p>
-            <small class="mt-2 d-block">{% trans "Using Condorcet voting method with Schulze tiebreaker" %}</small>
+            <small class="mt-2 d-block">{% trans "Create polls online using Condorcet voting method with multiple tiebreakers methods" %}</small>
         </div>
     </footer>
 
