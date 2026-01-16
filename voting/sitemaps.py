@@ -10,7 +10,45 @@ def build_url(path, use_www):
         domain = "www." + domain
     return f"https://{domain}{path}"
 
-class StaticViewSitemap(Sitemap):
+class BaseSitemap(Sitemap):
+    """
+    Extensions de Sitemap pour supporter les URLs absolues renvoyées par location()
+    sans que Django ne préfixe automatiquement le domaine à nouveau.
+    """
+    def get_urls(self, page=1, site=None, protocol=None):
+        protocol = self.get_protocol(protocol)
+        domain = self.get_domain(site)
+        urls = []
+
+        for item in self.paginator.page(page).object_list:
+            loc = self.location(item)
+            # Fix: Check if location is already absolute
+            if not (loc.startswith('http://') or loc.startswith('https://')):
+                loc = f"{protocol}://{domain}{loc}"
+            
+            # Helper to retrieve attributes that might be callable
+            def get_attr(attr_name):
+                if not hasattr(self, attr_name):
+                    return None
+                val = getattr(self, attr_name)
+                if callable(val):
+                    return val(item)
+                return val
+
+            priority = get_attr('priority')
+            changefreq = get_attr('changefreq')
+            lastmod = get_attr('lastmod')
+
+            urls.append({
+                'item': item,
+                'location': loc,
+                'lastmod': lastmod,
+                'changefreq': changefreq,
+                'priority': priority,
+            })
+        return urls
+
+class StaticViewSitemap(BaseSitemap):
     priority = 0.8
     changefreq = 'daily'
 
@@ -30,7 +68,7 @@ class StaticViewSitemap(Sitemap):
             path = reverse(view_name)
         return build_url(path, use_www)
 
-class PollSitemap(Sitemap):
+class PollSitemap(BaseSitemap):
     changefreq = 'hourly'
     priority = 0.6
 
