@@ -873,15 +873,6 @@ msgstr "Vote Condorcet - Accueil"
 msgid "Welcome to Condorcet Vote"
 msgstr "Bienvenue sur Vote Condorcet"
 
-#: voting/templates/voting/index.html:11
-msgid ""
-"Create fair online polls using the Condorcet voting method. No registration "
-"required, just vote and see instant results."
-msgstr ""
-"Créez des sondages en ligne et équitables en utilisant la méthode de vote Condorcet. "
-"Aucune inscription requise, votez simplement et voyez les résultats "
-"instantanés."
-
 #: voting/templates/voting/index.html:24
 msgid "Active Polls"
 msgstr "Sondages actifs"
@@ -1491,8 +1482,8 @@ msgid "Warning: This poll allows multiple votes per device. Making it public car
 msgstr "Attention : Ce sondage autorise plusieurs votes par appareil. Le rendre public comporte un risque élevé de manipulation. Êtes-vous sûr ?"
 
 #: voting/templates/voting/index.html:11
-msgid "Create fair polls using the Condorcet voting method. No registration required, just vote and see instant results."
-msgstr "Créer des élections et sondages juste en utilisant la méthode de Condorcet. Pas de compte requis, voter simplement et voyer les résultats en direct."
+msgid "Create fair online polls using the Condorcet voting method. No registration required, just vote and see instant results."
+msgstr "Créer des élections et sondages juste en ligne utilisant la méthode de Condorcet. Pas de compte requis, voter simplement et voyer les résultats en direct."
 
 msgid "Make poll public"
 msgstr "Rendre le sondage public"

@@ -875,10 +875,10 @@ msgstr "Bienvenido a Voto Condorcet"
 
 #: voting/templates/voting/index.html:11
 msgid ""
-"Create fair polls using the Condorcet voting method. No registration "
+"Create fair online polls using the Condorcet voting method. No registration "
 "required, just vote and see instant results."
 msgstr ""
-"Cree encuestas justas utilizando el método de votación Condorcet. No se "
+"Cree encuestas justas online utilizando el método de votación Condorcet. No se "
 "requiere registro, simplemente vote y vea resultados instantáneos."
 
 #: voting/templates/voting/index.html:24
