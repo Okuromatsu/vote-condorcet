@@ -8,10 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="{% block meta_description %}{% trans 'Create and participate in Condorcet voting polls online. A fair and transparent ranked-choice voting system.' %}{% endblock %}">
-    <meta name="keywords" content="{% block meta_keywords %}condorcet, voting, poll, ranked choice, schulze method, election, democracy{% endblock %}">
-    <meta name="author" content="Condorcet">
+    <title>{% block title %}vote-condorcet.com - {% trans "Free Online Ranked Choice Voting Tool" %}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{% trans "Create fair online polls using the Condorcet voting method. The best Ranked Choice Voting tool for groups, decision making and elections. No registration required." %}{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}{% trans "condorcet vote, ranked choice voting, online poll, condorcet method, schulze method, free voting tool, decision making, preferential voting, sondage condorcet, vote en ligne, scrutin condorcet" %}{% endblock %}">
+    <meta name="author" content="vote-condorcet.com">
     <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}" />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -27,13 +29,8 @@
     <meta property="twitter:description" content="{% block twitter_description %}{% trans 'Create and participate in Condorcet voting polls. A fair and transparent ranked-choice voting system.' %}{% endblock %}">
     <!-- <meta property="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/og-image.jpg' %}{% endblock %}"> -->
 
-    <!-- Canonical URL -->
-    <link rel="canonical" href="{{ request.build_absolute_uri }}">
-    
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
-
-    <title>{% block title %}Condorcet Voting System{% endblock %}</title>
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">

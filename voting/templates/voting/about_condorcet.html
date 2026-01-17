@@ -325,4 +325,33 @@
         background-color: rgba(var(--bs-success-rgb), 0.1) !important;
     }
 </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "{% trans "What is Condorcet Voting?" %}",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "{% trans "The Condorcet method is a voting system where voters rank candidates in order of preference. The winner is the candidate who would beat every other candidate in a head-to-head matchup." %}"
+    }
+  }, {
+    "@type": "Question",
+    "name": "{% trans "Is this voting tool free?" %}",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "{% trans "Yes, vote-condorcet.com is a completely free, open-source online polling tool used for fair group decision making without registration." %}"
+    }
+  }, {
+    "@type": "Question",
+    "name": "{% trans "How does the Schulze method work?" %}",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "{% trans "The Schulze method is a tiebreaker used when there is no clear Condorcet winner (a cycle). It finds the strongest path between candidates to determine the mathematically fairest winner." %}"
+    }
+  }]
+}
+</script>
 {% endblock %}

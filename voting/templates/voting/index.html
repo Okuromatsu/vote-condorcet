@@ -1,18 +1,27 @@
 {% extends 'voting/base.html' %}
 {% load i18n %}
 
-{% block title %}{% trans "Condorcet Vote - Home" %}{% endblock %}
+{% block title %}{% trans "Condorcet Vote - Best Online Ranked Choice Voting Tool" %}{% endblock %}
 
 {% block meta_description %}{% trans "Create fair online polls using the Condorcet voting method. No registration required, just vote and see instant results." %}{% endblock %}
 {% block og_description %}{% trans "Create fair online polls using the Condorcet voting method. No registration required, just vote and see instant results." %}{% endblock %}
 {% block twitter_description %}{% trans "Create fair online polls using the Condorcet voting method. No registration required, just vote and see instant results." %}{% endblock %}
 
 {% block content %}
+<div class="row mb-5 text-center">
+    <div class="col-lg-12">
+        <h1 class="display-4 fw-bold mb-3">{% trans "The Fairest Way to Vote Online" %}</h1>
+        <p class="lead text-muted mb-4">
+            {% trans "Organize elections and polls using the Condorcet Method. The best Ranked Choice Voting system." %}
+        </p>
+    </div>
+</div>
+
 <div class="row mb-4">
     <div class="col-lg-8">
-        <h1 class="mb-3">{% trans "Welcome to Condorcet Vote" %}</h1>
-        <p class="lead text-muted">
-            {% trans "Create fair online polls using the Condorcet voting method. No registration required, just vote and see instant results." %}
+        <h2 class="h3 mb-3">{% trans "Why use Condorcet Vote?" %}</h2>
+        <p class="text-muted">
+            {% trans "Unlike simple majority voting, Condorcet voting allows participants to rank candidates. It finds the consensus winner who beats everyone else in head-to-head comparisons." %}
         </p>
     </div>
     <div class="col-lg-4">

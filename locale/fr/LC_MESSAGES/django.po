@@ -571,9 +571,11 @@ msgstr "Créer un sondage"
 #: voting/templates/voting/base.html:11 voting/templates/voting/base.html:20
 #: voting/templates/voting/base.html:27 voting/templates/voting/base.html:45
 msgid ""
-"Create and participate in Condorcet voting polls online. A fair and transparent "
-"ranked-choice voting system."
-msgstr "Créer et participer dans des sondage en ligne en utilisant la méthode de Condorcet. Une méthode de vote par classement juste et transparente"
+"Create and participate in Condorcet voting polls online. A fair and "
+"transparent ranked-choice voting system."
+msgstr ""
+"Créer et participer dans des sondage en ligne en utilisant la méthode de "
+"Condorcet. Une méthode de vote par classement juste et transparente"
 
 # Navigation
 #: voting/templates/voting/base.html:82
@@ -615,9 +617,12 @@ msgid "Condorcet Voting System"
 msgstr "Système de vote de Condorcet"
 
 #: voting/templates/voting/base.html:167
-msgid "Create polls online using Condorcet voting method with multiple tiebreakers methods"
+msgid ""
+"Create polls online using Condorcet voting method with multiple tiebreakers "
+"methods"
 msgstr ""
-"Créer des sondages en ligne en utilisation de la méthode de vote Condorcet avec de multiples mécanisme de départage"
+"Créer des sondages en ligne en utilisation de la méthode de vote Condorcet "
+"avec de multiples mécanisme de départage"
 
 #: voting/templates/voting/create_poll.html:5
 msgid "Create Poll - Condorcet Vote"
@@ -747,14 +752,16 @@ msgid "Candidates:"
 msgstr "Candidats :"
 
 #: voting/templates/voting/creator_dashboard.html:114
-#: voting/templates/voting/index.html:59 voting/templates/voting/results.html:4
+#: voting/templates/voting/index.html:59
+#: voting/templates/voting/results.html:4
 msgid "Results"
 msgstr "Résultats"
 
 #: voting/templates/voting/creator_dashboard.html:118
 #: voting/templates/voting/creator_dashboard.html:122
 #: voting/templates/voting/index.html:56
-#: voting/templates/voting/results.html:170 voting/templates/voting/vote.html:4
+#: voting/templates/voting/results.html:170
+#: voting/templates/voting/vote.html:4
 msgid "Vote"
 msgstr "Voter"
 
@@ -810,7 +817,8 @@ msgstr "Créez-en un maintenant !"
 #: voting/templates/voting/creator_dashboard.html:181
 #: voting/templates/voting/creator_dashboard.html:192
 #: voting/templates/voting/index.html:45
-#: voting/templates/voting/results.html:18 voting/templates/voting/vote.html:17
+#: voting/templates/voting/results.html:18
+#: voting/templates/voting/vote.html:17
 msgid "votes"
 msgstr "votes"
 
@@ -953,8 +961,13 @@ msgid "Enter your creator code to manage your polls."
 msgstr "Entrez votre code créateur pour gérer vos sondages."
 
 #: voting/templates/voting/dashboard_login.html:26
-msgid "If you did not save your creator code, unfortunately we cannot recover it for you as we do not store personal information."
-msgstr "Si vous n'avez pas sauvegardé votre code créateur, nous ne pouvons malheureusement pas le récupérer pour vous car nous ne stockons pas d'informations personnelles."
+msgid ""
+"If you did not save your creator code, unfortunately we cannot recover it "
+"for you as we do not store personal information."
+msgstr ""
+"Si vous n'avez pas sauvegardé votre code créateur, nous ne pouvons "
+"malheureusement pas le récupérer pour vous car nous ne stockons pas "
+"d'informations personnelles."
 
 # Poll confirmation page
 #: voting/templates/voting/poll_confirmation.html:11
@@ -1066,7 +1079,8 @@ msgstr "Supprimer le sondage"
 msgid "Only you with the creator code can modify this poll"
 msgstr "Seul vous avec le code créateur pouvez modifier ce sondage"
 
-#: voting/templates/voting/results.html:20 voting/templates/voting/vote.html:19
+#: voting/templates/voting/results.html:20
+#: voting/templates/voting/vote.html:19
 msgid "Max"
 msgstr "Max"
 
@@ -1085,7 +1099,9 @@ msgstr "via"
 
 #: voting/templates/voting/results.html:47
 msgid "No clear Condorcet winner was found (no candidate beats all others)."
-msgstr "Aucun gagnant de Condorcet clair n'a été trouvé (aucun candidat ne bat tous les autres)."
+msgstr ""
+"Aucun gagnant de Condorcet clair n'a été trouvé (aucun candidat ne bat tous "
+"les autres)."
 
 #: voting/templates/voting/results.html:49
 msgid "The winner was determined using the"
@@ -1218,6 +1234,124 @@ msgstr ""
 "trouve ensuite le candidat qui gagnerait dans un affrontement équitable "
 "contre n'importe quel autre candidat. Cette méthode est considérée comme "
 "l'un des systèmes de vote les plus équitables."
+
+#: voting/forms.py:65
+msgid "Allow multiple votes per device"
+msgstr "Autoriser plusieurs votes par appareil"
+
+#: voting/forms.py:66
+msgid ""
+"Enable this for shared devices (e.g., passing a tablet around). Bypasses "
+"duplicate vote protection."
+msgstr ""
+"Activez ceci pour les appareils partagés (ex: passer une tablette). "
+"Contourne la protection contre les votes en double."
+
+#: voting/forms.py:67
+msgid ""
+"Warning: This poll allows multiple votes per device. Making it public "
+"carries a high risk of manipulation. Are you sure?"
+msgstr ""
+"Attention : Ce sondage autorise plusieurs votes par appareil. Le rendre "
+"public comporte un risque élevé de manipulation. Êtes-vous sûr ?"
+
+#: voting/templates/voting/index.html:11
+msgid ""
+"Create fair online polls using the Condorcet voting method. No registration "
+"required, just vote and see instant results."
+msgstr ""
+"Créer des élections et sondages juste en ligne utilisant la méthode de "
+"Condorcet. Pas de compte requis, voter simplement et voyer les résultats en "
+"direct."
+
+msgid "Make poll public"
+msgstr "Rendre le sondage public"
+
+msgid "Make this poll public"
+msgstr "Rendre ce sondage public"
+
+msgid "Public polls are visible on the homepage and can be seen by everyone."
+msgstr ""
+"Les sondages publics sont visibles sur la page d'accueil et peuvent être vus "
+"par tout le monde."
+
+msgid "Polls are private by default (only accessible via a private link)."
+msgstr ""
+"Les sondages sont privés par défaut (accessibles uniquement via un lien "
+"privé)."
+
+msgid "Free Online Ranked Choice Voting Tool"
+msgstr "Outil de vote préférentiel en ligne gratuit"
+
+msgid ""
+"Create fair online polls using the Condorcet voting method. The best Ranked "
+"Choice Voting tool for groups, decision making and elections. No "
+"registration required."
+msgstr ""
+"Créez des sondages équitables avec la méthode de Condorcet. Le meilleur "
+"outil de vote préférentiel pour les groupes et les élections. Sans "
+"inscription."
+
+msgid ""
+"condorcet vote, ranked choice voting, online poll, condorcet method, schulze "
+"method, free voting tool, decision making, preferential voting, sondage "
+"condorcet, vote en ligne, scrutin condorcet"
+msgstr ""
+"vote condorcet, vote préférentiel, sondage en ligne, méthode condorcet, "
+"méthode schulze, outil de vote gratuit, prise de décision, scrutin "
+"préférentiel, sondage condorcet, vote en ligne, scrutin condorcet"
+
+msgid "The Fairest Way to Vote Online"
+msgstr "La manière la plus équitable de voter en ligne"
+
+msgid "Organize elections and polls using the Condorcet Method. The best Ranked Choice Voting system."
+msgstr "Organisez des élections et sondages avec la méthode de Condorcet. Le meilleur système de Vote Préférentiel."
+
+msgid "Why use Condorcet Vote?"
+msgstr "Pourquoi utiliser Condorcet Vote ?"
+
+msgid ""
+"Unlike simple majority voting, Condorcet voting allows participants to rank "
+"candidates. It finds the consensus winner who beats everyone else in head-to-"
+"head comparisons."
+msgstr ""
+"Contrairement au vote majoritaire simple, le vote Condorcet permet de "
+"classer les candidats. Il trouve le vainqueur consensuel qui bat tous les "
+"autres en duels."
+
+msgid "Condorcet Vote - Best Online Ranked Choice Voting Tool"
+msgstr "Condorcet Vote - Le meilleur outil de vote préférentiel en ligne"
+
+msgid ""
+"The Condorcet method is a voting system where voters rank candidates in "
+"order of preference. The winner is the candidate who would beat every other "
+"candidate in a head-to-head matchup."
+msgstr ""
+"La méthode de Condorcet est un système de vote où les électeurs classent les "
+"candidats par préférence. Le gagnant est celui qui battrait tous les autres "
+"candidats en duel."
+
+msgid "Is this voting tool free?"
+msgstr "Cet outil de vote est-il gratuit ?"
+
+msgid ""
+"Yes, vote-condorcet.com is a completely free, open-source online polling tool "
+"used for fair group decision making without registration."
+msgstr ""
+"Oui, vote-condorcet.com est un outil de sondage en ligne entièrement gratuit et "
+"open-source pour la prise de décision équitable sans inscription."
+
+msgid "How does the Schulze method work?"
+msgstr "Comment fonctionne la méthode de Schulze ?"
+
+msgid ""
+"The Schulze method is a tiebreaker used when there is no clear Condorcet "
+"winner (a cycle). It finds the strongest path between candidates to "
+"determine the mathematically fairest winner."
+msgstr ""
+"La méthode de Schulze sert à départager en l'absence de vainqueur Condorcet "
+"clair (paradoxe). Elle trouve le chemin le plus fort entre les candidats "
+"pour déterminer le gagnant mathématiquement le plus juste."
 
 #~ msgid "Real Example"
 #~ msgstr "Exemple réel"
@@ -1468,31 +1602,3 @@ msgstr ""
 
 #~ msgid "Ruby vs Python:"
 #~ msgstr "Ruby contre Python :"
-
-#: voting/forms.py:65
-msgid "Allow multiple votes per device"
-msgstr "Autoriser plusieurs votes par appareil"
-
-#: voting/forms.py:66
-msgid "Enable this for shared devices (e.g., passing a tablet around). Bypasses duplicate vote protection."
-msgstr "Activez ceci pour les appareils partagés (ex: passer une tablette). Contourne la protection contre les votes en double."
-
-#: voting/forms.py:67
-msgid "Warning: This poll allows multiple votes per device. Making it public carries a high risk of manipulation. Are you sure?"
-msgstr "Attention : Ce sondage autorise plusieurs votes par appareil. Le rendre public comporte un risque élevé de manipulation. Êtes-vous sûr ?"
-
-#: voting/templates/voting/index.html:11
-msgid "Create fair online polls using the Condorcet voting method. No registration required, just vote and see instant results."
-msgstr "Créer des élections et sondages juste en ligne utilisant la méthode de Condorcet. Pas de compte requis, voter simplement et voyer les résultats en direct."
-
-msgid "Make poll public"
-msgstr "Rendre le sondage public"
-
-msgid "Make this poll public"
-msgstr "Rendre ce sondage public"
-
-msgid "Public polls are visible on the homepage and can be seen by everyone."
-msgstr "Les sondages publics sont visibles sur la page d'accueil et peuvent être vus par tout le monde."
-
-msgid "Polls are private by default (only accessible via a private link)."
-msgstr "Les sondages sont privés par défaut (accessibles uniquement via un lien privé)."
