@@ -39,7 +39,8 @@ urlpatterns = [
     path('vote/<uuid:poll_id>/', views.vote_poll, name='vote_poll'),
     
     # Results display
-    path('results/<uuid:poll_id>/', views.results_poll, name='results_poll'),
+    path('poll/<uuid:poll_id>/results/', views.results_poll, name='results_poll'),
+    path('poll/<uuid:poll_id>/results/json/', views.download_results_json, name='download_results_json'),
     
     # Share link generation
     path('api/share/<uuid:poll_id>/', views.poll_share_link, name='share_link'),

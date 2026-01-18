@@ -32,10 +32,11 @@ from .models import Poll, Candidate, Vote, VoterSession, PollToken
 from .forms import CreatePollForm, VoteForm, AuthForm
 from .utils import (
     calculate_condorcet_winner, validate_ranking, get_ranking_statistics,
-    generate_qr_code
+    generate_qr_code, calculate_pairwise_results
 )
 from django.contrib.auth.hashers import make_password, check_password
 import secrets
+import hashlib
 from datetime import timedelta
 
 from django.utils import timezone
@@ -584,6 +585,19 @@ def results_poll(request, poll_id):
         stats = {}
         first_choice_data = []
         pairwise_list = []
+
+    # Calculate User's Verification IDs (for Transparency)
+    user_verification_ids = []
+    # Note: Only works effectively for single-vote polls where fingerprint is stable
+    if not poll.allow_multiple_votes_per_device:
+        device_fingerprint = Vote.generate_fingerprint(
+            getattr(request, 'voter_ip', '0.0.0.0'),
+            getattr(request, 'voter_user_agent', '')
+        )
+        u_votes = Vote.objects.filter(poll=poll, voter_fingerprint=device_fingerprint)
+        for v in u_votes:
+            v_id = hashlib.sha256((str(v.id) + settings.SECRET_KEY).encode()).hexdigest()
+            user_verification_ids.append(v_id)
     
     context = {
         'poll': poll,
@@ -869,3 +883,79 @@ def dashboard_login(request):
             messages.error(request, _('Please enter a creator code.'))
             
     return render(request, 'voting/dashboard_login.html')
+
+def download_results_json(request, poll_id):
+    """
+    Generate and download a JSON file containing all transparency data for a poll.
+    Includes:
+    - Poll Metadata
+    - List of anonymized votes (with Verification IDs)
+    - Pairwise comparison matrix (Condorcet data)
+    
+    Security:
+    - Only available if results are released OR user is creator.
+    - Vote IDs are hashed securely.
+    """
+    poll = get_object_or_404(Poll, id=poll_id, is_deleted=False)
+    
+    # Permission Check
+    is_creator = False
+    if "created_polls" in request.session and str(poll.id) in request.session["created_polls"]:
+         is_creator = True
+    elif request.GET.get("creator_code") == poll.creator_code:
+         is_creator = True
+         
+    if not is_creator and not poll.results_released:
+        return HttpResponseForbidden(_("Results are not yet released for this poll."))
+        
+    # Fetch Data
+    votes = Vote.objects.filter(poll=poll)
+    candidates = list(poll.get_candidates())
+    candidate_map = {str(c.id): c.name for c in candidates}
+    
+    # Build Votes List
+    votes_export = []
+    votes_raw_list = []
+    
+    for vote in votes:
+        # Generate Consistent Verification ID
+        # SHA256(Vote UUID + Server Secret)
+        # Unique to the vote instance, verifiable but anonymous.
+        verification_id = hashlib.sha256((str(vote.id) + settings.SECRET_KEY).encode()).hexdigest()
+        
+        # Resolve Ranking
+        ranked_names = [candidate_map.get(cid, f"Unknown({cid})") for cid in vote.ranking]
+        
+        votes_export.append({
+            "verification_id": verification_id,
+            "ranking": ranked_names
+        })
+        votes_raw_list.append(vote.ranking)
+        
+    # Calculate Matrix (Transparency on the process)
+    pairwise_matrix = {}
+    if votes_raw_list:
+        raw_matrix = calculate_pairwise_results(votes_raw_list, set(candidate_map.keys()))
+        for (a_id, b_id), count in raw_matrix.items():
+            name_a = candidate_map.get(a_id, a_id)
+            name_b = candidate_map.get(b_id, b_id)
+            pairwise_matrix[f"{name_a} vs {name_b}"] = count
+
+    data = {
+        "poll": {
+            "title": poll.title,
+            "id": str(poll.id),
+            "total_votes": len(votes),
+            "tiebreaker_method": poll.tiebreaker_method,
+            "generated_at": timezone.now().isoformat()
+        },
+        "candidates": [c.name for c in candidates],
+        "votes": votes_export,
+        "pairwise_matrix": pairwise_matrix,
+        "note": _("Each verification_id is a secure hash of the individual vote record.")
+    }
+    
+    response = JsonResponse(data, json_dumps_params={"indent": 2})
+    response["Content-Disposition"] = f"attachment; filename=\"results_{poll.id}.json\""
+    return response
+

@@ -100,14 +100,13 @@
                                 <span class="badge bg-primary">{{ item.count }}</span>
                             </div>
                             <div class="progress">
-                                <div 
-                                    class="progress-bar bg-primary" 
-                                    role="progressbar" 
-                                    style="width: {{ item.percentage }}%"
-                                    aria-valuenow="{{ item.count }}" 
-                                    aria-valuemin="0" 
-                                    aria-valuemax="{{ total_votes }}"
-                                ></div>
+                                <div class="progress-bar bg-primary" 
+                                     role="progressbar" 
+                                     style="width: {{ item.percentage }}%;"
+                                     aria-valuenow="{{ item.count }}" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="{{ total_votes }}">
+                                </div>
                             </div>
                             <small class="text-muted">{{ item.percentage }}%</small>
                         </div>
@@ -201,6 +200,35 @@
                 <small class="text-muted mt-2 d-block">
                     {% trans "Share this link to get more votes" %}
                 </small>
+            </div>
+        </div>
+        
+        <!-- Transparency Card -->
+        <div class="card mb-3 shadow-sm border-info">
+            <div class="card-header bg-info text-white py-2">
+                <h6 class="mb-0">🔍 {% trans "Transparency" %}</h6>
+            </div>
+            <div class="card-body">
+                <p class="small text-muted mb-3">
+                    {% trans "Verify the results manually by downloading the full anonymized vote dataset." %}
+                </p>
+                <div class="d-grid">
+                    <a href="{% url 'voting:download_results_json' poll.id %}?{% if request.GET.creator_code %}creator_code={{ request.GET.creator_code }}{% endif %}" class="btn btn-sm btn-outline-info">
+                        📥 {% trans "Download JSON Data" %}
+                    </a>
+                </div>
+                
+                {% if user_verification_ids %}
+                    <hr>
+                    <h6 class="fw-bold small">{% trans "Your Verification ID(s):" %}</h6>
+                    <ul class="list-group list-group-flush mb-0 small">
+                        {% for vid in user_verification_ids %}
+                            <li class="list-group-item px-0 py-1 font-monospace bg-transparent text-secondary text-break" style="font-size: 0.75rem;">
+                                {{ vid }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
         </div>
         
