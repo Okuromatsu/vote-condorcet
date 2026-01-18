@@ -1,0 +1,41 @@
+{% extends 'voting/base.html' %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block title %}{% trans "Authentication Required" %} - {{ poll.title }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-lg mt-5">
+            <div class="card-header bg-primary text-white text-center py-3">
+                <h4 class="mb-0">🔒 {% trans "Secure Poll" %}</h4>
+            </div>
+            <div class="card-body p-4">
+                <p class="text-center text-muted mb-4">
+                    {% trans "This poll requires a unique one-time password to vote." %}
+                </p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    {{ form|crispy }}
+                    
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            🔓 {% trans "Unlock Voting" %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center text-muted small bg-light">
+                {{ poll.title }}
+            </div>
+        </div>
+        
+        <div class="text-center mt-3">
+            <a href="{% url 'voting:index' %}" class="text-decoration-none text-muted">{% trans "Back to Home" %}</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

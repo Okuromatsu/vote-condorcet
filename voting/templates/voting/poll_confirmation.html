@@ -43,6 +43,41 @@
             </div>
         </div>
 
+        {% if tokens %}
+        <!-- Secure Tokens List -->
+        <div class="card mb-4 border-danger">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0">🔑 {% trans "Voter Passwords" %}</h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <strong>⚠️ {% trans "IMPORTANT:" %}</strong> 
+                    {% trans "These passwords are shown ONLY ONCE. Download them now or you will lose access to them. Each password allows exactly one vote." %}
+                </div>
+                
+                <textarea class="form-control font-monospace mb-3" rows="10" readonly id="tokenList">{% for token in tokens %}{{ token }}&#10;{% endfor %}</textarea>
+                
+                <button onclick="downloadTokens()" class="btn btn-danger">
+                    ⬇️ {% trans "Download passwords.txt" %}
+                </button>
+            </div>
+        </div>
+        <script>
+            function downloadTokens() {
+                const text = document.getElementById('tokenList').value;
+                const blob = new Blob([text], { type: 'text/plain' });
+                const anchor = document.createElement('a');
+                anchor.download = 'vote-passwords-{{ poll.id }}.txt';
+                anchor.href = window.URL.createObjectURL(blob);
+                anchor.target = '_blank';
+                anchor.style.display = 'none';
+                document.body.appendChild(anchor);
+                anchor.click();
+                document.body.removeChild(anchor);
+            }
+        </script>
+        {% endif %}
+
         <!-- Voting Link Box -->
         <div class="card mb-4">
             <div class="card-header bg-success text-white">

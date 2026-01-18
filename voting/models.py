@@ -88,6 +88,12 @@ class Poll(models.Model):
         default='schulze',
         help_text="Method for resolving Condorcet paradox"
     )
+
+    requires_auth = models.BooleanField(
+        default=False,
+        help_text="Whether poll requires a unique one-time password to vote"
+    )
+
     max_votes = models.IntegerField(
         null=True,
         blank=True,
@@ -131,7 +137,7 @@ class Poll(models.Model):
     def get_candidates(self):
         """Return all candidates for this poll."""
         return self.candidate_set.all().order_by('name')
-    
+
     def can_accept_votes(self):
         """Check if poll can accept new votes."""
         if not self.is_active:
@@ -139,6 +145,32 @@ class Poll(models.Model):
         if self.max_votes and self.get_vote_count() >= self.max_votes:
             return False
         return True
+
+
+class PollToken(models.Model):
+    """
+    Represents a one-time use token for secure polls.
+    
+    Attributes:
+        poll: The poll this token belongs to
+        token_hash: Hashed version of the token (never store plaintext!)
+        is_used: Whether the token has been used
+        used_at: Timestamp when token was used
+    """
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name='tokens')
+    token_hash = models.CharField(max_length=128)  # Store SHA256 or similar
+    is_used = models.BooleanField(default=False)
+    used_at = models.DateTimeField(null=True, blank=True)
+    
+    class Meta:
+        unique_together = ('poll', 'token_hash')  # Although hash collision unlikely
+        indexes = [
+            models.Index(fields=['poll', 'token_hash']),
+        ]
+
+    def __str__(self):
+        return f"Token for {self.poll.id} ({'Used' if self.is_used else 'Active'})"
+
 
 
 class Candidate(models.Model):

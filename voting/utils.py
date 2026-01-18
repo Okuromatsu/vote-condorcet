@@ -23,6 +23,8 @@ from collections import defaultdict
 from typing import List, Dict, Set, Tuple, Optional
 import logging
 import random
+import urllib.parse
+from django.urls import reverse
 
 logger = logging.getLogger(__name__)
 
@@ -360,3 +362,25 @@ def random_tiebreaker(candidates: Set[str]) -> str:
         Randomly selected candidate ID
     """
     return random.choice(list(candidates))
+
+
+def generate_qr_code(request, poll_uuid):
+    """
+    Generate the QR code URL for a poll.
+    """
+    poll_url = request.build_absolute_uri(
+        reverse('vote', kwargs={'poll_uuid': poll_uuid})
+    )
+    # Using a public QR code generator API (e.g., goqr.me)
+    # In a real production environment, you might want to generate this locally
+    # using a library like `qrcode` or `segno` to avoid leaking URLs to third parties.
+    # For this simple example, we construct a Google Charts API or similar URL.
+    
+    # Let's use `qrcode` python library approach if we wanted to do it server side, 
+    # but to send a string to the template, we can just send the target URL 
+    # and let a JS library handle it, OR use an external image service.
+    
+    # Using quickchart.io as it is simple and reliable for free tier
+    encoded_url = urllib.parse.quote(poll_url)
+    return f"https://quickchart.io/qr?text={encoded_url}&size=200"
+

@@ -43,16 +43,29 @@ class CreatePollForm(forms.ModelForm):
         help_text=_('Enter one candidate per line (minimum 2, maximum 50)'),
         label=_('Candidates')
     )
+
+    voter_count = forms.IntegerField(
+        required=False,
+        min_value=2,
+        max_value=100,
+        label=_('Number of voters'),
+        help_text=_('How many unique passwords to generate (2-100)'),
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': '10',
+        })
+    )
     
     class Meta:
         model = Poll
-        fields = ['title', 'description', 'tiebreaker_method', 'allow_multiple_votes_per_device', 'is_public']
+        fields = ['title', 'description', 'tiebreaker_method', 'allow_multiple_votes_per_device', 'is_public', 'requires_auth']
         labels = {
             'title': _('Poll Title'),
             'description': _('Poll Description'),
             'tiebreaker_method': _('Tiebreaker Method'),
             'allow_multiple_votes_per_device': _('Allow multiple votes per device'),
             'is_public': _('Make poll public'),
+            'requires_auth': _('Secure vote with unique passwords'),
         }
         widgets = {
             'title': forms.TextInput(attrs={
@@ -75,12 +88,37 @@ class CreatePollForm(forms.ModelForm):
             'is_public': forms.CheckboxInput(attrs={
                 'class': 'form-check-input',
             }),
+            'requires_auth': forms.CheckboxInput(attrs={
+                'class': 'form-check-input',
+                'data-bs-toggle': 'collapse',
+                'data-bs-target': '#voterCountSection',
+            }),
         }
         help_texts = {
              'allow_multiple_votes_per_device': _('Enable this for shared devices (e.g., passing a tablet around). Bypasses duplicate vote protection.'),
              'is_public': _('Polls are private by default (only accessible via a private link).'),
+             'requires_auth': _('Generate a list of one-time passwords. Each voter will need a unique password to vote.'),
         }
     
+    def clean(self):
+        cleaned_data = super().clean()
+        requires_auth = cleaned_data.get('requires_auth')
+        allow_multiple = cleaned_data.get('allow_multiple_votes_per_device')
+        voter_count = cleaned_data.get('voter_count')
+
+        if requires_auth and allow_multiple:
+            raise ValidationError(
+                _("You cannot enable both 'Multiple votes per device' and 'Secure password protection'. Password protection enforces strict one-person-one-vote.")
+            )
+        
+        if requires_auth:
+            if not voter_count:
+                 self.add_error('voter_count', _("Number of voters is required when password protection is enabled."))
+            elif not (2 <= voter_count <= 100):
+                 self.add_error('voter_count', _("Number of voters must be between 2 and 100."))
+        
+        return cleaned_data
+
     def clean_candidates(self):
         """Validate candidate list."""
         candidates_text = self.cleaned_data.get('candidates', '').strip()
@@ -124,6 +162,18 @@ class CreatePollForm(forms.ModelForm):
             raise ValidationError('Poll title must be at least 5 characters.')
         
         return title
+
+
+class AuthForm(forms.Form):
+    """Form to enter password for secure polls."""
+    password = forms.CharField(
+        label=_("Password"),
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': _("Enter your unique voting password"),
+            'autocomplete': 'off'
+        })
+    )
 
 
 class VoteForm(forms.Form):
