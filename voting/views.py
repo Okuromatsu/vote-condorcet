@@ -36,6 +36,7 @@ from .utils import (
 )
 from django.contrib.auth.hashers import make_password, check_password
 import secrets
+from datetime import timedelta
 
 from django.utils import timezone
 
@@ -70,6 +71,24 @@ def create_poll(request):
                 with transaction.atomic():
                     # Create poll from form (is_public=False by default)
                     poll = form.save(commit=False)
+                    
+                    # Handle Deadline
+                    if form.cleaned_data.get('has_deadline'):
+                        duration = form.cleaned_data.get('deadline_duration')
+                        unit = form.cleaned_data.get('deadline_unit')
+                        
+                        if duration and unit:
+                            delta = None
+                            if unit == 'minutes':
+                                delta = timedelta(minutes=duration)
+                            elif unit == 'hours':
+                                delta = timedelta(hours=duration)
+                            elif unit == 'days':
+                                delta = timedelta(days=duration)
+                            
+                            if delta:
+                                poll.closing_date = timezone.now() + delta
+
                     poll.save()
                     
                     # Create candidates
@@ -197,6 +216,10 @@ def vote_poll(request, poll_id):
     
     # Get poll and check it exists (and not deleted)
     poll = get_object_or_404(Poll, id=poll_id, is_deleted=False)
+    
+    # Check expiration
+    if poll.closing_date and timezone.now() > poll.closing_date:
+        poll.is_active = False
     
     # Check poll is active OR results are released (allow viewing if results released)
     if not poll.is_active and not poll.results_released:
@@ -649,6 +672,12 @@ def creator_dashboard(request, creator_code):
         creator_code=creator_code,
         is_deleted=False
     ).order_by('-created_at')
+
+    # Update expiration status for displayed polls
+    for poll in polls:
+        if poll.is_active and poll.closing_date and timezone.now() > poll.closing_date:
+            poll.is_active = False
+            poll.save()
     
     if not polls.exists():
         messages.error(request, _('No polls found for this creator code.'))
@@ -679,6 +708,7 @@ def creator_dashboard(request, creator_code):
                 
             elif action == 'reopen':
                 poll.is_active = True
+                poll.closing_date = None
                 poll.save()
                 messages.success(request, _('Poll "%(title)s" reopened!') % {'title': poll.title})
                 

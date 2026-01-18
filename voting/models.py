@@ -100,6 +100,13 @@ class Poll(models.Model):
         validators=[MinValueValidator(1)],
         help_text="Maximum votes allowed (None = unlimited)"
     )
+
+    closing_date = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="Date and time when the poll will automatically close"
+    )
+
     results_released = models.BooleanField(
         default=False,
         help_text="Whether results have been released by the creator while poll is active"

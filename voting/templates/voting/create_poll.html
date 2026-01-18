@@ -129,6 +129,33 @@
                                         </small>
                                     </div>
 
+                                    <!-- Deadline Section -->
+                                    <div class="mb-3">
+                                        <div class="form-check">
+                                            {{ form.has_deadline }}
+                                            <label class="form-check-label" for="{{ form.has_deadline.id_for_label }}">
+                                                {% trans "Limit voting time" %}
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="collapse mt-2" id="deadlineSection">
+                                            <div class="card card-body bg-light">
+                                                 <label class="form-label">{% trans "Close voting after:" %}</label>
+                                                 <div class="row g-2">
+                                                    <div class="col-8">
+                                                        {{ form.deadline_duration }}
+                                                    </div>
+                                                    <div class="col-4">
+                                                        {{ form.deadline_unit }}
+                                                    </div>
+                                                 </div>
+                                                 <small class="text-muted mt-2">
+                                                     {% trans "The poll will automatically close and stop accepting votes after this duration." %}
+                                                 </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <!-- Secure Poll with One-Time Passwords -->
                                     <div class="mb-3">
                                         <div class="form-check">

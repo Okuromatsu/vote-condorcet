@@ -18,6 +18,11 @@
                     {% if poll.max_votes %}
                         <span class="badge bg-warning">{% trans "Max" %}: {{ poll.max_votes }}</span>
                     {% endif %}
+                    {% if poll.closing_date %}
+                         <span class="badge bg-danger">
+                             {% trans "Ends:" %} {{ poll.closing_date|date:"DATETIME_FORMAT" }} ({{ poll.closing_date|date:"T" }})
+                         </span>
+                    {% endif %}
                 </div>
             </div>
         </div>

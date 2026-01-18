@@ -55,7 +55,51 @@ class CreatePollForm(forms.ModelForm):
             'placeholder': '10',
         })
     )
-    
+
+    has_deadline = forms.BooleanField(
+        required=False,
+        label=_('Limit voting time'),
+        help_text=_('Set a deadline for the poll. Voting will automatically close after this time.'),
+        widget=forms.CheckboxInput(attrs={
+            'class': 'form-check-input',
+            'data-bs-toggle': 'collapse',
+            'data-bs-target': '#deadlineSection',
+        })
+    )
+
+    deadline_duration = forms.IntegerField(
+        required=False,
+        min_value=1,
+        label=_('Duration'),
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': '1',
+        })
+    )
+
+    deadline_unit = forms.ChoiceField(
+        required=False,
+        choices=[
+            ('minutes', _('Minutes')),
+            ('hours', _('Hours')),
+            ('days', _('Days')),
+        ],
+        label=_('Unit'),
+        widget=forms.Select(attrs={
+            'class': 'form-select',
+        })
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        has_deadline = cleaned_data.get('has_deadline')
+        deadline_duration = cleaned_data.get('deadline_duration')
+        
+        if has_deadline and not deadline_duration:
+             self.add_error('deadline_duration', _('Please specify a duration.'))
+        
+        return cleaned_data
+
     class Meta:
         model = Poll
         fields = ['title', 'description', 'tiebreaker_method', 'allow_multiple_votes_per_device', 'is_public', 'requires_auth']

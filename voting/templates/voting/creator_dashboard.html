@@ -51,6 +51,9 @@
                                     <div>
                                         <h5 class="card-title mb-1">{{ item.poll.title }}</h5>
                                         <small>{% trans "Created:" %} {{ item.poll.created_at|date:"M d, Y H:i" }}</small>
+                                        {% if item.poll.closing_date %}
+                                            <br><small title="{% trans 'Deadline' %}">🏁 {{ item.poll.closing_date|date:"M d, Y H:i" }} {{ item.poll.closing_date|date:"T" }}</small>
+                                        {% endif %}
                                     </div>
                                     <div class="text-end">
                                         {% if item.poll.is_public %}
@@ -145,7 +148,9 @@
                                         🔒 {% trans "Close" %}
                                     </a>
                                     {% else %}
-                                    <a href="?action=reopen&poll_id={{ item.poll.id }}" class="btn btn-sm btn-outline-success">
+                                    <a href="?action=reopen&poll_id={{ item.poll.id }}" 
+                                       onclick="return confirmReopen()"
+                                       class="btn btn-sm btn-outline-success">
                                         🔓 {% trans "Reopen" %}
                                     </a>
                                     {% endif %}
@@ -273,6 +278,10 @@ function confirmMakePublic(element) {
 
     function confirmDelete() {
         return confirm("{% trans 'Are you sure you want to delete this poll?'|escapejs %}");
+    }
+
+    function confirmReopen() {
+        return confirm("{% trans 'If you reopen this poll manually, the automatic timer will be disabled. You will need to close it manually later. Do you want to proceed?'|escapejs %}");
     }
 </script>
 {% endblock %}
