@@ -1,12 +1,12 @@
 # Spanish translations for Condorcet Vote
 # Copyright (C) 2025
 # This file is distributed under the same license as the Condorcet Vote package.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Condorcet Vote 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-22 12:46+0000\n"
+"POT-Creation-Date: 2026-01-18 11:42+0000\n"
 "PO-Revision-Date: 2025-11-20 12:50+0000\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: voting/forms.py:40 voting/templates/voting/create_poll.html:78
+#: voting/forms.py:40 voting/templates/voting/create_poll.html:66
 msgid "Enter one candidate per line"
 msgstr "Ingrese un candidato por línea"
 
@@ -24,7 +24,7 @@ msgstr "Ingrese un candidato por línea"
 msgid "Enter one candidate per line (minimum 2, maximum 50)"
 msgstr "Ingrese un candidato por línea (mínimo 2, máximo 50)"
 
-#: voting/forms.py:44 voting/templates/voting/create_poll.html:71
+#: voting/forms.py:44 voting/templates/voting/create_poll.html:59
 #: voting/templates/voting/creator_dashboard.html:78
 #: voting/templates/voting/results.html:79
 msgid "Candidates"
@@ -38,17 +38,39 @@ msgstr "Título de la encuesta"
 msgid "Poll Description"
 msgstr "Descripción de la encuesta"
 
-#: voting/forms.py:53 voting/templates/voting/create_poll.html:59
+#: voting/forms.py:53 voting/templates/voting/create_poll.html:123
 msgid "Tiebreaker Method"
 msgstr "Método de desempate"
 
-#: voting/forms.py:58 voting/templates/voting/create_poll.html:28
+#: voting/forms.py:54 voting/templates/voting/create_poll.html:112
+msgid "Allow multiple votes per device"
+msgstr "Permitir varios votos por dispositivo"
+
+#: voting/forms.py:55
+msgid "Make poll public"
+msgstr "Hacer pública la encuesta"
+
+#: voting/forms.py:60 voting/templates/voting/create_poll.html:28
 msgid "e.g., Best Programming Language?"
 msgstr "ej., ¿Mejor lenguaje de programación?"
 
-#: voting/forms.py:64 voting/templates/voting/create_poll.html:48
+#: voting/forms.py:66 voting/templates/voting/create_poll.html:48
 msgid "Optional details about this poll..."
 msgstr "Detalles opcionales sobre esta encuesta..."
+
+#: voting/forms.py:80
+msgid ""
+"Enable this for shared devices (e.g., passing a tablet around). Bypasses "
+"duplicate vote protection."
+msgstr ""
+"Habilite esto para dispositivos compartidos (ej: pasar una tableta). Omite "
+"la protección contra votos duplicados."
+
+#: voting/forms.py:81
+msgid "Polls are private by default (only accessible via a private link)."
+msgstr ""
+"Las encuestas son privadas por defecto (solo accesibles a través de un "
+"enlace privado)."
 
 #: voting/templates/voting/about_condorcet.html:4
 msgid "About Condorcet Voting"
@@ -68,6 +90,7 @@ msgstr ""
 "decisiones colectiva"
 
 #: voting/templates/voting/about_condorcet.html:21
+#: voting/templates/voting/about_condorcet.html:335
 #: voting/templates/voting/vote.html:100
 msgid "What is Condorcet Voting?"
 msgstr "¿Qué es la votación Condorcet?"
@@ -405,7 +428,7 @@ msgid "Condorcet Paradox"
 msgstr "Paradoja de Condorcet"
 
 #: voting/templates/voting/about_condorcet.html:205
-#: voting/templates/voting/create_poll.html:78
+#: voting/templates/voting/create_poll.html:66
 msgid "Example:"
 msgstr "Ejemplo:"
 
@@ -563,23 +586,91 @@ msgstr "¡Crea una encuesta y experimenta la votación Condorcet por ti mismo!"
 msgid "Create a Poll Now"
 msgstr "Crear encuesta"
 
-#: voting/templates/voting/base.html:11 voting/templates/voting/base.html:20
-#: voting/templates/voting/base.html:27 voting/templates/voting/base.html:45
+#: voting/templates/voting/about_condorcet.html:338
+msgid ""
+"The Condorcet method is a voting system where voters rank candidates in "
+"order of preference. The winner is the candidate who would beat every other "
+"candidate in a head-to-head matchup."
+msgstr ""
+"El método Condorcet es un sistema donde los votantes clasifican candidatos. "
+"El ganador es quien vencería a todos los demás en enfrentamientos directos."
+
+#: voting/templates/voting/about_condorcet.html:342
+msgid "Is this voting tool free?"
+msgstr "¿Es gratuita esta herramienta?"
+
+#: voting/templates/voting/about_condorcet.html:345
+msgid ""
+"Yes, vote-condorcet.com is a completely free, open-source online polling "
+"tool used for fair group decision making without registration."
+msgstr ""
+"Sí, vote-condorcet.com es una herramienta de encuestas en línea "
+"completamente gratuita y de código abierto, sin registro."
+
+#: voting/templates/voting/about_condorcet.html:349
+msgid "How does the Schulze method work?"
+msgstr "¿Cómo funciona el método Schulze?"
+
+#: voting/templates/voting/about_condorcet.html:352
+msgid ""
+"The Schulze method is a tiebreaker used when there is no clear Condorcet "
+"winner (a cycle). It finds the strongest path between candidates to "
+"determine the mathematically fairest winner."
+msgstr ""
+"El método Schulze rompe empates cuando no hay un ganador Condorcet claro. "
+"Encuentra el camino más fuerte entre candidatos para determinar el ganador "
+"más justo."
+
+#: voting/templates/voting/base.html:11
+msgid "Free Online Ranked Choice Voting Tool"
+msgstr "Herramienta gratuita de votación por orden de preferencia"
+
+#: voting/templates/voting/base.html:12
+msgid ""
+"Create fair online polls using the Condorcet voting method. The best Ranked "
+"Choice Voting tool for groups, decision making and elections. No "
+"registration required."
+msgstr ""
+"Crea encuestas justas usando el método Condorcet. La mejor herramienta de "
+"votación preferencial para grupos y elecciones. Sin registro."
+
+#: voting/templates/voting/base.html:13
+msgid ""
+"condorcet vote, ranked choice voting, online poll, condorcet method, schulze "
+"method, free voting tool, decision making, preferential voting, sondage "
+"condorcet, vote en ligne, scrutin condorcet"
+msgstr ""
+"voto condorcet, votación preferencial, encuesta online, método condorcet, "
+"método schulze, herramienta de votación gratuita, toma de decisiones"
+
+#: voting/templates/voting/base.html:22 voting/templates/voting/base.html:29
+msgid ""
+"Create and participate in Condorcet voting polls. A fair and transparent "
+"ranked-choice voting system."
+msgstr ""
+
+#: voting/templates/voting/base.html:42
 msgid ""
 "Create and participate in Condorcet voting polls online. A fair and "
 "transparent ranked-choice voting system."
 msgstr ""
 
 # Navigation
-#: voting/templates/voting/base.html:82
+#: voting/templates/voting/base.html:79
 msgid "Home"
 msgstr "Inicio"
 
-#: voting/templates/voting/base.html:85
-#: voting/templates/voting/create_poll.html:105
-#: voting/templates/voting/index.html:73
+#: voting/templates/voting/base.html:82
+#: voting/templates/voting/create_poll.html:147
+#: voting/templates/voting/index.html:86
 msgid "Create Poll"
 msgstr "Crear encuesta"
+
+#: voting/templates/voting/base.html:85
+#: voting/templates/voting/dashboard_login.html:4
+#: voting/templates/voting/dashboard_login.html:32
+msgid "Access Dashboard"
+msgstr "Acceder al panel"
 
 #: voting/templates/voting/base.html:88
 msgid "About"
@@ -624,70 +715,67 @@ msgstr "Crear encuesta - Voto Condorcet"
 msgid "Create a New Poll"
 msgstr "Crear una nueva encuesta"
 
-#: voting/templates/voting/create_poll.html:63
-msgid "How to resolve the Condorcet paradox if no clear winner:"
-msgstr "Cómo resolver la paradoja de Condorcet si no hay un ganador claro:"
-
-#: voting/templates/voting/create_poll.html:64
-msgid "Learn more"
-msgstr "Aprende más"
-
-#: voting/templates/voting/create_poll.html:89
+#: voting/templates/voting/create_poll.html:77
 msgid "Minimum 2 candidates, maximum 50"
 msgstr "Mínimo 2 candidatos, máximo 50"
 
-#: voting/templates/voting/create_poll.html:90
+#: voting/templates/voting/create_poll.html:78
 msgid "One candidate per line"
 msgstr "Ingrese un candidato por línea"
 
-#: voting/templates/voting/create_poll.html:91
+#: voting/templates/voting/create_poll.html:79
 msgid "No duplicate names"
 msgstr "Sin nombres duplicados"
 
-#: voting/templates/voting/create_poll.html:108
+#: voting/templates/voting/create_poll.html:88
+msgid "Make this poll public"
+msgstr "Hacer pública esta encuesta"
+
+#: voting/templates/voting/create_poll.html:92
+msgid "Public polls are visible on the homepage and can be seen by everyone."
+msgstr ""
+"Las encuestas públicas son visibles en la página de inicio y todos pueden "
+"verlas."
+
+#: voting/templates/voting/create_poll.html:101
+msgid "Advanced Parameters"
+msgstr "Parámetros avanzados"
+
+#: voting/templates/voting/create_poll.html:127
+msgid "How to resolve the Condorcet paradox if no clear winner:"
+msgstr "Cómo resolver la paradoja de Condorcet si no hay un ganador claro:"
+
+#: voting/templates/voting/create_poll.html:128
+msgid "Learn more"
+msgstr "Aprende más"
+
+#: voting/templates/voting/create_poll.html:150
 #: voting/templates/voting/vote.html:91
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: voting/templates/voting/create_poll.html:117
+#: voting/templates/voting/create_poll.html:159
 msgid "Tips:"
 msgstr "Consejos:"
 
-#: voting/templates/voting/create_poll.html:119
+#: voting/templates/voting/create_poll.html:161
 msgid ""
 "Poll titles should be clear questions (e.g., Best Programming Language?)"
 msgstr ""
 "Los títulos de las encuestas deben ser preguntas claras (por ejemplo, ¿Mejor "
 "lenguaje de programación?)"
 
-msgid "Allow multiple votes per device"
-msgstr "Permitir varios votos por dispositivo"
-
-msgid ""
-"Enable this for shared devices (e.g., passing a tablet around). Bypasses "
-"duplicate vote protection."
-msgstr ""
-"Habilite esto para dispositivos compartidos (ej: pasar una tableta). Omite "
-"la protección contra votos duplicados."
-
-msgid ""
-"Warning: This poll allows multiple votes per device. Making it public "
-"carries a high risk of manipulation. Are you sure?"
-msgstr ""
-"Advertencia: Esta encuesta permite múltiples votos por dispositivo. Hacerla "
-"pública conlleva un alto riesgo de manipulación. ¿Estás seguro?"
-
-#: voting/templates/voting/create_poll.html:120
+#: voting/templates/voting/create_poll.html:162
 msgid "Keep candidate names short and distinct"
 msgstr "Mantén los nombres de los candidatos cortos y distintos"
 
-#: voting/templates/voting/create_poll.html:121
+#: voting/templates/voting/create_poll.html:163
 msgid "Once created, polls cannot be edited - double-check before submitting!"
 msgstr ""
 "Una vez creadas, las encuestas no pueden ser editadas - ¡verifica dos veces "
 "antes de enviar!"
 
-#: voting/templates/voting/create_poll.html:122
+#: voting/templates/voting/create_poll.html:164
 msgid ""
 "Voters rank candidates by preference - the Condorcet method finds the "
 "fairest winner"
@@ -759,16 +847,14 @@ msgid "Candidates:"
 msgstr "Candidatos:"
 
 #: voting/templates/voting/creator_dashboard.html:114
-#: voting/templates/voting/index.html:59
-#: voting/templates/voting/results.html:4
+#: voting/templates/voting/index.html:72 voting/templates/voting/results.html:4
 msgid "Results"
 msgstr "Resultados"
 
 #: voting/templates/voting/creator_dashboard.html:118
 #: voting/templates/voting/creator_dashboard.html:122
-#: voting/templates/voting/index.html:56
-#: voting/templates/voting/results.html:170
-#: voting/templates/voting/vote.html:4
+#: voting/templates/voting/index.html:69
+#: voting/templates/voting/results.html:170 voting/templates/voting/vote.html:4
 msgid "Vote"
 msgstr "Votar"
 
@@ -780,202 +866,128 @@ msgstr "Compartir"
 msgid "Make Private"
 msgstr "Hacer privado"
 
-#: voting/templates/voting/creator_dashboard.html:137
+#: voting/templates/voting/creator_dashboard.html:140
 msgid "Make Public"
 msgstr "Hacer público"
 
-#: voting/templates/voting/creator_dashboard.html:142
+#: voting/templates/voting/creator_dashboard.html:145
 msgid "Close"
 msgstr "Cerrar"
 
-#: voting/templates/voting/creator_dashboard.html:146
+#: voting/templates/voting/creator_dashboard.html:149
 msgid "Reopen"
 msgstr "Reabrir"
 
-#: voting/templates/voting/creator_dashboard.html:150
-msgid "Are you sure you want to delete this poll?"
-msgstr "¿Estás seguro de que deseas eliminar esta encuesta?"
-
-#: voting/templates/voting/creator_dashboard.html:152
+#: voting/templates/voting/creator_dashboard.html:155
 msgid "Delete"
 msgstr "Eliminar"
 
-#: voting/templates/voting/creator_dashboard.html:156
+#: voting/templates/voting/creator_dashboard.html:159
 msgid "Hide Results"
 msgstr "Ocultar resultados"
 
-#: voting/templates/voting/creator_dashboard.html:160
+#: voting/templates/voting/creator_dashboard.html:163
 msgid "Release Results"
 msgstr "Publicar resultados"
 
-#: voting/templates/voting/creator_dashboard.html:171
+#: voting/templates/voting/creator_dashboard.html:174
 msgid "No polls found"
 msgstr "Encuesta no encontrada"
 
 # Messages
-#: voting/templates/voting/creator_dashboard.html:172
+#: voting/templates/voting/creator_dashboard.html:175
 msgid "You haven't created any polls yet."
 msgstr "Aún no ha creado ninguna encuesta."
 
-#: voting/templates/voting/creator_dashboard.html:172
+#: voting/templates/voting/creator_dashboard.html:175
 msgid "Create one now!"
 msgstr "¡Cree una ahora!"
 
-#: voting/templates/voting/creator_dashboard.html:181
-#: voting/templates/voting/creator_dashboard.html:192
-#: voting/templates/voting/index.html:45
-#: voting/templates/voting/results.html:18
-#: voting/templates/voting/vote.html:17
+#: voting/templates/voting/creator_dashboard.html:184
+#: voting/templates/voting/creator_dashboard.html:195
+#: voting/templates/voting/index.html:58
+#: voting/templates/voting/results.html:18 voting/templates/voting/vote.html:17
 msgid "votes"
 msgstr "votos"
 
-#: voting/templates/voting/creator_dashboard.html:184
+#: voting/templates/voting/creator_dashboard.html:187
 msgid "No active polls"
 msgstr "No hay encuestas activas"
 
-#: voting/templates/voting/creator_dashboard.html:193
+#: voting/templates/voting/creator_dashboard.html:196
 msgid "Winner:"
 msgstr "Ganador:"
 
-#: voting/templates/voting/creator_dashboard.html:196
+#: voting/templates/voting/creator_dashboard.html:199
 msgid "No closed polls"
 msgstr "No hay encuestas cerradas"
 
-#: voting/templates/voting/creator_dashboard.html:204
-#: voting/templates/voting/index.html:16
+#: voting/templates/voting/creator_dashboard.html:207
+#: voting/templates/voting/index.html:29
 msgid "Create New Poll"
 msgstr "Crear nueva encuesta"
 
-#: voting/templates/voting/creator_dashboard.html:207
+#: voting/templates/voting/creator_dashboard.html:210
 #: voting/templates/voting/poll_confirmation.html:137
 msgid "Back to Home"
 msgstr "Volver al inicio"
 
-#: voting/templates/voting/creator_dashboard.html:217
+#: voting/templates/voting/creator_dashboard.html:220
 #: voting/templates/voting/results.html:188
 msgid "Share Poll"
 msgstr "Compartir encuesta"
 
-#: voting/templates/voting/creator_dashboard.html:222
+#: voting/templates/voting/creator_dashboard.html:225
 msgid "Voting Link:"
 msgstr "Enlace de votación:"
 
-#: voting/templates/voting/creator_dashboard.html:225
+#: voting/templates/voting/creator_dashboard.html:228
 #: voting/templates/voting/poll_confirmation.html:37
 #: voting/templates/voting/poll_confirmation.html:68
 #: voting/templates/voting/results.html:198
 msgid "Copy"
 msgstr "Copiar"
 
-#: voting/templates/voting/creator_dashboard.html:229
+#: voting/templates/voting/creator_dashboard.html:232
 msgid "QR Code:"
 msgstr "Código QR:"
 
-#: voting/templates/voting/creator_dashboard.html:244
+#: voting/templates/voting/creator_dashboard.html:247
 msgid "Creator code copied!"
 msgstr "¡Código de creador copiado!"
 
-#: voting/templates/voting/creator_dashboard.html:259
+#: voting/templates/voting/creator_dashboard.html:262
 msgid "Link copied!"
 msgstr "¡Enlace copiado!"
 
-# Index page
-#: voting/templates/voting/index.html:4
-msgid "Condorcet Vote - Home"
-msgstr "Voto Condorcet - Inicio"
-
-#: voting/templates/voting/index.html:9
-msgid "Welcome to Condorcet Vote"
-msgstr "Bienvenido a Voto Condorcet"
-
-#: voting/templates/voting/index.html:11
+#: voting/templates/voting/creator_dashboard.html:269
 msgid ""
-"Create fair online polls using the Condorcet voting method. No registration "
-"required, just vote and see instant results."
+"Warning: This poll allows multiple votes per device. Making it public "
+"carries a high risk of manipulation. Are you sure?"
 msgstr ""
-"Cree encuestas justas online utilizando el método de votación Condorcet. No "
-"se requiere registro, simplemente vote y vea resultados instantáneos."
+"Advertencia: Esta encuesta permite múltiples votos por dispositivo. Hacerla "
+"pública conlleva un alto riesgo de manipulación. ¿Estás seguro?"
 
-#: voting/templates/voting/index.html:24
-msgid "Active Polls"
-msgstr "Encuestas activas"
+#: voting/templates/voting/creator_dashboard.html:275
+msgid "Are you sure you want to delete this poll?"
+msgstr "¿Estás seguro de que deseas eliminar esta encuesta?"
 
-#: voting/templates/voting/index.html:42
-msgid "candidates"
-msgstr "candidatos"
-
-#: voting/templates/voting/index.html:51
-msgid "Created"
-msgstr "Creado"
-
-#: voting/templates/voting/index.html:71
-msgid "No active polls yet"
-msgstr "Aún no hay encuestas activas"
-
-#: voting/templates/voting/index.html:72
-msgid "Be the first to create a poll!"
-msgstr "¡Sé el primero en crear una encuesta!"
-
-#: voting/templates/voting/index.html:82
-msgid "How Condorcet Voting Works"
-msgstr "Cómo funciona la votación Condorcet"
-
-#: voting/templates/voting/index.html:87
-msgid "Rank Candidates"
-msgstr "Clasificar candidatos"
-
-#: voting/templates/voting/index.html:88
-msgid ""
-"Vote by ranking candidates in your preferred order. First choice, second "
-"choice, etc."
-msgstr ""
-"Vote clasificando a los candidatos en su orden preferido. Primera opción, "
-"segunda opción, etc."
-
-#: voting/templates/voting/index.html:95
-msgid "Pairwise Comparison"
-msgstr "Comparación por pares"
-
-#: voting/templates/voting/index.html:96
-msgid "We compare each candidate against every other candidate one-on-one."
-msgstr "Comparamos cada candidato contra todos los demás candidatos uno a uno."
-
-#: voting/templates/voting/index.html:103
-msgid "Find Winner"
-msgstr "Encontrar ganador"
-
-#: voting/templates/voting/index.html:104
-msgid "The candidate who beats all others in head-to-head matchups wins."
-msgstr ""
-"El candidato que vence a todos los demás en enfrentamientos directos gana."
-
-#: voting/templates/voting/index.html:110
-#: voting/templates/voting/results.html:46
-msgid "Note:"
-msgstr "Nota:"
-
-#: voting/templates/voting/index.html:110
-msgid ""
-"If there's a tie, the system uses the Schulze method to find the most-likely "
-"winner."
-msgstr ""
-"Si hay un empate, el sistema utiliza el método de Schulze para encontrar el "
-"ganador más probable."
-
-#: voting/templates/voting/dashboard_login.html:4
-#: voting/templates/voting/base.html:86
-msgid "Access Dashboard"
-msgstr "Acceder al panel"
-
-#: voting/templates/voting/dashboard_login.html:10
+#: voting/templates/voting/dashboard_login.html:11
 msgid "Access Creator Dashboard"
 msgstr "Acceder al panel del creador"
 
-#: voting/templates/voting/dashboard_login.html:14
+#: voting/templates/voting/dashboard_login.html:15
 msgid "Enter your creator code to manage your polls."
 msgstr "Ingrese su código de creador para administrar sus encuestas."
 
-#: voting/templates/voting/dashboard_login.html:26
+#: voting/templates/voting/dashboard_login.html:21
+#: voting/templates/voting/poll_confirmation.html:18
+#, fuzzy
+#| msgid "Creator Dashboard"
+msgid "Creator Code"
+msgstr "Panel del creador"
+
+#: voting/templates/voting/dashboard_login.html:27
 msgid ""
 "If you did not save your creator code, unfortunately we cannot recover it "
 "for you as we do not store personal information."
@@ -983,50 +995,37 @@ msgstr ""
 "Si no guardó su código de creador, lamentablemente no podemos recuperarlo "
 "por usted ya que no almacenamos información personal."
 
-msgid "Make poll public"
-msgstr "Hacer pública la encuesta"
-
-msgid "Make this poll public"
-msgstr "Hacer pública esta encuesta"
-
-msgid "Public polls are visible on the homepage and can be seen by everyone."
+#: voting/templates/voting/index.html:4
+msgid "Condorcet Vote - Best Online Ranked Choice Voting Tool"
 msgstr ""
-"Las encuestas públicas son visibles en la página de inicio y todos pueden "
-"verlas."
+"Condorcet Vote - La mejor herramienta de votación preferencial en línea"
 
-msgid "Polls are private by default (only accessible via a private link)."
-msgstr ""
-"Las encuestas son privadas por defecto (solo accesibles a través de un "
-"enlace privado)."
-
-msgid "Free Online Ranked Choice Voting Tool"
-msgstr "Herramienta gratuita de votación por orden de preferencia"
-
+#: voting/templates/voting/index.html:6 voting/templates/voting/index.html:7
+#: voting/templates/voting/index.html:8
 msgid ""
-"Create fair online polls using the Condorcet voting method. The best Ranked "
-"Choice Voting tool for groups, decision making and elections. No "
-"registration required."
+"Create fair online polls using the Condorcet voting method. No registration "
+"required, just vote and see instant results."
 msgstr ""
-"Crea encuestas justas usando el método Condorcet. La mejor herramienta de "
-"votación preferencial para grupos y elecciones. Sin registro."
+"Cree encuestas justas online utilizando el método de votación Condorcet. No "
+"se requiere registro, simplemente vote y vea resultados instantáneos."
 
-msgid ""
-"condorcet vote, ranked choice voting, online poll, condorcet method, schulze "
-"method, free voting tool, decision making, preferential voting, sondage "
-"condorcet, vote en ligne, scrutin condorcet"
-msgstr ""
-"voto condorcet, votación preferencial, encuesta online, método condorcet, "
-"método schulze, herramienta de votación gratuita, toma de decisiones"
-
+#: voting/templates/voting/index.html:13
 msgid "The Fairest Way to Vote Online"
 msgstr "La forma más justa de votar en línea"
 
-msgid "Organize elections and polls using the Condorcet Method. The best Ranked Choice Voting system."
-msgstr "Organiza elecciones y encuestas usando el Método Condorcet. El sistema definitivo de Votación Preferencial."
+#: voting/templates/voting/index.html:15
+msgid ""
+"Organize elections and polls using the Condorcet Method. The best Ranked "
+"Choice Voting system."
+msgstr ""
+"Organiza elecciones y encuestas usando el Método Condorcet. El sistema "
+"definitivo de Votación Preferencial."
 
+#: voting/templates/voting/index.html:22
 msgid "Why use Condorcet Vote?"
 msgstr "¿Por qué usar Condorcet Vote?"
 
+#: voting/templates/voting/index.html:24
 msgid ""
 "Unlike simple majority voting, Condorcet voting allows participants to rank "
 "candidates. It finds the consensus winner who beats everyone else in head-to-"
@@ -1036,36 +1035,367 @@ msgstr ""
 "candidatos. Encuentra al ganador de consenso que vence a todos los demás en "
 "comparaciones directas."
 
-msgid "Condorcet Vote - Best Online Ranked Choice Voting Tool"
-msgstr ""
-"Condorcet Vote - La mejor herramienta de votación preferencial en línea"
+#: voting/templates/voting/index.html:37
+msgid "Active Polls"
+msgstr "Encuestas activas"
 
+#: voting/templates/voting/index.html:55
+msgid "candidates"
+msgstr "candidatos"
+
+#: voting/templates/voting/index.html:64
+msgid "Created"
+msgstr "Creado"
+
+#: voting/templates/voting/index.html:84
+msgid "No active polls yet"
+msgstr "Aún no hay encuestas activas"
+
+#: voting/templates/voting/index.html:85
+msgid "Be the first to create a poll!"
+msgstr "¡Sé el primero en crear una encuesta!"
+
+#: voting/templates/voting/index.html:95
+msgid "How Condorcet Voting Works"
+msgstr "Cómo funciona la votación Condorcet"
+
+#: voting/templates/voting/index.html:100
+msgid "Rank Candidates"
+msgstr "Clasificar candidatos"
+
+#: voting/templates/voting/index.html:101
 msgid ""
-"The Condorcet method is a voting system where voters rank candidates in "
-"order of preference. The winner is the candidate who would beat every other "
-"candidate in a head-to-head matchup."
+"Vote by ranking candidates in your preferred order. First choice, second "
+"choice, etc."
 msgstr ""
-"El método Condorcet es un sistema donde los votantes clasifican candidatos. "
-"El ganador es quien vencería a todos los demás en enfrentamientos directos."
+"Vote clasificando a los candidatos en su orden preferido. Primera opción, "
+"segunda opción, etc."
 
-msgid "Is this voting tool free?"
-msgstr "¿Es gratuita esta herramienta?"
+#: voting/templates/voting/index.html:108
+msgid "Pairwise Comparison"
+msgstr "Comparación por pares"
 
+#: voting/templates/voting/index.html:109
+msgid "We compare each candidate against every other candidate one-on-one."
+msgstr "Comparamos cada candidato contra todos los demás candidatos uno a uno."
+
+#: voting/templates/voting/index.html:116
+msgid "Find Winner"
+msgstr "Encontrar ganador"
+
+#: voting/templates/voting/index.html:117
+msgid "The candidate who beats all others in head-to-head matchups wins."
+msgstr ""
+"El candidato que vence a todos los demás en enfrentamientos directos gana."
+
+#: voting/templates/voting/index.html:123
+#: voting/templates/voting/results.html:46
+msgid "Note:"
+msgstr "Nota:"
+
+#: voting/templates/voting/index.html:123
 msgid ""
-"Yes, vote-condorcet.com is a completely free, open-source online polling tool "
-"used for fair group decision making without registration."
+"If there's a tie, the system uses the Schulze method to find the most-likely "
+"winner."
 msgstr ""
-"Sí, vote-condorcet.com es una herramienta de encuestas en línea completamente "
-"gratuita y de código abierto, sin registro."
+"Si hay un empate, el sistema utiliza el método de Schulze para encontrar el "
+"ganador más probable."
 
-msgid "How does the Schulze method work?"
-msgstr "¿Cómo funciona el método Schulze?"
+#: voting/templates/voting/poll_confirmation.html:4
+#, fuzzy
+#| msgid "Created"
+msgid "Poll Created"
+msgstr "Creado"
 
+#: voting/templates/voting/poll_confirmation.html:11
+msgid "Poll Created Successfully!"
+msgstr ""
+
+#: voting/templates/voting/poll_confirmation.html:12
+msgid "Your poll"
+msgstr ""
+
+#: voting/templates/voting/poll_confirmation.html:12
+msgid "has been created."
+msgstr ""
+
+#: voting/templates/voting/poll_confirmation.html:22
+msgid "Save this code to manage your poll (view results, make public, delete):"
+msgstr ""
+
+#: voting/templates/voting/poll_confirmation.html:41
+#: voting/templates/voting/poll_confirmation.html:134
+#, fuzzy
+#| msgid "Creator Dashboard"
+msgid "Go to Creator Dashboard"
+msgstr "Panel del creador"
+
+#: voting/templates/voting/poll_confirmation.html:49
+#, fuzzy
+#| msgid "Voting Link:"
+msgid "Voting Link"
+msgstr "Enlace de votación:"
+
+#: voting/templates/voting/poll_confirmation.html:53
+msgid "Share this link with voters:"
+msgstr ""
+
+#: voting/templates/voting/poll_confirmation.html:77
+#, fuzzy
+#| msgid "QR Code:"
+msgid "QR Code"
+msgstr "Código QR:"
+
+#: voting/templates/voting/poll_confirmation.html:81
+msgid "Voters can scan this QR code to vote:"
+msgstr ""
+
+#: voting/templates/voting/poll_confirmation.html:86
+msgid "Download QR Code"
+msgstr ""
+
+#: voting/templates/voting/poll_confirmation.html:94
+msgid "Poll Summary"
+msgstr ""
+
+#: voting/templates/voting/poll_confirmation.html:99
+msgid "Question:"
+msgstr ""
+
+#: voting/templates/voting/poll_confirmation.html:108
+#, fuzzy
+#| msgid "Poll Description"
+msgid "Description:"
+msgstr "Descripción de la encuesta"
+
+# About Condorcet page
+#: voting/templates/voting/poll_confirmation.html:114
+#, fuzzy
+#| msgid "The Condorcet Voting Method"
+msgid "Voting Method:"
+msgstr "El método de votación Condorcet"
+
+#: voting/templates/voting/poll_confirmation.html:114
+#, fuzzy
+#| msgid "Condorcet winner"
+msgid "Condorcet"
+msgstr "ganador Condorcet"
+
+#: voting/templates/voting/poll_confirmation.html:117
+msgid "Status:"
+msgstr ""
+
+#: voting/templates/voting/poll_confirmation.html:131
+#, fuzzy
+#| msgid "Sincere Voting"
+msgid "Start Voting"
+msgstr "Voto sincero"
+
+#: voting/templates/voting/poll_confirmation.html:143
+msgid "Next Steps:"
+msgstr ""
+
+#: voting/templates/voting/poll_confirmation.html:145
+msgid "Share the voting link or QR code with voters"
+msgstr ""
+
+#: voting/templates/voting/poll_confirmation.html:146
+#, fuzzy
+#| msgid "Creator Dashboard"
+msgid "Visit your Creator Dashboard to:"
+msgstr "Panel del creador"
+
+#: voting/templates/voting/poll_confirmation.html:148
+msgid "View live voting results"
+msgstr ""
+
+#: voting/templates/voting/poll_confirmation.html:149
+#, fuzzy
+#| msgid "Make this poll public"
+msgid "Make the poll public (visible on homepage)"
+msgstr "Hacer pública esta encuesta"
+
+#: voting/templates/voting/poll_confirmation.html:150
+msgid "Close the poll when done voting"
+msgstr ""
+
+#: voting/templates/voting/poll_confirmation.html:151
+msgid "Delete the poll"
+msgstr ""
+
+#: voting/templates/voting/poll_confirmation.html:154
+msgid "Only you with the creator code can modify this poll"
+msgstr ""
+
+#: voting/templates/voting/results.html:20 voting/templates/voting/vote.html:19
+msgid "Max"
+msgstr ""
+
+#: voting/templates/voting/results.html:36
+#, fuzzy
+#| msgid "Condorcet winner"
+msgid "Condorcet Winner"
+msgstr "ganador Condorcet"
+
+#: voting/templates/voting/results.html:38
+#: voting/templates/voting/results.html:131
+#, fuzzy
+#| msgid "Winner:"
+msgid "Winner"
+msgstr "Ganador:"
+
+#: voting/templates/voting/results.html:38
+msgid "via"
+msgstr ""
+
+#: voting/templates/voting/results.html:47
+msgid "No clear Condorcet winner was found (no candidate beats all others)."
+msgstr ""
+
+#: voting/templates/voting/results.html:49
+msgid "The winner was determined using the"
+msgstr ""
+
+#: voting/templates/voting/results.html:49
+#, fuzzy
+#| msgid "Tiebreaker Method"
+msgid "tiebreaker method."
+msgstr "Método de desempate"
+
+#: voting/templates/voting/results.html:61
+msgid "No Clear Winner"
+msgstr ""
+
+#: voting/templates/voting/results.html:62
+msgid "Not enough votes yet, or there's a tie. Check pairwise matchups below."
+msgstr ""
+
+#: voting/templates/voting/results.html:69
+msgid "Voting Statistics"
+msgstr ""
+
+#: voting/templates/voting/results.html:75
+msgid "Total Votes"
+msgstr ""
+
+#: voting/templates/voting/results.html:83
+#, fuzzy
+#| msgid "Voters"
+msgid "Unique Voters"
+msgstr "Votantes"
+
+#: voting/templates/voting/results.html:93
+#, fuzzy
+#| msgid "1st Choice"
+msgid "First Choice Votes"
+msgstr "Primera opción"
+
+#: voting/templates/voting/results.html:123
+msgid "Head-to-Head Matchups"
+msgstr ""
+
+#: voting/templates/voting/results.html:129
+msgid "Matchup"
+msgstr ""
+
+#: voting/templates/voting/results.html:130
+#, fuzzy
+#| msgid "Votes:"
+msgid "Votes"
+msgstr "Votos:"
+
+#: voting/templates/voting/results.html:145
+msgid "Tie"
+msgstr ""
+
+#: voting/templates/voting/results.html:166
+#, fuzzy
+#| msgid "Active Polls"
+msgid "Actions"
+msgstr "Encuestas activas"
+
+#: voting/templates/voting/results.html:174
+#, fuzzy
+#| msgid "Closed"
+msgid "Poll Closed"
+msgstr "Cerrado"
+
+#: voting/templates/voting/results.html:179
+#, fuzzy
+#| msgid "Back to Home"
+msgid "Back to Polls"
+msgstr "Volver al inicio"
+
+#: voting/templates/voting/results.html:202
+msgid "Share this link to get more votes"
+msgstr ""
+
+# About Condorcet page
+#: voting/templates/voting/results.html:210
+#, fuzzy
+#| msgid "The Condorcet Voting Method"
+msgid "Condorcet Method"
+msgstr "El método de votación Condorcet"
+
+#: voting/templates/voting/results.html:212
 msgid ""
-"The Schulze method is a tiebreaker used when there is no clear Condorcet "
-"winner (a cycle). It finds the strongest path between candidates to "
-"determine the mathematically fairest winner."
+"The winner is the candidate who would beat all others in one-on-one "
+"matchups. This method is considered the fairest way to find a consensus "
+"choice."
 msgstr ""
-"El método Schulze rompe empates cuando no hay un ganador Condorcet claro. "
-"Encuentra el camino más fuerte entre candidatos para determinar el ganador "
-"más justo."
+
+#: voting/templates/voting/results.html:228
+#, fuzzy
+#| msgid "Link copied!"
+msgid "Copied!"
+msgstr "¡Enlace copiado!"
+
+#: voting/templates/voting/vote.html:38
+#, fuzzy
+#| msgid "Rank Candidates"
+msgid "Rank the candidates"
+msgstr "Clasificar candidatos"
+
+#: voting/templates/voting/vote.html:40
+msgid ""
+"Drag to reorder candidates, or use the select dropdowns. Your first choice "
+"is your strongest preference."
+msgstr ""
+
+#: voting/templates/voting/vote.html:76
+msgid "How to Vote:"
+msgstr ""
+
+#: voting/templates/voting/vote.html:78
+msgid "Rank candidates by dragging them in order of preference"
+msgstr ""
+
+#: voting/templates/voting/vote.html:79
+msgid "First position = your strongest choice"
+msgstr ""
+
+#: voting/templates/voting/vote.html:80
+msgid "Last position = your weakest choice"
+msgstr ""
+
+#: voting/templates/voting/vote.html:81
+msgid "All candidates must be ranked exactly once"
+msgstr ""
+
+#: voting/templates/voting/vote.html:88
+msgid "Submit Vote"
+msgstr ""
+
+#: voting/templates/voting/vote.html:101
+msgid ""
+"Instead of just picking one candidate, you rank them. The system then finds "
+"the candidate who would win in a fair head-to-head matchup against any other "
+"candidate. This method is considered one of the fairest voting systems."
+msgstr ""
+
+# Index page
+#~ msgid "Condorcet Vote - Home"
+#~ msgstr "Voto Condorcet - Inicio"
+
+#~ msgid "Welcome to Condorcet Vote"
+#~ msgstr "Bienvenido a Voto Condorcet"

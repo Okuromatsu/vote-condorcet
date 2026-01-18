@@ -53,44 +53,6 @@
                         {% endif %}
                     </div>
                     
-                    <!-- Tiebreaker Method -->
-                    <div class="mb-3">
-                        <label for="{{ form.tiebreaker_method.id_for_label }}" class="form-label">
-                            {% trans "Tiebreaker Method" %}
-                        </label>
-                        {{ form.tiebreaker_method }}
-                        <small class="form-text text-muted mt-1 d-block">
-                            {% trans "How to resolve the Condorcet paradox if no clear winner:" %}
-                            <a href="{% url 'voting:about_condorcet' %}" target="_blank">{% trans "Learn more" %}</a>
-                        </small>
-                    </div>
-
-                    <!-- Allow Multiple Votes per Device -->
-                    <div class="mb-3">
-                        <div class="form-check">
-                            {{ form.allow_multiple_votes_per_device }}
-                            <label class="form-check-label" for="{{ form.allow_multiple_votes_per_device.id_for_label }}">
-                                {% trans "Allow multiple votes per device" %}
-                            </label>
-                        </div>
-                        <small class="form-text text-muted mt-1 d-block">
-                            {{ form.allow_multiple_votes_per_device.help_text }}
-                        </small>
-                    </div>
-
-                    <!-- Private/Public Poll -->
-                    <div class="mb-3">
-                        <div class="form-check">
-                            {{ form.is_public }}
-                            <label class="form-check-label" for="{{ form.is_public.id_for_label }}">
-                                {% trans "Make this poll public" %}
-                            </label>
-                        </div>
-                        <small class="form-text text-muted mt-1 d-block">
-                            {% trans "Public polls are visible on the homepage and can be seen by everyone." %}
-                        </small>
-                    </div>
-
                     <!-- Candidates -->
                     <div class="mb-3">
                         <label for="{{ form.candidates.id_for_label }}" class="form-label">
@@ -116,6 +78,60 @@
                             • {% trans "One candidate per line" %}<br>
                             • {% trans "No duplicate names" %}
                         </small>
+                    </div>
+                    
+                    <!-- Private/Public Poll -->
+                    <div class="mb-3">
+                        <div class="form-check">
+                            {{ form.is_public }}
+                            <label class="form-check-label" for="{{ form.is_public.id_for_label }}">
+                                {% trans "Make this poll public" %}
+                            </label>
+                        </div>
+                        <small class="form-text text-muted mt-1 d-block">
+                            {% trans "Public polls are visible on the homepage and can be seen by everyone." %}
+                        </small>
+                    </div>
+
+                    <!-- Advanced Parameters -->
+                    <div class="accordion mb-3" id="accordionAdvanced">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingAdvanced">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdvanced" aria-expanded="false" aria-controls="collapseAdvanced">
+                                    {% trans "Advanced Parameters" %}
+                                </button>
+                            </h2>
+                            <div id="collapseAdvanced" class="accordion-collapse collapse" aria-labelledby="headingAdvanced" data-bs-parent="#accordionAdvanced">
+                                <div class="accordion-body">
+                                    
+                                    <!-- Allow Multiple Votes per Device -->
+                                    <div class="mb-3">
+                                        <div class="form-check">
+                                            {{ form.allow_multiple_votes_per_device }}
+                                            <label class="form-check-label" for="{{ form.allow_multiple_votes_per_device.id_for_label }}">
+                                                {% trans "Allow multiple votes per device" %}
+                                            </label>
+                                        </div>
+                                        <small class="form-text text-muted mt-1 d-block">
+                                            {{ form.allow_multiple_votes_per_device.help_text }}
+                                        </small>
+                                    </div>
+
+                                    <!-- Tiebreaker Method -->
+                                    <div class="mb-3">
+                                        <label for="{{ form.tiebreaker_method.id_for_label }}" class="form-label">
+                                            {% trans "Tiebreaker Method" %}
+                                        </label>
+                                        {{ form.tiebreaker_method }}
+                                        <small class="form-text text-muted mt-1 d-block">
+                                            {% trans "How to resolve the Condorcet paradox if no clear winner:" %}
+                                            <a href="{% url 'voting:about_condorcet' %}" target="_blank">{% trans "Learn more" %}</a>
+                                        </small>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
                     <!-- Display Non-Field Errors -->
