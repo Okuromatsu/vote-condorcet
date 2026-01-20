@@ -153,7 +153,8 @@ IS_BUILD_PROCESS = SECRET_KEY == 'dummy-key-for-build'
 
 # Debug print to help diagnose build issues
 if IS_BUILD_PROCESS:
-    print(f"Build process detected. SECRET_KEY={SECRET_KEY}. Using simple StaticFilesStorage.")
+    # Only print that we are in build process, do not log the actual key
+    print("Build process detected. SECRET_KEY is set. Using simple StaticFilesStorage.")
 
 if DEBUG or IS_BUILD_PROCESS:
     # Development or Build: Use simple storage (no manifest required)
