@@ -2021,3 +2021,7 @@ msgstr ""
 
 #~ msgid "Ruby vs Python:"
 #~ msgstr "Ruby contre Python :"
+
+msgid "The poll will be visible on the homepage. Leave unchecked if you just want a private link to share."
+msgstr "Ce sondage sera visible sur la page d'accueil du site. Laissez décoché si vous souhaitez uniquement générer un lien privé à partager."
+

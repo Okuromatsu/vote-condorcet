@@ -1751,3 +1751,7 @@ msgstr ""
 
 #~ msgid "Welcome to Condorcet Vote"
 #~ msgstr "Bienvenido a Voto Condorcet"
+
+msgid "The poll will be visible on the homepage. Leave unchecked if you just want a private link to share."
+msgstr "Esta encuesta será visible en la página de inicio del sitio. Déjela desmarcada si solo desea generar un enlace privado para compartir."
+

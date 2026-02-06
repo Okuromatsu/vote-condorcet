@@ -220,6 +220,19 @@
 
                                             // Listeners
                                             secureAuth.addEventListener('change', toggleSecureSection);
+                                            
+                                            // Public Poll Warning
+                                            const isPublicCheckbox = document.getElementById('{{ form.is_public.id_for_label }}');
+                                            if (isPublicCheckbox) {
+                                                isPublicCheckbox.addEventListener('change', function() {
+                                                    if (this.checked) {
+                                                        const msg = "{% trans 'The poll will be visible on the homepage. Leave unchecked if you just want a private link to share.' %}";
+                                                        if (!confirm(msg)) {
+                                                            this.checked = false;
+                                                        }
+                                                    }
+                                                });
+                                            }
                                         });
                                     </script>
                                     
