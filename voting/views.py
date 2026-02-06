@@ -31,8 +31,7 @@ import logging
 from .models import Poll, Candidate, Vote, VoterSession, PollToken
 from .forms import CreatePollForm, VoteForm, AuthForm
 from .utils import (
-    calculate_condorcet_winner, validate_ranking, get_ranking_statistics,
-    generate_qr_code, calculate_pairwise_results
+    calculate_condorcet_winner, validate_ranking, get_ranking_statistics, calculate_pairwise_results
 )
 from django.contrib.auth.hashers import make_password, check_password
 import secrets
@@ -906,7 +905,7 @@ def download_results_json(request, poll_id):
          is_creator = True
          
     if not is_creator and not poll.results_released:
-        return HttpResponseForbidden(_("Results are not yet released for this poll."))
+        return JsonResponse({'error': _("Results are not yet released for this poll.")}, status=403)
         
     # Fetch Data
     votes = Vote.objects.filter(poll=poll)
