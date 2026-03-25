@@ -2025,3 +2025,69 @@ msgstr ""
 msgid "The poll will be visible on the homepage. Leave unchecked if you just want a private link to share."
 msgstr "Ce sondage sera visible sur la page d'accueil du site. Laissez décoché si vous souhaitez uniquement générer un lien privé à partager."
 
+
+msgid "Poll Management"
+msgstr "Gestion du sondage"
+
+msgid "Manage your poll with code:"
+msgstr "Gérez votre sondage avec le code :"
+
+msgid "Voting Open"
+msgstr "Vote ouvert"
+
+msgid "Private Link Only"
+msgstr "Lien privé uniquement"
+
+msgid "Created on"
+msgstr "Créé le"
+
+msgid "Time Limit"
+msgstr "Date limite"
+
+msgid "Unlimited"
+msgstr "Illimité"
+
+msgid "Live Results Preview"
+msgstr "Aperçu des résultats en direct"
+
+msgid "Current Winner (Condorcet):"
+msgstr "Gagnant actuel (Condorcet) :"
+
+msgid "View Detailed Results Page"
+msgstr "Voir la page des résultats détaillés"
+
+msgid "Waiting for more votes to establish a winner..."
+msgstr "En attente de plus de votes pour établir un gagnant..."
+
+msgid "Results are currently hidden from voters."
+msgstr "Les résultats sont actuellement masqués pour les votants."
+
+msgid "You can release them using the controls below."
+msgstr "Vous pouvez les publier en utilisant les contrôles ci-dessous."
+
+msgid "Poll Controls"
+msgstr "Contrôles du sondage"
+
+msgid "Go to Vote Page"
+msgstr "Aller à la page de vote"
+
+msgid "Share / QR Code"
+msgstr "Partager / Code QR"
+
+msgid "Switch to Private"
+msgstr "Passer en privé"
+
+msgid "Go Public"
+msgstr "Rendre public"
+
+msgid "Results & State"
+msgstr "Résultats et État"
+
+msgid "Stop Voting"
+msgstr "Arréter le vote"
+
+msgid "Delete Permanently"
+msgstr "Supprimer définitivement"
+
+msgid "Back to Homepage"
+msgstr "Retour à l'accueil"

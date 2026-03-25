@@ -1755,3 +1755,69 @@ msgstr ""
 msgid "The poll will be visible on the homepage. Leave unchecked if you just want a private link to share."
 msgstr "Esta encuesta será visible en la página de inicio del sitio. Déjela desmarcada si solo desea generar un enlace privado para compartir."
 
+
+msgid "Poll Management"
+msgstr "Gestión de encuestas"
+
+msgid "Manage your poll with code:"
+msgstr "Gestiona tu encuesta con el código:"
+
+msgid "Voting Open"
+msgstr "Votación abierta"
+
+msgid "Private Link Only"
+msgstr "Solo enlace privado"
+
+msgid "Created on"
+msgstr "Creado el"
+
+msgid "Time Limit"
+msgstr "Límite de tiempo"
+
+msgid "Unlimited"
+msgstr "Ilimitado"
+
+msgid "Live Results Preview"
+msgstr "Vista previa de resultados en vivo"
+
+msgid "Current Winner (Condorcet):"
+msgstr "Ganador actual (Condorcet):"
+
+msgid "View Detailed Results Page"
+msgstr "Ver página de resultados detallados"
+
+msgid "Waiting for more votes to establish a winner..."
+msgstr "Esperando más votos para establecer un ganador..."
+
+msgid "Results are currently hidden from voters."
+msgstr "Los resultados están actualmente ocultos para los votantes."
+
+msgid "You can release them using the controls below."
+msgstr "Puedes publicarlos usando les controles a continuación."
+
+msgid "Poll Controls"
+msgstr "Controles de encuesta"
+
+msgid "Go to Vote Page"
+msgstr "Ir a la página de votación"
+
+msgid "Share / QR Code"
+msgstr "Compartir / Código QR"
+
+msgid "Switch to Private"
+msgstr "Cambiar a privado"
+
+msgid "Go Public"
+msgstr "Hacer público"
+
+msgid "Results & State"
+msgstr "Resultados y Estado"
+
+msgid "Stop Voting"
+msgstr "Detener votación"
+
+msgid "Delete Permanently"
+msgstr "Eliminar permanentemente"
+
+msgid "Back to Homepage"
+msgstr "Volver a la página de inicio"

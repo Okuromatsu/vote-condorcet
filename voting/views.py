@@ -768,6 +768,7 @@ def creator_dashboard(request, creator_code):
             'vote_count': vote_count,
             'winner': winner,
             'candidates_count': poll.candidate_set.count(),
+            'candidates': poll.get_candidates(),
         })
     
     context = {
