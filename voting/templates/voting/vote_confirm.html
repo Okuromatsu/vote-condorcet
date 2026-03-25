@@ -1,0 +1,87 @@
+{% extends 'voting/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Confirm Your Vote" %} - Condorcet Vote{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white p-4 text-center">
+                <h3 class="mb-0">{% trans "Confirm Your Ranking" %}</h3>
+            </div>
+            <div class="card-body p-4 p-md-5">
+                <div class="text-center mb-5">
+                    <p class="lead text-muted">
+                        {% trans "Please review your choice before final submission." %}
+                    </p>
+                </div>
+
+                <div class="ranking-summary mb-5">
+                    <h5 class="fw-bold mb-4 border-bottom pb-2">
+                        <i class="fas fa-list-ol me-2 text-primary"></i>{% trans "Your Order of Preference" %}
+                    </h5>
+                    <div class="list-group shadow-sm">
+                        {% for candidate in ranking %}
+                            <div class="list-group-item d-flex align-items-center py-3">
+                                <span class="badge bg-primary rounded-pill me-3 px-3 py-2 fs-6">#{{ forloop.counter }}</span>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-0 fw-bold">{{ candidate.name }}</h6>
+                                    {% if candidate.description %}
+                                        <small class="text-muted">{{ candidate.description }}</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Guidance message based on modification setting -->
+                {% if poll.allow_vote_modification %}
+                    <div class="alert alert-soft-success border-0 py-3 d-flex align-items-center">
+                        <i class="fas fa-check-circle fs-4 me-3 text-success"></i>
+                        <div>
+                            <strong>{% trans "Flexible Vote" %}</strong><br>
+                            {% trans "You will be able to change this vote later using your private management link." %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="alert alert-soft-warning border-0 py-3 d-flex align-items-center">
+                        <i class="fas fa-exclamation-triangle fs-4 me-3 text-warning"></i>
+                        <div>
+                            <strong>{% trans "Final Submission" %}</strong><br>
+                            {% trans "Attention: This vote is definitive. You will NOT be able to modify it once submitted." %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <form method="post" action="{% url 'voting:vote_poll' poll.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="confirm_vote" value="1">
+                    
+                    <!-- Re-inject all form data from previous step -->
+                    {% for key, value in form_data.items %}
+                        {% if key != 'csrfmiddlewaretoken' %}
+                            <input type="hidden" name="{{ key }}" value="{{ value }}">
+                        {% endif %}
+                    {% endfor %}
+
+                    <div class="d-grid gap-3 d-sm-flex justify-content-center mt-5">
+                        <button type="button" onclick="window.history.back();" class="btn btn-outline-secondary btn-lg px-5">
+                            <i class="fas fa-arrow-left me-2"></i>{% trans "Modify Ranking" %}
+                        </button>
+                        <button type="submit" class="btn btn-primary btn-lg px-5 shadow">
+                            {% trans "Confirm and Vote" %} <i class="fas fa-check ms-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .alert-soft-success { background-color: #e8f5e9; color: #2e7d32; }
+    .alert-soft-warning { background-color: #fffde7; color: #f57f17; }
+</style>
+{% endblock %}

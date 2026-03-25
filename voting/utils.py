@@ -29,18 +29,12 @@ from django.urls import reverse
 logger = logging.getLogger(__name__)
 
 
-def calculate_condorcet_winner(votes_list: List[List[str]], tiebreaker_method: str = 'schulze', expected_candidates: Set[str] = None) -> Tuple[Optional[str], Optional[str]]:
+def calculate_condorcet_winner(votes_list: List[List[str]], tiebreaker_method: str = 'schulze', expected_candidates: Set[str] = None) -> Tuple[Optional[str], Optional[str], bool]:
     """
     Calculate Condorcet winner from a list of ranked votes.
     
-    Args:
-        votes_list: List of votes, each vote is list of candidate IDs in order
-        tiebreaker_method: Method to use if no Condorcet winner ('schulze', 'borda', 'random')
-        expected_candidates: Optional set of valid candidate IDs to filter votes
-    
     Returns:
-        Tuple (winner_id, method_used)
-        method_used will be 'condorcet', 'schulze', 'borda', 'random', or None
+        Tuple (winner_id, method_used, was_randomly_picked)
     """
     
     if not votes_list:
@@ -78,7 +72,7 @@ def calculate_condorcet_winner(votes_list: List[List[str]], tiebreaker_method: s
     if len(all_candidates) < 2:
         # If only 1 candidate, they are the winner
         if len(all_candidates) == 1:
-            return list(all_candidates)[0], 'condorcet'
+            return list(all_candidates)[0], 'condorcet', False
         raise ValueError("Need at least 2 candidates.")
     
     logger.info(f"Calculating winner for {len(votes_list)} votes with {len(all_candidates)} candidates")
@@ -86,32 +80,21 @@ def calculate_condorcet_winner(votes_list: List[List[str]], tiebreaker_method: s
     # Calculate pairwise results
     pairwise_results = calculate_pairwise_results(votes_list, all_candidates)
     
-    # Log pairwise matrix for debugging
-    logger.info("Pairwise Matrix:")
-    for cand_a in all_candidates:
-        for cand_b in all_candidates:
-            if cand_a != cand_b:
-                wins = pairwise_results.get((cand_a, cand_b), 0)
-                losses = pairwise_results.get((cand_b, cand_a), 0)
-                logger.info(f"{cand_a} vs {cand_b}: {wins}-{losses}")
-
-    # Check for Condorcet winner
     condorcet_winner = find_condorcet_winner(pairwise_results, all_candidates)
     
     if condorcet_winner:
         logger.info(f"Condorcet winner found: {condorcet_winner}")
-        return condorcet_winner, 'condorcet'
+        return condorcet_winner, 'condorcet', False
     
-    # No Condorcet winner - use tiebreaker
-    logger.warning(f"No Condorcet winner found. Using {tiebreaker_method} tiebreaker.")
-    
+    # Tiebreakers
     if tiebreaker_method == 'borda':
-        return borda_count_tiebreaker(votes_list), 'borda'
+        winner_id, was_random = borda_count_tiebreaker(votes_list)
+        return winner_id, 'borda', was_random
     elif tiebreaker_method == 'random':
-        return random_tiebreaker(all_candidates), 'random'
+        return random_tiebreaker(all_candidates), 'random', True
     else:
-        # Default to Schulze
-        return schulze_method(pairwise_results, all_candidates), 'schulze'
+        winner_id, was_random = schulze_method(pairwise_results, all_candidates)
+        return winner_id, 'schulze', was_random
 
 
 def calculate_pairwise_results(
@@ -188,24 +171,12 @@ def find_condorcet_winner(
 def schulze_method(
     pairwise_results: Dict[Tuple[str, str], int],
     candidates: Set[str]
-) -> str:
+) -> Tuple[str, bool]:
     """
     Schulze method for breaking ties when no Condorcet winner exists.
     
-    Finds the candidate with strongest support when no clear winner exists.
-    This is more complex than simple Borda count and handles cycles well.
-    
-    Algorithm:
-    1. Build strongest path from each candidate to every other
-    2. For each candidate, find weakest link in their strongest path
-    3. Winner is candidate with strongest weakest link
-    
-    Args:
-        pairwise_results: Dictionary from calculate_pairwise_results()
-        candidates: Set of all candidate IDs
-    
     Returns:
-        Winning candidate ID
+        Tuple (winner_id, was_randomly_picked)
     """
     
     # Initialize distance matrix (strongest path strengths)
@@ -235,14 +206,11 @@ def schulze_method(
                     d[(i, j)] = max(current, via_k)
     
     # Find winner: candidate who beats all others in path strength
-    # Candidate X wins if p[X,Y] >= p[Y,X] for all other candidates Y
-    
     schulze_winners = []
     for i in candidates_list:
         is_winner = True
         for j in candidates_list:
             if i != j:
-                # If any other candidate has a stronger path to i than i has to them, i loses
                 if d[(j, i)] > d[(i, j)]:
                     is_winner = False
                     break
@@ -252,30 +220,20 @@ def schulze_method(
     if schulze_winners:
         if len(schulze_winners) > 1:
             logger.warning(f"Multiple Schulze winners found: {schulze_winners}. Picking random.")
-            return random.choice(schulze_winners)
+            return random.choice(schulze_winners), True
         
         logger.info(f"Schulze winner determined: {schulze_winners[0]}")
-        return schulze_winners[0]
+        return schulze_winners[0], False
     
-    # Fallback (should theoretically not happen)
-    logger.error("No Schulze winner found (unexpected). Returning random.")
-    return random.choice(candidates_list)
+    return random.choice(candidates_list), True
 
 
-def borda_count_tiebreaker(votes_list: List[List[str]]) -> str:
+def borda_count_tiebreaker(votes_list: List[List[str]]) -> Tuple[str, bool]:
     """
-    Simple Borda count as secondary tiebreaker (if needed).
-    
-    Points awarded based on ranking position:
-    - 1st choice: n points
-    - 2nd choice: n-1 points
-    - etc.
-    
-    Args:
-        votes_list: List of ranked votes
+    Simple Borda count as secondary tiebreaker.
     
     Returns:
-        Winning candidate ID
+        Tuple (winner_id, was_randomly_picked)
     """
     
     scores = defaultdict(int)
@@ -286,7 +244,17 @@ def borda_count_tiebreaker(votes_list: List[List[str]]) -> str:
             points = n_candidates - position
             scores[candidate] += points
     
-    return max(scores.items(), key=lambda x: x[1])[0]
+    if not scores:
+        all_cands = list(set(c for v in votes_list for c in v))
+        return random.choice(all_cands), True
+
+    max_score = max(scores.values())
+    winners = [c for c, s in scores.items() if s == max_score]
+    
+    if len(winners) > 1:
+        return random.choice(winners), True
+    
+    return winners[0], False
 
 
 def validate_ranking(ranking: List[str], expected_candidates: Set[str]) -> bool:

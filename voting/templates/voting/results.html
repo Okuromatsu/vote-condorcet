@@ -41,12 +41,17 @@
                     <h2 class="mb-0 text-success">{{ winner.name }}</h2>
                     
                     {% if winner_method != 'condorcet' %}
-                        <div class="alert alert-info mt-3 mb-0">
+                        <div class="alert alert-info mt-3 mb-0 shadow-sm border-info">
                             <small>
                                 <strong>{% trans "Note:" %}</strong> 
                                 {% trans "No clear Condorcet winner was found (no candidate beats all others)." %}
                                 <br>
-                                {% trans "The winner was determined using the" %} <strong>{{ winner_method|title }}</strong> {% trans "tiebreaker method." %}
+                                {% if winner_random %}
+                                    <span class="text-danger">⚠️ <strong>{% trans "Tie in tiebreaker:" %}</strong></span>
+                                    {% trans "Multiple candidates tied in the" %} <strong>{{ winner_method|title }}</strong> {% trans "tiebreaker. The winner was selected randomly from the tied candidates." %}
+                                {% else %}
+                                    {% trans "The winner was determined using the" %} <strong>{{ winner_method|title }}</strong> {% trans "tiebreaker method." %}
+                                {% endif %}
                             </small>
                         </div>
                     {% endif %}
