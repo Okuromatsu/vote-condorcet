@@ -102,7 +102,7 @@ class CreatePollForm(forms.ModelForm):
 
     class Meta:
         model = Poll
-        fields = ['title', 'description', 'tiebreaker_method', 'allow_multiple_votes_per_device', 'is_public', 'requires_auth']
+        fields = ['title', 'description', 'tiebreaker_method', 'allow_multiple_votes_per_device', 'is_public', 'requires_auth', 'allow_vote_modification']
         labels = {
             'title': _('Poll Title'),
             'description': _('Poll Description'),
@@ -110,6 +110,7 @@ class CreatePollForm(forms.ModelForm):
             'allow_multiple_votes_per_device': _('Allow multiple votes per device'),
             'is_public': _('Make poll public'),
             'requires_auth': _('Secure vote with unique passwords'),
+            'allow_vote_modification': _('Allow voters to edit their vote'),
         }
         widgets = {
             'title': forms.TextInput(attrs={
@@ -137,11 +138,15 @@ class CreatePollForm(forms.ModelForm):
                 'data-bs-toggle': 'collapse',
                 'data-bs-target': '#voterCountSection',
             }),
+            'allow_vote_modification': forms.CheckboxInput(attrs={
+                'class': 'form-check-input',
+            }),
         }
         help_texts = {
              'allow_multiple_votes_per_device': _('Enable this for shared devices (e.g., passing a tablet around). Bypasses duplicate vote protection.'),
              'is_public': _('Polls are private by default (only accessible via a private link).'),
              'requires_auth': _('Generate a list of one-time passwords. Each voter will need a unique password to vote.'),
+             'allow_vote_modification': _('Generate a private link for each voter to view or edit their vote later (only while poll is open and results are hidden).'),
         }
     
     def clean(self):

@@ -1,0 +1,174 @@
+{% extends 'voting/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Manage Your Vote" %} - Condorcet Vote{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Header Summary Card -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 mb-4 overflow-hidden">
+                <div class="card-header bg-gradient bg-primary p-4 text-white">
+                    <div class="d-flex align-items-center mb-2">
+                        <span class="badge bg-white text-primary me-2">🗳️ {% trans "Vote Summary" %}</span>
+                        <small class="opacity-75">{% trans "Submitted on" %} {{ vote.cast_at|date:"M d, Y H:i" }}</small>
+                    </div>
+                    <h2 class="h3 mb-0">{{ poll.title }}</h2>
+                    <p class="mb-0 opacity-75 small">{{ poll.description }}</p>
+                </div>
+                
+                <div class="card-body p-4 bg-light">
+                    {% if is_edit_mode %}
+                        <!-- EDIT MODE: Re-using the draggable/select ranking logic -->
+                        <div class="mb-5">
+                            <div class="alert alert-warning py-3 mb-4 d-flex align-items-center shadow-sm">
+                                <div class="fs-4 me-3">✏️</div>
+                                <div>
+                                    <strong>{% trans "Editing mode" %}</strong><br>
+                                    {% trans "Update your preferences below and save them when you're done." %}
+                                </div>
+                            </div>
+                            
+                            <form method="post" id="voteForm">
+                                {% csrf_token %}
+                                <div id="ranking" class="list-group list-group-flush mb-4 shadow rounded overflow-hidden">
+                                    {% for candidate in candidates %}
+                                    <div class="list-group-item list-group-item-action d-flex align-items-center p-3 cand-item" 
+                                         data-id="{{ candidate.id }}" style="cursor: move;">
+                                        <div class="me-3 fs-5 opacity-50"><i class="fas fa-bars"></i></div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-0 fw-bold">{{ candidate.name }}</h6>
+                                        </div>
+                                        <div class="ms-3">
+                                            <select name="rank_{{ candidate.id }}" id="rank_{{ candidate.id }}" 
+                                                    class="form-select border-0 bg-transparent text-primary fw-bold" style="width: 70px;">
+                                                {% for i in candidates|dictsort:"id"|slice:":1" %}{% endfor %}
+                                                {% for i in candidates %}
+                                                    <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                                    <a href="{% url 'voting:manage_vote' vote.management_token %}" class="btn btn-outline-secondary btn-lg">{% trans "Cancel" %}</a>
+                                    <button type="submit" class="btn btn-primary btn-lg px-5 shadow">{% trans "Save Updates" %}</button>
+                                </div>
+                            </form>
+                        </div>
+                    {% else %}
+                        <!-- READ MODE: Display current ordered list -->
+                        <h5 class="fw-bold mb-4">✅ {% trans "Your Submitted Preferences" %}</h5>
+                        <div class="list-group list-group-flush shadow rounded overflow-hidden mb-5">
+                            {% for candidate in user_ranking %}
+                            <div class="list-group-item d-flex align-items-center p-3 border-bottom">
+                                <span class="badge bg-primary rounded-circle me-4 fs-6 d-flex align-items-center justify-content-center" 
+                                      style="width: 35px; height: 35px;">
+                                    {{ forloop.counter }}
+                                </span>
+                                <div>
+                                    <h6 class="mb-0 fw-bold">{{ candidate.name }}</h6>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        {% if can_edit %}
+                        <div class="alert alert-info border-info bg-white py-4 shadow-sm mb-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="fs-4 me-3">🔄</div>
+                                <h5 class="mb-0">{% trans "Would you like to change your vote?" %}</h5>
+                            </div>
+                            <p class="mb-4 text-muted">{% trans "The poll is still open and you matches the requirements to update your preference." %}</p>
+                            <a href="?edit=1" class="btn btn-info btn-lg w-100 shadow">
+                                ✏️ {% trans "Edit My Vote Now" %}
+                            </a>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-secondary py-4 mb-4 text-center">
+                            <p class="mb-0">{% trans "Vote modification is disabled for this poll or the results have been released." %}</p>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+
+                    <!-- Link to results or index -->
+                    <div class="row text-center mt-5">
+                        <div class="col-md">
+                            <label class="small text-muted text-uppercase fw-bold mb-1 d-block">{% trans "Keep your private link" %}</label>
+                            <div class="input-group mb-4 shadow-sm">
+                                <input type="text" class="form-control text-center font-monospace small bg-white" 
+                                       id="voteToken" value="{{ site_url }}{% url 'voting:manage_vote' vote.management_token %}" readonly>
+                                <button class="btn btn-outline-primary" onclick="copyToken()">📋 {% trans "Copy Link" %}</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center pt-4 border-top">
+                        <a href="{% url 'voting:results_poll' poll.id %}" class="btn btn-outline-info me-2">{% trans "View Results" %}</a>
+                        <a href="/" class="btn btn-outline-secondary">{% trans "Back to Home" %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/sortable.min.js' %}"></script>
+<script>
+    {% if is_edit_mode %}
+    (function() {
+        const el = document.getElementById('ranking');
+        if (!el) return;
+        
+        Sortable.create(el, {
+            animation: 150,
+            ghostClass: 'bg-light',
+            onEnd: function() {
+                const items = el.getElementsByClassName('cand-item');
+                for (let i = 0; i < items.length; i++) {
+                    const select = items[i].getElementsByTagName('select')[0];
+                    if (select) select.value = i + 1;
+                }
+            }
+        });
+
+        const selects = el.getElementsByTagName('select');
+        for (let select of selects) {
+            select.addEventListener('change', function() {
+                const items = Array.from(el.getElementsByClassName('cand-item'));
+                items.sort((a, b) => {
+                    const valA = parseInt(a.getElementsByTagName('select')[0].value);
+                    const valB = parseInt(b.getElementsByTagName('select')[0].value);
+                    return valA - valB;
+                });
+                items.forEach(item => el.appendChild(item));
+            });
+        }
+
+        // Set initial order based on pre-filled selects
+        const items = Array.from(el.getElementsByClassName('cand-item'));
+        items.sort((a, b) => {
+            const valA = parseInt(a.getElementsByTagName('select')[0].value);
+            const valB = parseInt(b.getElementsByTagName('select')[0].value);
+            return valA - valB;
+        });
+        items.forEach(item => el.appendChild(item));
+    })();
+    {% endif %}
+
+    function copyToken() {
+        const el = document.getElementById('voteToken');
+        if (!el) return;
+        el.select();
+        try {
+            document.execCommand('copy');
+            alert("{% trans 'Link copied!' %}");
+        } catch (err) {
+            console.error('Copy failed', err);
+        }
+    }
+</script>
+{% endblock %}

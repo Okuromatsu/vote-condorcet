@@ -4,36 +4,69 @@
 {% block title %}{% trans "Access Dashboard" %} - vote-condorcet.com{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <h4 class="mb-0"><i class="fas fa-key me-2"></i>{% trans "Access Creator Dashboard" %}</h4>
+<div class="row justify-content-center g-4">
+    <!-- Creator Login -->
+    <div class="col-md-6 border-end-md">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-header bg-primary text-white p-4">
+                <h4 class="mb-0"><i class="fas fa-user-shield me-2"></i>{% trans "Access Creator Dashboard" %}</h4>
             </div>
-            <div class="card-body">
-                <p class="text-muted mb-4">
+            <div class="card-body p-4">
+                <p class="text-muted mb-4 lead small">
                     {% trans "Enter your creator code to manage your polls." %}
                 </p>
                 
-                <form method="post" action="">
+                <form method="post" action="{% url 'voting:dashboard_login' %}">
                     {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="creator_code" class="form-label">{% trans "Creator Code" %}</label>
-                        <input type="password" class="form-control form-control-lg" id="creator_code" name="creator_code" required placeholder="e.g. a1b2c3d4" autocomplete="off" autocorrect="off" autocapitalize="off">
+                    <input type="hidden" name="type" value="creator">
+                    <div class="mb-4">
+                        <label for="creator_code" class="form-label fw-bold">{% trans "Creator Code" %}</label>
+                        <input type="password" class="form-control form-control-lg bg-light" id="creator_code" name="creator_code" required placeholder="e.g. a1b2c3d4" autocomplete="off">
                     </div>
                     
-                    <div class="alert alert-info">
-                        <i class="fas fa-info-circle me-2"></i>
-                        {% trans "If you did not save your creator code, unfortunately we cannot recover it for you as we do not store personal information." %}
-                    </div>
-                    
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary btn-lg">
-                            {% trans "Access Dashboard" %}
+                    <div class="d-grid mt-auto">
+                        <button type="submit" class="btn btn-primary btn-lg shadow-sm">
+                            📂 {% trans "Manage My Polls" %}
                         </button>
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
+
+    <!-- Voter Management Access -->
+    <div class="col-md-6">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-header bg-success text-white p-4">
+                <h4 class="mb-0"><i class="fas fa-id-card me-2"></i>{% trans "Manage My Vote" %}</h4>
+            </div>
+            <div class="card-body p-4 bg-light bg-opacity-10">
+                <p class="text-muted mb-4 lead small">
+                    {% trans "Enter your private vote management link or token to view or update your choice." %}
+                </p>
+                
+                <form method="post" action="{% url 'voting:dashboard_login' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="type" value="voter">
+                    <div class="mb-4">
+                        <label for="vote_token" class="form-label fw-bold">{% trans "Vote Management Link / Token" %}</label>
+                        <input type="text" class="form-control form-control-lg" id="vote_token" name="vote_token" required placeholder="{% trans 'Paste your private link or token here' %}" autocomplete="off">
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success btn-lg shadow-sm">
+                            🗳️ {% trans "Access My Vote" %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-12 mt-5 text-center">
+        <div class="alert alert-soft-info border-0 py-3 mx-auto" style="max-width: 800px;">
+            <i class="fas fa-info-circle me-2"></i>
+            {% trans "Security Tip: Keep these links private. They are the only way to prove ownership of your poll or vote without an account." %}
         </div>
     </div>
 </div>

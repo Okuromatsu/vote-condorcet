@@ -117,15 +117,28 @@
                                 <div class="accordion-body">
                                     
                                     <!-- Allow Multiple Votes per Device -->
-                                    <div class="mb-3">
+                                    <div class="mb-3 border-bottom pb-3">
                                         <div class="form-check">
                                             {{ form.allow_multiple_votes_per_device }}
-                                            <label class="form-check-label" for="{{ form.allow_multiple_votes_per_device.id_for_label }}">
+                                            <label class="form-check-label h6 mb-0" for="{{ form.allow_multiple_votes_per_device.id_for_label }}">
                                                 {% trans "Allow multiple votes per device" %}
                                             </label>
                                         </div>
                                         <small class="form-text text-muted mt-1 d-block">
                                             {{ form.allow_multiple_votes_per_device.help_text }}
+                                        </small>
+                                    </div>
+
+                                    <!-- Allow Vote Modification -->
+                                    <div class="mb-3 border-bottom pb-3">
+                                        <div class="form-check">
+                                            {{ form.allow_vote_modification }}
+                                            <label class="form-check-label h6 mb-0" for="{{ form.allow_vote_modification.id_for_label }}">
+                                                {% trans "Allow voters to edit their vote" %}
+                                            </label>
+                                        </div>
+                                        <small class="form-text text-muted mt-1 d-block">
+                                            {{ form.allow_vote_modification.help_text }}
                                         </small>
                                     </div>
 

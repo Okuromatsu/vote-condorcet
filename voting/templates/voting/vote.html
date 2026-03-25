@@ -1,5 +1,6 @@
 {% extends 'voting/base.html' %}
 {% load i18n %}
+{% load static %}
 
 {% block title %}{% trans "Vote" %} - {{ poll.title }}{% endblock %}
 
@@ -108,8 +109,8 @@
     </div>
 </div>
 
-<!-- SortableJS library for touch-friendly drag and drop -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js" integrity="sha384-eeLEhtwdMwD3X9y+8P3Cn7Idl/M+w8H4uZqkgD/2eJVkWIN1yKzEj6XegJ9dL3q0" crossorigin="anonymous"></script>
+<!-- SortableJS library local copy -->
+<script src="{% static 'js/sortable.min.js' %}"></script>
 
 <!-- Drag-and-drop functionality -->
 <script>

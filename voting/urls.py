@@ -38,6 +38,9 @@ urlpatterns = [
     # Voting interface
     path('vote/<uuid:poll_id>/', views.vote_poll, name='vote_poll'),
     
+    # Vote management (view/edit)
+    path('vote/manage/<str:token>/', views.manage_vote, name='manage_vote'),
+    
     # Results display
     path('poll/<uuid:poll_id>/results/', views.results_poll, name='results_poll'),
     path('poll/<uuid:poll_id>/results/json/', views.download_results_json, name='download_results_json'),

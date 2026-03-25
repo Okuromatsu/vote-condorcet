@@ -344,6 +344,30 @@ def vote_poll(request, poll_id):
         form = VoteForm(candidates, request.POST)
         
         if form.is_valid():
+            # Extract ranking positions to check if we need to show confirmation
+            temp_ranking = [''] * len(candidates)
+            for candidate in candidates:
+                field_name = f'rank_{candidate.id}'
+                rank_position = int(form.cleaned_data[field_name]) - 1
+                temp_ranking[rank_position] = str(candidate.id)
+
+            # --- VOTE CONFIRMATION STEP ---
+            if 'confirm_vote' not in request.POST:
+                # Map IDs to candidate objects for display in summary
+                candidate_dict = {str(c.id): c for c in candidates}
+                confirmed_ranking = []
+                for cid in temp_ranking:
+                    cand = candidate_dict.get(cid)
+                    if cand:
+                        confirmed_ranking.append(cand)
+                
+                return render(request, 'voting/vote_confirm.html', {
+                    'poll': poll,
+                    'ranking': confirmed_ranking,
+                    'form_data': request.POST, # Pass raw post data to be re-injected
+                })
+            # -----------------------------
+
             try:
                 with transaction.atomic():
                     # Check Secure Token if required
@@ -386,10 +410,14 @@ def vote_poll(request, poll_id):
                         raise ValidationError("Invalid vote ranking.")
                     
                     # Create vote record
+                    import secrets
+                    management_token = secrets.token_hex(16)
+                    
                     vote = Vote.objects.create(
                         poll=poll,
                         voter_fingerprint=vote_fingerprint,
-                        ranking=ranking
+                        ranking=ranking,
+                        management_token=management_token
                     )
                     
                     # Update voter session
@@ -417,9 +445,6 @@ def vote_poll(request, poll_id):
                         if hasattr(request, 'voter_session_token') and voter_session.cookie_token != request.voter_session_token:
                              logger.info(f"Updating session token from {voter_session.cookie_token} to {request.voter_session_token}")
                              voter_session.cookie_token = request.voter_session_token
-                        if hasattr(request, 'voter_session_token') and voter_session.cookie_token != request.voter_session_token:
-                             logger.info(f"Updating session token from {voter_session.cookie_token} to {request.voter_session_token}")
-                             voter_session.cookie_token = request.voter_session_token
                              # Note: This update might fail if new token is already used by another session (IntegrityError)
                              # which is good! It means this cookie already voted.
 
@@ -430,7 +455,7 @@ def vote_poll(request, poll_id):
                                 f"Session Token: {voter_session.cookie_token}")
                     messages.success(request, _('Your vote has been recorded!'))
                     
-                    return redirect('voting:results_poll', poll_id=poll.id)
+                    return redirect('voting:manage_vote', token=management_token)
             
             except IntegrityError as e:
                 # Catch unique constraint violation (likely cookie_token collision)
@@ -872,9 +897,25 @@ def poll_api_results(request, poll_id):
 @csrf_protect
 def dashboard_login(request):
     """
-    Allow creators to access their dashboard by entering their creator code.
+    Allow creators or voters to access their content by entering a code/token.
     """
     if request.method == 'POST':
+        form_type = request.POST.get('type')
+        
+        if form_type == 'voter':
+            vote_token = request.POST.get('vote_token', '').strip()
+            # Handle full links if pasted
+            if '/' in vote_token:
+                vote_token = vote_token.split('/')[-1]
+            
+            try:
+                vote = Vote.objects.get(management_token=vote_token)
+                return redirect('voting:manage_vote', token=vote_token)
+            except Vote.DoesNotExist:
+                messages.error(request, _('The provided link or token is invalid.'))
+            return render(request, 'voting/dashboard_login.html')
+
+        # Creator dashboard
         creator_code = request.POST.get('creator_code')
         if creator_code:
             # Check if any poll exists with this code
@@ -961,4 +1002,81 @@ def download_results_json(request, poll_id):
     response = JsonResponse(data, json_dumps_params={"indent": 2})
     response["Content-Disposition"] = f"attachment; filename=\"results_{poll.id}.json\""
     return response
+
+
+def manage_vote(request, token):
+    """
+    View to let voters see their ranking and edit it if the poll configuration allows.
+    """
+    vote = get_object_or_404(Vote, management_token=token)
+    poll = vote.poll
+    
+    # Check if modification is allowed
+    # Conditions to edit:
+    # 1. Poll allows it
+    # 2. Poll is active
+    # 3. Results are NOT released
+    can_edit = (poll.allow_vote_modification and 
+                poll.is_active and 
+                not poll.results_released)
+    
+    candidates = list(poll.get_candidates())
+    candidate_dict = {str(c.id): c for c in candidates}
+    
+    # Map ranking IDs to Candidate objects
+    user_ranking = []
+    for cand_id in vote.ranking:
+        cand = candidate_dict.get(str(cand_id))
+        if cand:
+            user_ranking.append(cand)
+            
+    if request.method == 'POST' and can_edit:
+        # Re-use VoteForm logic for editing
+        form = VoteForm(candidates, request.POST)
+        if form.is_valid():
+            try:
+                # Build NEW ranking
+                new_ranking = [''] * len(candidates)
+                for candidate in candidates:
+                    field_name = f'rank_{candidate.id}'
+                    rank_position = int(form.cleaned_data[field_name]) - 1
+                    new_ranking[rank_position] = str(candidate.id)
+                
+                # Validate
+                if not validate_ranking(new_ranking, {str(c.id) for c in candidates}):
+                    raise ValidationError("Invalid vote ranking.")
+                
+                # Update vote
+                vote.ranking = new_ranking
+                vote.save()
+                
+                logger.info(f"Vote edited: {vote.id} on poll {poll.id}")
+                messages.success(request, _('Your vote has been updated!'))
+                return redirect('voting:manage_vote', token=token)
+            except Exception as e:
+                logger.error(f"Error updating vote: {str(e)}")
+                messages.error(request, _('Error updating vote.'))
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
+    else:
+        # Pre-fill form with current ranking positions
+        initial_data = {}
+        for i, cand_id in enumerate(vote.ranking):
+            initial_data[f'rank_{cand_id}'] = i + 1
+        form = VoteForm(candidates, initial=initial_data)
+
+    context = {
+        'poll': poll,
+        'vote': vote,
+        'user_ranking': user_ranking,
+        'can_edit': can_edit,
+        'form': form,
+        'candidates': candidates,
+        'is_edit_mode': request.GET.get('edit') == '1' if can_edit else False
+    }
+    
+    return render(request, 'voting/manage_vote.html', context)
+
 
