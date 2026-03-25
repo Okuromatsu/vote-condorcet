@@ -509,11 +509,12 @@ def results_poll(request, poll_id):
     
     # Calculate results
     winner_method = None
+    winner_random = False
     if votes_list:
         try:
             # Calculate winner
             valid_candidate_ids = set(candidate_dict.keys())
-            winner_id, winner_method = calculate_condorcet_winner(votes_list, poll.tiebreaker_method, expected_candidates=valid_candidate_ids)
+            winner_id, winner_method, winner_random = calculate_condorcet_winner(votes_list, poll.tiebreaker_method, expected_candidates=valid_candidate_ids)
             winner = candidate_dict.get(winner_id)
             
             if winner:
@@ -601,8 +602,7 @@ def results_poll(request, poll_id):
     context = {
         'poll': poll,
         'winner': winner,
-        'winner_method': winner_method,
-        'total_votes': len(votes_list),
+        'winner_method': winner_method,        'winner_random': winner_random,        'total_votes': len(votes_list),
         'unique_voters_count': unique_voters_count,
         'num_candidates': len(candidates),
         'candidates': candidate_dict,
@@ -753,20 +753,23 @@ def creator_dashboard(request, creator_code):
         
         # Calculate winner if votes exist
         winner = None
+        winner_random = False
         if vote_count > 0:
             votes_queryset = Vote.objects.filter(poll=poll).values_list('ranking', flat=True)
             votes_list = list(votes_queryset)
             try:
                 valid_candidate_ids = set(str(c.id) for c in poll.candidate_set.all())
-                winner_id, _ignored_method = calculate_condorcet_winner(votes_list, poll.tiebreaker_method, expected_candidates=valid_candidate_ids)
+                winner_id, method, was_random = calculate_condorcet_winner(votes_list, poll.tiebreaker_method, expected_candidates=valid_candidate_ids)
                 winner = poll.candidate_set.get(id=winner_id) if winner_id else None
+                winner_random = was_random
             except Exception:
-                pass
+                winner_random = False
         
         polls_data.append({
             'poll': poll,
             'vote_count': vote_count,
             'winner': winner,
+            'winner_random': winner_random,
             'candidates_count': poll.candidate_set.count(),
             'candidates': poll.get_candidates(),
         })

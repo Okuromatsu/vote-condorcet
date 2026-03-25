@@ -1821,3 +1821,15 @@ msgstr "Eliminar permanentemente"
 
 msgid "Back to Homepage"
 msgstr "Volver a la página de inicio"
+
+msgid "Randomly selected due to tie in tiebreaker"
+msgstr "Selección aleatoria por empate en el desempate"
+
+msgid "Tie in tiebreaker:"
+msgstr "Empate en el desempate:"
+
+msgid "Multiple candidates tied in the"
+msgstr "Varios candidatos empataron en el método de desempate"
+
+msgid "tiebreaker. The winner was selected randomly from the tied candidates."
+msgstr ". El ganador fue seleccionado al azar entre los candidatos empatados."

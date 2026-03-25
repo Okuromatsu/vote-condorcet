@@ -2091,3 +2091,14 @@ msgstr "Supprimer définitivement"
 
 msgid "Back to Homepage"
 msgstr "Retour à l'accueil"
+msgid "Randomly selected due to tie in tiebreaker"
+msgstr "Sélection aléatoire suite à une égalité dans le départage"
+
+msgid "Tie in tiebreaker:"
+msgstr "Égalité dans le départage :"
+
+msgid "Multiple candidates tied in the"
+msgstr "Plusieurs candidats sont arrivés à égalité avec la méthode"
+
+msgid "tiebreaker. The winner was selected randomly from the tied candidates."
+msgstr ". Le gagnant a été choisi de manière aléatoire parmi les ex-aequo."

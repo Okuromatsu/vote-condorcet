@@ -116,6 +116,11 @@ class Poll(models.Model):
         default=False,
         help_text="If True, bypass cookie/fingerprint checks to allow multiple votes from same device"
     )
+
+    allow_vote_modification = models.BooleanField(
+        default=False,
+        help_text="Whether voters can modify their vote using a private management link"
+    )
     
     class Meta:
         ordering = ['-created_at']
@@ -249,6 +254,14 @@ class Vote(models.Model):
     voter_fingerprint = models.CharField(
         max_length=64,  # SHA256 hash = 64 hex chars
         help_text="Hash of voter IP + User-Agent to prevent duplicates"
+    )
+    management_token = models.CharField(
+        max_length=32,
+        unique=True,
+        null=True,
+        blank=True,
+        editable=False,
+        help_text="Unique token to view and manage this specific vote"
     )
     ranking = models.JSONField(
         help_text="List of candidate UUIDs in ranked order [1st_choice, 2nd_choice, ...]"
