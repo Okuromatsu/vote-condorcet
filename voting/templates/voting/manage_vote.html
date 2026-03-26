@@ -34,19 +34,19 @@
                             <form method="post" id="voteForm">
                                 {% csrf_token %}
                                 <div id="ranking" class="list-group list-group-flush mb-4 shadow rounded overflow-hidden">
-                                    {% for candidate in candidates %}
+                                    {% for candidate in user_ranking %}
                                     <div class="list-group-item list-group-item-action d-flex align-items-center p-3 cand-item" 
                                          data-id="{{ candidate.id }}" style="cursor: move;">
                                         <div class="me-3 fs-5 opacity-50"><i class="fas fa-bars"></i></div>
                                         <div class="flex-grow-1">
                                             <h6 class="mb-0 fw-bold">{{ candidate.name }}</h6>
                                         </div>
-                                        <div class="ms-3">
+                                        <div class="ms-3 d-none">
                                             <select name="rank_{{ candidate.id }}" id="rank_{{ candidate.id }}" 
                                                     class="form-select border-0 bg-transparent text-primary fw-bold" style="width: 70px;">
                                                 {% for i in candidates|dictsort:"id"|slice:":1" %}{% endfor %}
                                                 {% for i in candidates %}
-                                                    <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                                                    <option value="{{ forloop.counter }}" {% if forloop.parentloop.counter == forloop.counter %}selected{% endif %}>{{ forloop.counter }}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
