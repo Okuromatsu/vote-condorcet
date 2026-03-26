@@ -1587,6 +1587,10 @@ msgstr "Método de votación:"
 msgid "Condorcet"
 msgstr "Condorcet"
 
+#: voting/templates/voting/poll_confirmation.html:145
+msgid "Condorcet (Tiebreak:"
+msgstr "Condorcet (Desempate:"
+
 #: voting/templates/voting/poll_confirmation.html:152
 msgid "Status:"
 msgstr "Estado:"

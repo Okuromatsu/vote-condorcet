@@ -6,11 +6,7 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-lg-8">
-        <!-- Success Message -->
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <h4 class="alert-heading">✅ {% trans "Poll Created Successfully!" %}</h4>
-            <p class="mb-0">{% trans "Your poll" %} "<strong>{{ poll.title|force_escape }}</strong>" {% trans "has been created." %}</p>
-        </div>
+        <!-- Success Message handled by base.html -->
 
         <!-- Creator Code Box -->
         <div class="card mb-4 border-primary">
@@ -146,7 +142,7 @@
                 {% endif %}
                 <div class="row">
                     <div class="col-md-6 mb-2">
-                        <strong>{% trans "Voting Method:" %}</strong> {% trans "Condorcet" %} ({{ poll.get_tiebreaker_method_display }})
+                        <strong>{% trans "Voting Method:" %}</strong> {% trans "Condorcet (Tiebreak:" %} {{ poll.get_tiebreaker_method_display }})
                     </div>
                     <div class="col-md-6 mb-2">
                         <strong>{% trans "Status:" %}</strong> 

@@ -81,7 +81,7 @@ class Poll(models.Model):
     tiebreaker_method = models.CharField(
         max_length=20,
         choices=[
-            ('schulze', 'Schulze Method'),
+            ('schulze', 'Schulze'),
             ('borda', 'Borda Count'),
             ('random', 'Random Selection'),
         ],
