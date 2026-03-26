@@ -711,23 +711,15 @@ def creator_dashboard(request, creator_code):
         is_deleted=False
     ).order_by('-created_at')
 
-    # Update expiration status for displayed polls
-    for poll in polls:
-        if poll.is_active and poll.closing_date and timezone.now() > poll.closing_date:
-            poll.is_active = False
-            poll.save()
-    
-    if not polls.exists():
-        messages.error(request, _('No polls found for this creator code.'))
-        return redirect('voting:index')
-    
-    # Handle actions (make_public, close, delete)
+    # Handle actions (make_public, close, delete) early to avoid "no polls" error on redirect
     action = request.GET.get('action')
     poll_id = request.GET.get('poll_id')
     
     if action and poll_id:
         try:
-            poll = polls.get(id=poll_id)
+            # Note: we use direct filter here to insure we get the poll before it's deleted 
+            # or if the queryset below is empty after some operations
+            poll = get_object_or_404(Poll, id=poll_id, creator_code=creator_code, is_deleted=False)
             
             if action == 'make_public':
                 poll.is_public = True
@@ -752,24 +744,43 @@ def creator_dashboard(request, creator_code):
                 
             elif action == 'delete':
                 # Permanently delete poll from DB (admin should not see it)
+                title = poll.title
                 poll.delete()
-                messages.success(request, _('Poll "%(title)s" permanently deleted!') % {'title': poll.title})
+                messages.success(request, _('Poll "%(title)s" permanently deleted!') % {'title': title})
+                
+                # Check if this was the last poll for this creator
+                remaining_polls = Poll.objects.filter(creator_code=creator_code, is_deleted=False)
+                if not remaining_polls.exists():
+                    messages.info(request, _('You have no more polls. Returning to home.'))
+                    return redirect('voting:index')
+                
             elif action == 'release_results':
-                # Release results - poll stays open for viewing, voting is disabled when results are released
                 poll.results_released = True
                 poll.save()
                 messages.success(request, _('Results for "%(title)s" released! Voters can now view results.') % {'title': poll.title})
+                
             elif action == 'hide_results':
                 poll.results_released = False
                 poll.save()
                 messages.success(request, _('Results for "%(title)s" are now hidden.') % {'title': poll.title})
+                
+            return redirect('voting:creator_dashboard', creator_code=creator_code)
+            
         except Poll.DoesNotExist:
             messages.error(request, _('Poll not found.'))
         except Exception as e:
             logger.error(f"Error performing action: {str(e)}")
             messages.error(request, _('Error performing action.'))
-        
-        return redirect('voting:creator_dashboard', creator_code=creator_code)
+
+    # Update expiration status for displayed polls
+    for poll in polls:
+        if poll.is_active and poll.closing_date and timezone.now() > poll.closing_date:
+            poll.is_active = False
+            poll.save()
+    
+    if not polls.exists():
+        messages.error(request, _('No polls found for this creator code.'))
+        return redirect('voting:index')
     
     # Build rich context for each poll
     polls_data = []
