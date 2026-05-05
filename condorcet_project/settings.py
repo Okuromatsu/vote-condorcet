@@ -54,7 +54,6 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',  # CSRF protection
-    'voting.middleware.CsrfExemptLocalhost',  # Allow localhost CSRF in development
     'voting.middleware.DuplicateVoteMiddleware',  # Track voter sessions and prevent duplicates
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',

@@ -29,7 +29,7 @@ cd condorcet-vote
 
 # Create virtual environment
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\Activate.ps1
+source ./venv/bin/activate  # On Windows: .venv\Scripts\Activate.ps1
 
 # Install dependencies
 pip install -r requirements.txt
